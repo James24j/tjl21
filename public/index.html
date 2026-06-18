@@ -6431,7 +6431,10 @@ function createSakura() {
     sakuraContainer.appendChild(sakura);
     setTimeout(() => { sakura.remove(); }, duration * 1000);
 }
-setInterval(createSakura, 500);
+// SPEED BOOT 10.2: มือถือ/iPad ไม่สร้างซากุระด้วย JS เพื่อลดงานตอนเปิดเว็บ
+if (!(window.matchMedia && window.matchMedia('(max-width: 900px), (pointer: coarse)').matches)) {
+    setInterval(createSakura, 900);
+}
 
 // 🎉 ฟังก์ชันสร้างพลุกระดาษฉลองชัยชนะ (Pure JavaScript)
 function triggerConfetti() {
@@ -9180,12 +9183,13 @@ renderAchievements = function() {
         });
     }
 
+    // SPEED BOOT 10.2: ให้แพตช์นี้ขึ้นเร็วขึ้น ไม่ต้องรอ 300/900ms
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => setTimeout(bootSakuraPatch, 300));
+        document.addEventListener('DOMContentLoaded', () => requestAnimationFrame(bootSakuraPatch));
     } else {
-        setTimeout(bootSakuraPatch, 300);
+        requestAnimationFrame(bootSakuraPatch);
     }
-    setTimeout(bootSakuraPatch, 900);
+    setTimeout(bootSakuraPatch, 160);
     /* disabled: old collection ticker interval caused DOM flicker */
 })();
 
@@ -9496,12 +9500,13 @@ renderAchievements = function() {
         renderHomeEventHero();
     };
 
+    // SPEED BOOT 10.2: เร่ง layout timing ให้ขึ้นเร็วขึ้น
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => setTimeout(bootFinalTimedLayout, 350));
+        document.addEventListener('DOMContentLoaded', () => requestAnimationFrame(bootFinalTimedLayout));
     } else {
-        setTimeout(bootFinalTimedLayout, 350);
+        requestAnimationFrame(bootFinalTimedLayout);
     }
-    setTimeout(bootFinalTimedLayout, 1000);
+    setTimeout(bootFinalTimedLayout, 180);
     /* disabled: old event hero interval replaced by stable marquee */
 })();
 
@@ -9701,12 +9706,13 @@ renderAchievements = function() {
         window.refreshEconomyDisplays();
     }
 
+    // SPEED BOOT 10.2: เร่ง final fix ให้ทำเร็วขึ้น
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => setTimeout(bootFinalFix, 500));
+        document.addEventListener('DOMContentLoaded', () => requestAnimationFrame(bootFinalFix));
     } else {
-        setTimeout(bootFinalFix, 500);
+        requestAnimationFrame(bootFinalFix);
     }
-    setTimeout(bootFinalFix, 1200);
+    setTimeout(bootFinalFix, 220);
     /* disabled: old final fix interval caused DOM flicker */
 })();
 
@@ -9949,12 +9955,13 @@ renderAchievements = function() {
         });
     }
 
+    // SPEED BOOT 10.2: ให้ Economy / Hub ขึ้นเร็วขึ้น
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => setTimeout(bootSingleEconomyAndHub, 700));
+        document.addEventListener('DOMContentLoaded', () => requestAnimationFrame(bootSingleEconomyAndHub));
     } else {
-        setTimeout(bootSingleEconomyAndHub, 700);
+        requestAnimationFrame(bootSingleEconomyAndHub);
     }
-    setTimeout(bootSingleEconomyAndHub, 1400);
+    setTimeout(bootSingleEconomyAndHub, 240);
     /* disabled: single economy interval replaced by stable event-driven refresh */
 })();
 
@@ -10153,20 +10160,26 @@ renderAchievements = function() {
         renderGachaHubStable();
     }
 
+    // SPEED BOOT 10.2: ให้ Event / Economy / Gacha / Hall ขึ้นตั้งแต่ช่วงแรก
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => setTimeout(bootStablePatch, 900));
+        document.addEventListener('DOMContentLoaded', () => requestAnimationFrame(bootStablePatch));
     } else {
-        setTimeout(bootStablePatch, 900);
+        requestAnimationFrame(bootStablePatch);
     }
-    setTimeout(bootStablePatch, 1600);
-    setTimeout(bootStablePatch, 2600);
+    setTimeout(bootStablePatch, 260);
+    setTimeout(bootStablePatch, 900);
 
-    // ไม่อัปเดตทุกวินาทีแล้ว เพื่อลดอาการกระพริบ เหลือเช็กเป็นระยะยาวเท่านั้น
+    // SPEED BOOT 10.2: ลด refresh ซ้ำที่อาจทำให้ layout กระพริบหลังใช้นาน
     setInterval(() => {
-        renderEventMarqueeStable();
-        renderGlobalEconomyStable();
-        renderGachaHubStable();
-    }, 30000);
+        if (document.hidden) return;
+        const run = () => {
+            renderEventMarqueeStable();
+            renderGlobalEconomyStable();
+            renderGachaHubStable();
+        };
+        if ('requestIdleCallback' in window) requestIdleCallback(run, { timeout: 1500 });
+        else setTimeout(run, 0);
+    }, 120000);
 })();
 
 
@@ -10441,17 +10454,23 @@ renderAchievements = function() {
         wireGachaHubButtonFix();
     }
 
+    // SPEED BOOT 10.2: ให้ Event News/Gacha button fix ขึ้นเร็วขึ้น และลดงานซ้ำ
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => setTimeout(bootFix, 900));
+        document.addEventListener('DOMContentLoaded', () => requestAnimationFrame(bootFix));
     } else {
-        setTimeout(bootFix, 900);
+        requestAnimationFrame(bootFix);
     }
-    setTimeout(bootFix, 1600);
-    setTimeout(bootFix, 2600);
+    setTimeout(bootFix, 260);
+    setTimeout(bootFix, 900);
     setInterval(() => {
-        renderTodayOnlyEventNews();
-        wireGachaHubButtonFix();
-    }, 60000);
+        if (document.hidden) return;
+        const run = () => {
+            renderTodayOnlyEventNews();
+            wireGachaHubButtonFix();
+        };
+        if ('requestIdleCallback' in window) requestIdleCallback(run, { timeout: 1200 });
+        else setTimeout(run, 0);
+    }, 120000);
 })();
 
 
@@ -10615,13 +10634,14 @@ renderAchievements = function() {
         injectSocialProjectButtons();
     }
 
+    // SPEED BOOT 10.2: เร่งปุ่ม/ลิงก์ย่อยให้ bind เร็วขึ้น
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => setTimeout(bootFix, 600));
+        document.addEventListener('DOMContentLoaded', () => requestAnimationFrame(bootFix));
     } else {
-        setTimeout(bootFix, 600);
+        requestAnimationFrame(bootFix);
     }
-    setTimeout(bootFix, 1400);
-    setTimeout(bootFix, 2600);
+    setTimeout(bootFix, 240);
+    setTimeout(bootFix, 900);
 })();
 
 
@@ -10849,10 +10869,19 @@ renderAchievements = function() {
     }
 
     function optimizeImages() {
+        // SPEED BOOT 10.2:
+        // รูปหน้าแรกให้โหลดไวขึ้น ส่วนรูปอื่นยัง lazy เพื่อลดภาระ
         document.querySelectorAll('img').forEach((img) => {
-            if (!img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
-            if (!img.hasAttribute('decoding')) img.setAttribute('decoding', 'async');
+            const inHome = !!img.closest('#home-screen');
+            img.setAttribute('decoding', 'async');
             img.draggable = false;
+
+            if (inHome) {
+                img.setAttribute('loading', 'eager');
+                img.setAttribute('fetchpriority', 'high');
+            } else if (!img.hasAttribute('loading')) {
+                img.setAttribute('loading', 'lazy');
+            }
         });
     }
 
@@ -10870,6 +10899,43 @@ renderAchievements = function() {
     window.addEventListener('load', boot, { once: true });
     window.addEventListener('resize', () => window.setTimeout(boot, 140), { passive: true });
     window.addEventListener('orientationchange', () => window.setTimeout(boot, 320), { passive: true });
+})();
+</script>
+
+
+<script>
+/* =====================================================
+   SPEED BOOT 10.2: early home boot coordinator
+   ไม่แก้ UI / ไม่สร้าง layout ใหม่ / เรียกเฉพาะฟังก์ชันเดิมให้เร็วขึ้น
+===================================================== */
+(function speedBoot102EarlyCoordinator() {
+    function runExisting(name) {
+        try {
+            const fn = window[name];
+            if (typeof fn === 'function') fn();
+        } catch (error) {}
+    }
+
+    function earlyHomePass() {
+        // เรียกเฉพาะฟังก์ชันเดิมที่มีอยู่แล้ว ถ้าไม่มีจะข้าม
+        [
+            'renderEventMarqueeStable',
+            'renderGlobalEconomyStable',
+            'renderGachaHubStable',
+            'renderTodayOnlyEventNews',
+            'wireGachaHubButtonFix',
+            'updateEconomyUI',
+            'updateHomeStatsUI'
+        ].forEach(runExisting);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => requestAnimationFrame(earlyHomePass), { once: true });
+    } else {
+        requestAnimationFrame(earlyHomePass);
+    }
+
+    window.addEventListener('pageshow', () => requestAnimationFrame(earlyHomePass), { once: true });
 })();
 </script>
 
