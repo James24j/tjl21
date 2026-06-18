@@ -5197,6 +5197,42 @@ body.dark-mode .project-cta-link {
     }
 }
 
+
+        /* 🚧 Emoji Coming Soon: ปิดโหมดไว้ก่อน โดยไม่ทับระบบ carousel เดิม */
+        .mode-btn.mode-coming-soon {
+            cursor: not-allowed !important;
+            opacity: .82;
+            filter: grayscale(.10) saturate(.90);
+            background:
+                radial-gradient(circle at 20% 18%, rgba(255,255,255,.72), transparent 26%),
+                linear-gradient(135deg, rgba(192, 195, 211, .94), rgba(148, 154, 178, .88) 52%, rgba(207, 215, 232, .82)) !important;
+        }
+        .mode-btn.mode-coming-soon:hover {
+            filter: grayscale(.10) saturate(.90);
+        }
+        .mode-btn.mode-coming-soon .mode-icon {
+            opacity: .76;
+        }
+        .coming-soon-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: fit-content;
+            margin-top: 8px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            font-size: .76rem;
+            font-weight: 950;
+            color: #6f6370;
+            background: rgba(255,255,255,.55);
+            border: 1px solid rgba(255,255,255,.55);
+        }
+        body.dark-mode .coming-soon-badge {
+            color: #e7eaf8;
+            background: rgba(255,255,255,.12);
+            border-color: rgba(255,255,255,.14);
+        }
+
     </style>
 </head>
 <body>
@@ -7307,8 +7343,44 @@ MODE_CONFIG.timeline = { label: 'Timeline / Memory Mode 🧠', shortLabel: 'Time
 // รูปแบบ: 'ชื่อ': ['อีโมจิ1', 'อีโมจิ2', 'อีโมจิ3', 'อีโมจิ4']
 // ถ้ายังไม่ใส่ ระบบจะใช้ clue สำรองอัตโนมัติจากข้อมูลแก๊ง/ภูมิภาค/เดือนเกิด
 const EMOJI_CLUE_DATA = {
-    // 'อันนา': ['🌸', '📚', '☕', '✨'],
-    // 'โตโต้': ['😂', '🎮', '🍜', '⚡'],
+'อันนา': ['🧋', '👓', '👧🏻'],
+'โตโต้': ['🧔🏻‍♂️', '⚽️', '📷'],  
+'แตงโม': ['🎤', '🎵'],   
+'เจม': ['🎸', '🎮'],   
+'เลม่อน': ['🍋', '🌊'],    
+'พลอย': ['👓', '🌊'],    
+'เบส': ['🎮', ''],    
+'แพท': [],   
+'เปรี้ยว': [],   
+'นัท': [],   
+'สา': [],    
+'น้ำ': [],    
+'ปิง': [],   
+'มิ่งขวัญ': [],   
+'โอ๊ต': [],   
+'ฟาน': [],   
+'นุ่น': [],   
+'ไอเดีย': [],
+'ต้นเตย': [],  
+'นิวจิ๋ว': [],    
+'อิคคิว': [],   
+'โอ๊ค': [],   
+'คิส': [],   
+'ปลาย': [],  
+'พอใจ': [],   
+'กวาง': [],    
+'แพนเค้ก': [],   
+'แบม': [], 
+'อาบุ๊ง': [],   
+'ขวัญข้าว': [],   
+'อาจารย์ธนิส': [], 
+'อาจารย์วัชรา': [], 
+'อาจารย์ฮารุนะ': [],   
+'อาจารย์อมรรัตน์': [],
+'อาจารย์มิกิ': [],
+'อาจารย์ก๊อต': [],  
+'มะลิซัง': [],
+
 };
 // ===== EMOJI CLUE MODE DATA END =====
 
@@ -7570,9 +7642,13 @@ function injectExpansionUI() {
     const menu = document.querySelector('#home-screen .menu-container');
     if (menu && !document.getElementById('emojiModeBtn')) {
         menu.insertAdjacentHTML('beforeend', `
-            <button id="emojiModeBtn" class="mode-btn" style="background: linear-gradient(135deg, #ffb86c 0%, #ff6b9a 100%);">
-                <div class="mode-info"><div>Emoji Clue Mode</div><div class="mode-desc">ทายจากอีโมจิ / เตรียมช่องข้อมูลไว้ให้เติมเอง</div></div>
-                <div class="mode-icon">😀</div>
+            <button id="emojiModeBtn" class="mode-btn mode-coming-soon" type="button" aria-disabled="true" data-coming-soon="true" title="พบกันเร็ว ๆ นี้">
+                <div class="mode-info">
+                    <div>Emoji Clue Mode</div>
+                    <div class="mode-desc">พบกันเร็ว ๆ นี้ — กำลังปรับโหมดนี้ให้น่าเล่นกว่าเดิม</div>
+                    <div class="coming-soon-badge">🚧 COMING SOON</div>
+                </div>
+                <div class="mode-icon">🔒</div>
             </button>
             <button id="bossModeBtn" class="mode-btn" style="background: linear-gradient(135deg, #7353ba 0%, #f05d9b 100%);">
                 <div class="mode-info"><div>Boss Mode</div><div class="mode-desc">ท้าทายบอสประจำวัน มีจำนวนครั้งจำกัด</div></div>
@@ -7583,7 +7659,18 @@ function injectExpansionUI() {
                 <div class="mode-icon">🧠</div>
             </button>
         `);
-        document.getElementById('emojiModeBtn').addEventListener('click', () => startArcadeMode('emoji'));
+        // Emoji Clue Mode ปิดไว้ก่อน: พบกันเร็ว ๆ นี้
+        document.getElementById('emojiModeBtn')?.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            if (typeof safeToast === 'function') {
+                safeToast('Emoji Clue Mode', 'พบกันเร็ว ๆ นี้ — กำลังปรับปรุงโหมดนี้อยู่');
+            } else if (typeof showToast === 'function') {
+                showToast('Emoji Clue Mode', 'พบกันเร็ว ๆ นี้ — กำลังปรับปรุงโหมดนี้อยู่');
+            } else {
+                alert('Emoji Clue Mode พบกันเร็ว ๆ นี้');
+            }
+        });
         document.getElementById('bossModeBtn').addEventListener('click', () => startArcadeMode('boss'));
         document.getElementById('timelineModeBtn').addEventListener('click', () => startArcadeMode('timeline'));
     }
