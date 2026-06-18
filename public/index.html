@@ -5233,6 +5233,293 @@ body.dark-mode .project-cta-link {
             border-color: rgba(255,255,255,.14);
         }
 
+
+        /* =====================================================
+           ✅ MOBILE FINAL SAFE MODE GRID
+           แก้กล่องโหมด/รูปหายบนมือถือ:
+           - ไม่ใช้ carousel บนมือถือ
+           - แสดงการ์ดโหมดเป็น grid 2 คอลัมน์
+           - ซ่อนปุ่มลูกศรและ clone
+           - ลด animation เพื่อโหลดไวขึ้น
+        ===================================================== */
+        .mode-btn.mode-coming-soon {
+            cursor: not-allowed !important;
+            opacity: .82;
+            filter: grayscale(.10) saturate(.90);
+        }
+        .mode-btn.mode-coming-soon .mode-icon {
+            opacity: .76;
+        }
+        .coming-soon-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: fit-content;
+            margin-top: 6px;
+            padding: 4px 9px;
+            border-radius: 999px;
+            font-size: .70rem;
+            font-weight: 950;
+            color: #6f6370;
+            background: rgba(255,255,255,.55);
+            border: 1px solid rgba(255,255,255,.55);
+        }
+        body.dark-mode .coming-soon-badge {
+            color: #e7eaf8;
+            background: rgba(255,255,255,.12);
+            border-color: rgba(255,255,255,.14);
+        }
+
+        @media (max-width: 720px) {
+            html,
+            body {
+                overflow-x: hidden !important;
+            }
+
+            body {
+                padding: 10px 8px 24px 8px !important;
+                background-attachment: scroll !important;
+            }
+
+            body::before,
+            body::after {
+                animation: none !important;
+                filter: blur(18px) !important;
+                opacity: .38 !important;
+            }
+
+            #sakura-bg-container .sakura {
+                display: none !important;
+            }
+
+            .game-container {
+                width: min(100%, 430px) !important;
+                max-width: 100% !important;
+                margin: 8px auto 34px auto !important;
+                padding: 18px 10px 24px 10px !important;
+                border-radius: 26px !important;
+                min-height: auto !important;
+                overflow: visible !important;
+            }
+
+            h1 {
+                font-size: clamp(2.15rem, 12vw, 3.05rem) !important;
+                line-height: 1.02 !important;
+                margin-top: 6px !important;
+            }
+
+            p.subtitle {
+                font-size: .98rem !important;
+                line-height: 1.35 !important;
+                margin-bottom: 14px !important;
+                padding: 0 8px !important;
+            }
+
+            .game-container > .game-theme-corner {
+                position: fixed !important;
+                top: 84px !important;
+                right: 8px !important;
+                z-index: 120 !important;
+                margin: 0 !important;
+            }
+
+            .game-container > .game-theme-corner .theme-switch {
+                --switch-w: 68px !important;
+                --switch-h: 52px !important;
+                --knob: 40px !important;
+            }
+
+            .game-container > .game-theme-corner .theme-switch-text {
+                display: none !important;
+            }
+
+            .mode-accordion-toggle,
+            .yesterday-box,
+            .event-news-pill,
+            .event-mini-chip,
+            .player-economy-card,
+            .collection-mini-row,
+            .kin-rai-dee-cta {
+                width: min(94vw, 360px) !important;
+                max-width: 100% !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+                box-sizing: border-box !important;
+            }
+
+            /* ปิดโครง carousel บนมือถือ แล้วคืนกล่องโหมดให้เห็นครบ */
+            #home-screen .mode-carousel-shell,
+            #home-screen .mobile-mode-shell,
+            #home-screen .mode-shell {
+                display: block !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 12px auto 20px auto !important;
+                padding: 0 !important;
+                overflow: visible !important;
+            }
+
+            #home-screen .mode-carousel-viewport,
+            #home-screen .mobile-mode-viewport,
+            #home-screen .mode-viewport {
+                display: block !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                overflow: visible !important;
+                padding: 0 !important;
+            }
+
+            #home-screen .mode-carousel-nav,
+            #home-screen .mobile-carousel-nav,
+            #home-screen .mobile-manual-nav,
+            #home-screen .mode-loop-nav,
+            #home-screen .autoplay-carousel-nav {
+                display: none !important;
+            }
+
+            #home-screen .menu-container,
+            #home-screen .menu-container.mode-carousel {
+                display: grid !important;
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                gap: 10px !important;
+                width: min(94vw, 372px) !important;
+                max-width: 100% !important;
+                margin: 14px auto 20px auto !important;
+                padding: 0 !important;
+                overflow: visible !important;
+                transform: none !important;
+                transition: none !important;
+                scroll-snap-type: none !important;
+                scroll-behavior: auto !important;
+            }
+
+            #home-screen .menu-container > .mode-btn {
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: flex-start !important;
+                width: 100% !important;
+                min-width: 0 !important;
+                max-width: none !important;
+                min-height: 128px !important;
+                height: auto !important;
+                padding: 14px 12px !important;
+                border-radius: 22px !important;
+                gap: 8px !important;
+                transform: none !important;
+                scroll-snap-align: unset !important;
+                box-sizing: border-box !important;
+            }
+
+            #home-screen .menu-container > .mode-carousel-clone,
+            #home-screen .menu-container > .mode-loop-clone {
+                display: none !important;
+            }
+
+            .mode-btn .mode-info {
+                text-align: left !important;
+                min-width: 0 !important;
+                width: 100% !important;
+                order: 2 !important;
+            }
+
+            .mode-btn .mode-info > div:first-child {
+                font-size: 1rem !important;
+                line-height: 1.12 !important;
+                white-space: normal !important;
+                word-break: break-word !important;
+            }
+
+            .mode-btn .mode-desc {
+                font-size: .72rem !important;
+                line-height: 1.24 !important;
+                white-space: normal !important;
+                word-break: break-word !important;
+                margin-top: 4px !important;
+            }
+
+            .mode-btn .mode-icon {
+                font-size: 1.45rem !important;
+                order: 1 !important;
+                align-self: flex-end !important;
+                margin-bottom: -4px !important;
+            }
+
+            .mode-face-wrap {
+                width: 54px !important;
+                height: 54px !important;
+                align-self: flex-end !important;
+                order: 1 !important;
+            }
+
+            .mode-face-img {
+                width: 54px !important;
+                height: 54px !important;
+            }
+
+            .coming-soon-badge {
+                font-size: .62rem !important;
+                padding: 3px 7px !important;
+            }
+
+            .event-news-pill,
+            .event-mini-chip {
+                overflow: hidden !important;
+                white-space: nowrap !important;
+            }
+
+            .event-news-pill * {
+                font-size: .72rem !important;
+            }
+
+            .player-economy-card {
+                padding: 12px !important;
+                border-radius: 20px !important;
+            }
+
+            .collection-mini-row {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+                gap: 10px !important;
+            }
+
+            .collection-mini-card {
+                min-width: 0 !important;
+                padding: 12px 10px !important;
+            }
+
+            .developer-credit {
+                margin-top: 18px !important;
+                font-size: .82rem !important;
+                padding: 0 12px !important;
+            }
+
+            .top-actions,
+            .roster-actions {
+                gap: 8px !important;
+            }
+
+            img {
+                content-visibility: auto;
+            }
+
+            * {
+                -webkit-tap-highlight-color: transparent !important;
+            }
+        }
+
+        @media (max-width: 380px) {
+            #home-screen .menu-container,
+            #home-screen .menu-container.mode-carousel {
+                grid-template-columns: 1fr !important;
+                width: min(92vw, 320px) !important;
+            }
+
+            #home-screen .menu-container > .mode-btn {
+                min-height: 112px !important;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -11254,6 +11541,63 @@ renderAchievements = function() {
     }
 })();
 
+</script>
+
+
+<script>
+/* ✅ Mobile safe layout helper: ปิด carousel transform/clone บนมือถือ */
+(function mobileSafeModeGridHelper() {
+    const BREAKPOINT = 720;
+
+    function isMobile() {
+        return window.innerWidth <= BREAKPOINT;
+    }
+
+    function optimizeImages() {
+        document.querySelectorAll('img').forEach((img) => {
+            if (!img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
+            if (!img.hasAttribute('decoding')) img.setAttribute('decoding', 'async');
+            img.draggable = false;
+        });
+    }
+
+    function cleanMobileCarousel() {
+        if (!isMobile()) return;
+
+        const menu = document.querySelector('#home-screen .menu-container');
+        if (!menu) return;
+
+        menu.style.transform = 'none';
+        menu.style.scrollBehavior = 'auto';
+        menu.scrollLeft = 0;
+
+        menu.querySelectorAll(':scope > .mode-carousel-clone, :scope > .mode-loop-clone').forEach((clone) => {
+            clone.style.display = 'none';
+            clone.setAttribute('aria-hidden', 'true');
+        });
+
+        document.querySelectorAll('#home-screen .mode-carousel-nav, #home-screen .mobile-carousel-nav, #home-screen .mobile-manual-nav, #home-screen .mode-loop-nav, #home-screen .autoplay-carousel-nav').forEach((nav) => {
+            nav.style.display = 'none';
+        });
+    }
+
+    function run() {
+        optimizeImages();
+        cleanMobileCarousel();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', run);
+    } else {
+        run();
+    }
+
+    window.addEventListener('load', run);
+    window.addEventListener('resize', run);
+    window.addEventListener('orientationchange', () => setTimeout(run, 250));
+    setTimeout(run, 500);
+    setTimeout(run, 1400);
+})();
 </script>
 
 </body>
