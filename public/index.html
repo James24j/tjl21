@@ -5235,9 +5235,23 @@ body.dark-mode .project-cta-link {
 
 
         /* =====================================================
-           ✅ CLEAN PATCH: Stop mobile/tablet auto mode + faster load
-           ไม่รื้อ layout / ไม่ย้ายกล่อง / ไม่เปลี่ยนตำแหน่ง carousel
+           CLEAN MODEBOX RESET FINAL
+           1 ระบบ / 1 active index / ไม่มี auto / ไม่มี clone
+           เฉพาะกล่องโหมดเท่านั้น
         ===================================================== */
+
+        #home-screen .mode-carousel-shell.clean-mode-carousel {
+            isolation: isolate;
+        }
+
+        #home-screen .mode-carousel-shell.clean-mode-carousel .mode-carousel-clone,
+        #home-screen .mode-carousel-shell.clean-mode-carousel .mode-loop-clone {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+
         @media (max-width: 900px), (pointer: coarse) {
             body {
                 background-attachment: scroll !important;
@@ -5287,644 +5301,104 @@ body.dark-mode .project-cta-link {
                 -webkit-backdrop-filter: none !important;
             }
 
-            .mode-btn,
-            .mini-action-btn,
-            .filter-btn,
-            .submit-btn,
-            .modal-close-btn,
-            .next-mode-btn,
-            .feedback-btn,
-            .back-btn {
-                transition: transform .14s ease, filter .14s ease, opacity .14s ease !important;
-                will-change: auto !important;
-            }
+            #home-screen .mode-carousel-shell.clean-mode-carousel {
+                --mode-card-w: min(312px, 72vw);
+                --mode-card-h: 138px;
+                --mode-nav-w: 44px;
 
-            img {
-                content-visibility: auto;
-                backface-visibility: hidden;
-                -webkit-backface-visibility: hidden;
-            }
-        }
-
-
-        /* =====================================================
-           ✅ CLEAN PATCH 1.1: Fix mobile/iPad mode card half-hidden
-           แก้การ์ดโหมดหลุดซ้าย โดยไม่รื้อ layout และไม่เปิด auto-slide
-        ===================================================== */
-        @media (max-width: 900px), (pointer: coarse) {
-            #home-screen .mode-carousel-shell {
-                box-sizing: border-box !important;
-                overflow: visible !important;
-            }
-
-            #home-screen .menu-container.mode-carousel {
-                --mode-card-w: min(300px, 74vw);
-                box-sizing: border-box !important;
-                width: 100% !important;
-                max-width: 100% !important;
-                overflow-x: auto !important;
-                overflow-y: hidden !important;
-                scroll-snap-type: x mandatory !important;
-                scroll-behavior: smooth !important;
-                -webkit-overflow-scrolling: touch !important;
-                overscroll-behavior-x: contain !important;
-                transform: none !important;
-                translate: none !important;
-                scrollbar-width: none !important;
-
-                padding-left: max(8px, calc((100% - var(--mode-card-w)) / 2)) !important;
-                padding-right: max(8px, calc((100% - var(--mode-card-w)) / 2)) !important;
-                scroll-padding-left: max(8px, calc((100% - var(--mode-card-w)) / 2)) !important;
-                scroll-padding-right: max(8px, calc((100% - var(--mode-card-w)) / 2)) !important;
-            }
-
-            #home-screen .menu-container.mode-carousel::-webkit-scrollbar {
-                display: none !important;
-            }
-
-            #home-screen .menu-container.mode-carousel > .mode-btn:not(.mode-carousel-clone):not(.mode-loop-clone) {
-                flex: 0 0 var(--mode-card-w) !important;
-                width: var(--mode-card-w) !important;
-                min-width: var(--mode-card-w) !important;
-                max-width: var(--mode-card-w) !important;
-                scroll-snap-align: center !important;
-                box-sizing: border-box !important;
-            }
-
-            #home-screen .menu-container.mode-carousel > .mode-carousel-clone,
-            #home-screen .menu-container.mode-carousel > .mode-loop-clone {
-                display: none !important;
-                visibility: hidden !important;
-                pointer-events: none !important;
-            }
-        }
-
-
-        /* =====================================================
-           ✅ CLEAN PATCH 1.2: Fix carousel nav being covered
-           แก้ปุ่มซ้าย/ขวาโดนการ์ดโหมดทับ โดยไม่แตะ auto/layout อื่น
-        ===================================================== */
-        @media (max-width: 900px), (pointer: coarse) {
-            #home-screen .mode-carousel-shell {
-                position: relative !important;
-                overflow: visible !important;
-                isolation: isolate !important;
-            }
-
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel {
-                position: relative !important;
-                z-index: 1 !important;
-            }
-
-            #home-screen .mode-carousel-shell .mode-carousel-nav,
-            #home-screen .mode-carousel-shell .mode-carousel-prev,
-            #home-screen .mode-carousel-shell .mode-carousel-next {
-                position: relative !important;
-                z-index: 80 !important;
-                pointer-events: auto !important;
-                opacity: 1 !important;
-                visibility: visible !important;
-                flex: 0 0 42px !important;
-                width: 42px !important;
-                height: 42px !important;
-                min-width: 42px !important;
-                min-height: 42px !important;
-                display: grid !important;
-                place-items: center !important;
-                transform: translateZ(0) !important;
-                box-shadow: 0 12px 28px rgba(251,111,146,.18), inset 0 1px 0 rgba(255,255,255,.74) !important;
-            }
-
-            #home-screen .mode-carousel-shell .mode-carousel-prev {
-                margin-right: -6px !important;
-            }
-
-            #home-screen .mode-carousel-shell .mode-carousel-next {
-                margin-left: -6px !important;
-            }
-
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn:not(.mode-carousel-clone):not(.mode-loop-clone) {
-                position: relative !important;
-                z-index: 2 !important;
-            }
-        }
-
-        @media (max-width: 390px) {
-            #home-screen .mode-carousel-shell .mode-carousel-prev {
-                margin-right: -10px !important;
-            }
-
-            #home-screen .mode-carousel-shell .mode-carousel-next {
-                margin-left: -10px !important;
-            }
-        }
-
-
-        /* =====================================================
-           ✅ CLEAN PATCH 1.3: Mode cards never disappear
-           แก้ตอนกดเลื่อนแล้วบางโหมดหาย เพราะระบบเดิมเลื่อนไปหา clone card
-        ===================================================== */
-        @media (max-width: 900px), (pointer: coarse) {
-            #home-screen .menu-container.mode-carousel > .mode-carousel-clone,
-            #home-screen .menu-container.mode-carousel > .mode-loop-clone {
-                display: none !important;
-                visibility: hidden !important;
-                pointer-events: none !important;
-            }
-
-            body.mobile-ui #home-screen .menu-container.mode-carousel > .mode-carousel-real.mobile-mode-active,
-            body.mobile-compact-ui #home-screen .menu-container.mode-carousel > .mode-carousel-real.mobile-mode-active,
-            body.mobile-stable-ui #home-screen .menu-container.mode-carousel > .mode-carousel-real.mobile-mode-active,
-            #home-screen .menu-container.mode-carousel > .mode-carousel-real.mobile-mode-active {
-                display: flex !important;
-                opacity: 1 !important;
-                visibility: visible !important;
-                pointer-events: auto !important;
-            }
-
-            #home-screen .mode-carousel-shell .mode-carousel-nav {
-                z-index: 120 !important;
-                pointer-events: auto !important;
-            }
-        }
-
-
-        /* =====================================================
-           ✅ CLEAN PATCH 1.4: Equal mode card sizes
-           แก้กล่องโหมดขนาดไม่เท่ากัน โดยไม่แตะระบบ auto/เลื่อน
-        ===================================================== */
-        #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn:not(.mode-carousel-clone):not(.mode-loop-clone) {
-            box-sizing: border-box !important;
-            min-height: 156px !important;
-            height: 156px !important;
-            max-height: 156px !important;
-            overflow: hidden !important;
-            align-items: center !important;
-            justify-content: space-between !important;
-        }
-
-        #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn .mode-info {
-            min-width: 0 !important;
-            max-width: calc(100% - 92px) !important;
-            overflow: hidden !important;
-        }
-
-        #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn .mode-info > div:first-child,
-        #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn .mode-desc {
-            display: -webkit-box !important;
-            -webkit-box-orient: vertical !important;
-            overflow: hidden !important;
-        }
-
-        #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn .mode-info > div:first-child {
-            -webkit-line-clamp: 2 !important;
-            line-height: 1.14 !important;
-        }
-
-        #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn .mode-desc {
-            -webkit-line-clamp: 2 !important;
-            line-height: 1.25 !important;
-        }
-
-        #home-screen .mode-carousel-shell .menu-container.mode-carousel .mode-face-wrap,
-        #home-screen .mode-carousel-shell .menu-container.mode-carousel .mode-face-img {
-            width: 72px !important;
-            height: 72px !important;
-            min-width: 72px !important;
-            min-height: 72px !important;
-            max-width: 72px !important;
-            max-height: 72px !important;
-            flex: 0 0 72px !important;
-            object-fit: cover !important;
-        }
-
-        #home-screen .mode-carousel-shell .menu-container.mode-carousel .mode-icon {
-            width: 72px !important;
-            min-width: 72px !important;
-            flex: 0 0 72px !important;
-            display: grid !important;
-            place-items: center !important;
-        }
-
-        @media (max-width: 900px), (pointer: coarse) {
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel {
-                --mode-card-w: min(300px, 74vw);
-            }
-
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn:not(.mode-carousel-clone):not(.mode-loop-clone) {
-                flex: 0 0 var(--mode-card-w) !important;
-                width: var(--mode-card-w) !important;
-                min-width: var(--mode-card-w) !important;
-                max-width: var(--mode-card-w) !important;
-                min-height: 138px !important;
-                height: 138px !important;
-                max-height: 138px !important;
-                padding: 16px 16px !important;
-                border-radius: 24px !important;
-                gap: 10px !important;
-            }
-
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn .mode-info {
-                max-width: calc(100% - 74px) !important;
-            }
-
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn .mode-info > div:first-child {
-                font-size: 1.08rem !important;
-                line-height: 1.12 !important;
-            }
-
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn .mode-desc {
-                font-size: .76rem !important;
-                line-height: 1.25 !important;
-            }
-
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel .mode-face-wrap,
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel .mode-face-img {
-                width: 62px !important;
-                height: 62px !important;
-                min-width: 62px !important;
-                min-height: 62px !important;
-                max-width: 62px !important;
-                max-height: 62px !important;
-                flex: 0 0 62px !important;
-            }
-
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel .mode-icon {
-                width: 62px !important;
-                min-width: 62px !important;
-                flex: 0 0 62px !important;
-                font-size: 1.5rem !important;
-            }
-        }
-
-        @media (max-width: 390px) {
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel {
-                --mode-card-w: min(284px, 72vw);
-            }
-
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn:not(.mode-carousel-clone):not(.mode-loop-clone) {
-                min-height: 132px !important;
-                height: 132px !important;
-                max-height: 132px !important;
-                padding: 14px 14px !important;
-            }
-
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel .mode-face-wrap,
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel .mode-face-img,
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel .mode-icon {
-                width: 56px !important;
-                height: 56px !important;
-                min-width: 56px !important;
-                min-height: 56px !important;
-                max-width: 56px !important;
-                max-height: 56px !important;
-                flex-basis: 56px !important;
-            }
-        }
-
-
-        /* =====================================================
-           ✅ CLEAN PATCH 1.5: Symmetric mode carousel/card
-           แก้ความไม่สมมาตรของกล่องโหมด + ปุ่มซ้ายขวา
-           ไม่เปิด auto-slide / ไม่รื้อ layout อื่น
-        ===================================================== */
-        #home-screen .mode-carousel-shell {
-            box-sizing: border-box !important;
-            align-items: center !important;
-            justify-content: center !important;
-            overflow: visible !important;
-        }
-
-        #home-screen .mode-carousel-shell .mode-carousel-nav,
-        #home-screen .mode-carousel-shell .mode-carousel-prev,
-        #home-screen .mode-carousel-shell .mode-carousel-next {
-            box-sizing: border-box !important;
-            display: grid !important;
-            place-items: center !important;
-            width: 48px !important;
-            height: 48px !important;
-            min-width: 48px !important;
-            min-height: 48px !important;
-            max-width: 48px !important;
-            max-height: 48px !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            line-height: 1 !important;
-            z-index: 120 !important;
-            flex: 0 0 48px !important;
-        }
-
-        #home-screen .mode-carousel-shell .menu-container.mode-carousel {
-            box-sizing: border-box !important;
-            align-items: center !important;
-            overflow-y: visible !important;
-        }
-
-        #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn:not(.mode-carousel-clone):not(.mode-loop-clone) {
-            box-sizing: border-box !important;
-            display: grid !important;
-            grid-template-columns: minmax(0, 1fr) 72px !important;
-            align-items: center !important;
-            justify-content: center !important;
-            column-gap: 14px !important;
-            min-height: 156px !important;
-            height: 156px !important;
-            max-height: 156px !important;
-            padding: 18px 20px !important;
-            overflow: hidden !important;
-        }
-
-        #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn .mode-info {
-            width: 100% !important;
-            min-width: 0 !important;
-            max-width: 100% !important;
-            text-align: left !important;
-            overflow: hidden !important;
-            align-self: center !important;
-            justify-self: stretch !important;
-        }
-
-        #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn .mode-info > div:first-child {
-            display: -webkit-box !important;
-            -webkit-line-clamp: 2 !important;
-            -webkit-box-orient: vertical !important;
-            overflow: hidden !important;
-            line-height: 1.14 !important;
-            margin: 0 !important;
-        }
-
-        #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn .mode-desc {
-            display: -webkit-box !important;
-            -webkit-line-clamp: 2 !important;
-            -webkit-box-orient: vertical !important;
-            overflow: hidden !important;
-            line-height: 1.25 !important;
-            margin-top: 6px !important;
-        }
-
-        #home-screen .mode-carousel-shell .menu-container.mode-carousel .mode-face-wrap,
-        #home-screen .mode-carousel-shell .menu-container.mode-carousel .mode-face-img {
-            width: 72px !important;
-            height: 72px !important;
-            min-width: 72px !important;
-            min-height: 72px !important;
-            max-width: 72px !important;
-            max-height: 72px !important;
-            flex: 0 0 72px !important;
-            object-fit: cover !important;
-            justify-self: center !important;
-            align-self: center !important;
-            margin: 0 !important;
-        }
-
-        #home-screen .mode-carousel-shell .menu-container.mode-carousel .mode-icon {
-            width: 72px !important;
-            height: 72px !important;
-            min-width: 72px !important;
-            min-height: 72px !important;
-            flex: 0 0 72px !important;
-            display: grid !important;
-            place-items: center !important;
-            justify-self: center !important;
-            align-self: center !important;
-            margin: 0 !important;
-        }
-
-        @media (max-width: 900px), (pointer: coarse) {
-            #home-screen .mode-carousel-shell {
-                width: min(96vw, 430px) !important;
+                width: min(96vw, calc(var(--mode-card-w) + (var(--mode-nav-w) * 2) + 18px)) !important;
                 max-width: 100% !important;
                 display: grid !important;
-                grid-template-columns: 44px minmax(0, 1fr) 44px !important;
-                gap: 8px !important;
-                margin-left: auto !important;
-                margin-right: auto !important;
-            }
-
-            #home-screen .mode-carousel-shell .mode-carousel-nav,
-            #home-screen .mode-carousel-shell .mode-carousel-prev,
-            #home-screen .mode-carousel-shell .mode-carousel-next {
-                width: 44px !important;
-                height: 44px !important;
-                min-width: 44px !important;
-                min-height: 44px !important;
-                max-width: 44px !important;
-                max-height: 44px !important;
-                flex-basis: 44px !important;
-                border-radius: 999px !important;
-                transform: none !important;
-            }
-
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel {
-                --mode-card-w: min(292px, 72vw);
-                width: 100% !important;
-                max-width: 100% !important;
-                min-width: 0 !important;
-                margin: 0 !important;
-                padding-left: max(6px, calc((100% - var(--mode-card-w)) / 2)) !important;
-                padding-right: max(6px, calc((100% - var(--mode-card-w)) / 2)) !important;
-                scroll-padding-left: max(6px, calc((100% - var(--mode-card-w)) / 2)) !important;
-                scroll-padding-right: max(6px, calc((100% - var(--mode-card-w)) / 2)) !important;
-            }
-
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn:not(.mode-carousel-clone):not(.mode-loop-clone) {
-                grid-template-columns: minmax(0, 1fr) 64px !important;
-                column-gap: 12px !important;
-                flex: 0 0 var(--mode-card-w) !important;
-                width: var(--mode-card-w) !important;
-                min-width: var(--mode-card-w) !important;
-                max-width: var(--mode-card-w) !important;
-                min-height: 136px !important;
-                height: 136px !important;
-                max-height: 136px !important;
-                padding: 16px 16px !important;
-                border-radius: 24px !important;
-            }
-
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn .mode-info > div:first-child {
-                font-size: 1.05rem !important;
-                line-height: 1.13 !important;
-            }
-
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn .mode-desc {
-                font-size: .74rem !important;
-                line-height: 1.25 !important;
-            }
-
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel .mode-face-wrap,
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel .mode-face-img,
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel .mode-icon {
-                width: 64px !important;
-                height: 64px !important;
-                min-width: 64px !important;
-                min-height: 64px !important;
-                max-width: 64px !important;
-                max-height: 64px !important;
-                flex-basis: 64px !important;
-            }
-        }
-
-        @media (max-width: 390px) {
-            #home-screen .mode-carousel-shell {
-                grid-template-columns: 40px minmax(0, 1fr) 40px !important;
-                gap: 6px !important;
-            }
-
-            #home-screen .mode-carousel-shell .mode-carousel-nav,
-            #home-screen .mode-carousel-shell .mode-carousel-prev,
-            #home-screen .mode-carousel-shell .mode-carousel-next {
-                width: 40px !important;
-                height: 40px !important;
-                min-width: 40px !important;
-                min-height: 40px !important;
-                max-width: 40px !important;
-                max-height: 40px !important;
-                flex-basis: 40px !important;
-            }
-
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel {
-                --mode-card-w: min(276px, 70vw);
-            }
-
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn:not(.mode-carousel-clone):not(.mode-loop-clone) {
-                grid-template-columns: minmax(0, 1fr) 58px !important;
-                min-height: 130px !important;
-                height: 130px !important;
-                max-height: 130px !important;
-                padding: 14px 14px !important;
-                column-gap: 10px !important;
-            }
-
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel .mode-face-wrap,
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel .mode-face-img,
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel .mode-icon {
-                width: 58px !important;
-                height: 58px !important;
-                min-width: 58px !important;
-                min-height: 58px !important;
-                max-width: 58px !important;
-                max-height: 58px !important;
-                flex-basis: 58px !important;
-            }
-        }
-
-
-        /* =====================================================
-           ✅ CLEAN PATCH 1.6: Single-card manual mode carousel
-           มือถือ/iPad: โชว์ทีละ 1 กล่องเท่านั้น + กดซ้าย/ขวาเอง
-           ไม่เปิด auto-slide / ไม่โชว์การ์ดข้าง ๆ / ขนาดเท่ากันทุกกล่อง
-        ===================================================== */
-        @media (max-width: 900px), (pointer: coarse) {
-            #home-screen .mode-carousel-shell {
-                --single-card-w: min(312px, 72vw);
-                --single-nav-w: 44px;
-                width: min(96vw, calc(var(--single-card-w) + (var(--single-nav-w) * 2) + 18px)) !important;
-                max-width: 100% !important;
-                display: grid !important;
-                grid-template-columns: var(--single-nav-w) var(--single-card-w) var(--single-nav-w) !important;
+                grid-template-columns: var(--mode-nav-w) var(--mode-card-w) var(--mode-nav-w) !important;
+                gap: 9px !important;
                 align-items: center !important;
                 justify-content: center !important;
-                gap: 9px !important;
-                margin-left: auto !important;
-                margin-right: auto !important;
+                margin: 10px auto 16px auto !important;
                 overflow: visible !important;
                 box-sizing: border-box !important;
-                isolation: isolate !important;
+                min-height: calc(var(--mode-card-h) + 8px) !important;
             }
 
-            #home-screen .mode-carousel-shell .mode-carousel-nav,
-            #home-screen .mode-carousel-shell .mode-carousel-prev,
-            #home-screen .mode-carousel-shell .mode-carousel-next {
-                width: var(--single-nav-w) !important;
-                height: var(--single-nav-w) !important;
-                min-width: var(--single-nav-w) !important;
-                min-height: var(--single-nav-w) !important;
-                max-width: var(--single-nav-w) !important;
-                max-height: var(--single-nav-w) !important;
-                display: grid !important;
-                place-items: center !important;
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-carousel-nav {
+                width: var(--mode-nav-w) !important;
+                height: var(--mode-nav-w) !important;
+                min-width: var(--mode-nav-w) !important;
+                min-height: var(--mode-nav-w) !important;
+                max-width: var(--mode-nav-w) !important;
+                max-height: var(--mode-nav-w) !important;
                 margin: 0 !important;
                 padding: 0 !important;
-                z-index: 50 !important;
+                display: grid !important;
+                place-items: center !important;
                 opacity: 1 !important;
                 visibility: visible !important;
                 pointer-events: auto !important;
+                z-index: 80 !important;
                 transform: none !important;
+                line-height: 1 !important;
                 box-sizing: border-box !important;
             }
 
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel {
+            #home-screen .mode-carousel-shell.clean-mode-carousel .menu-container.mode-carousel {
+                width: var(--mode-card-w) !important;
+                min-width: var(--mode-card-w) !important;
+                max-width: var(--mode-card-w) !important;
+                height: var(--mode-card-h) !important;
+                min-height: var(--mode-card-h) !important;
+                max-height: var(--mode-card-h) !important;
                 display: block !important;
-                width: var(--single-card-w) !important;
-                max-width: var(--single-card-w) !important;
-                min-width: var(--single-card-w) !important;
-                height: 138px !important;
-                min-height: 138px !important;
-                max-height: 138px !important;
+                overflow: hidden !important;
                 margin: 0 !important;
                 padding: 0 !important;
-                overflow: hidden !important;
+                gap: 0 !important;
                 transform: none !important;
                 translate: none !important;
                 transition: none !important;
-                scroll-snap-type: none !important;
                 scroll-behavior: auto !important;
-                box-sizing: border-box !important;
-                z-index: 1 !important;
-            }
-
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn {
+                scroll-snap-type: none !important;
                 box-sizing: border-box !important;
             }
 
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-carousel-clone,
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-loop-clone {
+            #home-screen .mode-carousel-shell.clean-mode-carousel .menu-container.mode-carousel > .mode-btn.mode-carousel-real {
                 display: none !important;
-                visibility: hidden !important;
-                opacity: 0 !important;
-                pointer-events: none !important;
-            }
-
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn:not(.mode-carousel-clone):not(.mode-loop-clone) {
-                display: none !important;
-                width: var(--single-card-w) !important;
-                min-width: var(--single-card-w) !important;
-                max-width: var(--single-card-w) !important;
-                height: 138px !important;
-                min-height: 138px !important;
-                max-height: 138px !important;
+                width: var(--mode-card-w) !important;
+                min-width: var(--mode-card-w) !important;
+                max-width: var(--mode-card-w) !important;
+                height: var(--mode-card-h) !important;
+                min-height: var(--mode-card-h) !important;
+                max-height: var(--mode-card-h) !important;
                 margin: 0 !important;
                 padding: 16px 16px !important;
                 border-radius: 24px !important;
                 overflow: hidden !important;
+                transform: none !important;
+                box-sizing: border-box !important;
                 opacity: 0 !important;
                 visibility: hidden !important;
                 pointer-events: none !important;
-                transform: none !important;
             }
 
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn.single-mode-active {
-                display: grid !important;
-                grid-template-columns: minmax(0, 1fr) 64px !important;
+            #home-screen .mode-carousel-shell.clean-mode-carousel .menu-container.mode-carousel > .mode-btn.mode-carousel-real.mode-is-active,
+            #home-screen .mode-carousel-shell.clean-mode-carousel .menu-container.mode-carousel > .mode-btn.mode-carousel-real.mobile-mode-active {
+                display: flex !important;
                 align-items: center !important;
-                justify-content: center !important;
-                column-gap: 12px !important;
+                justify-content: space-between !important;
+                gap: 12px !important;
                 opacity: 1 !important;
                 visibility: visible !important;
                 pointer-events: auto !important;
             }
 
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn.single-mode-active .mode-info {
-                width: 100% !important;
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-btn .mode-info {
+                flex: 1 1 auto !important;
                 min-width: 0 !important;
-                max-width: 100% !important;
-                text-align: left !important;
+                max-width: calc(100% - 76px) !important;
                 overflow: hidden !important;
-                align-self: center !important;
+                text-align: left !important;
             }
 
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn.single-mode-active .mode-info > div:first-child,
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn.single-mode-active .mode-desc {
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-btn .mode-info > div:first-child,
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-btn .mode-desc {
                 display: -webkit-box !important;
                 -webkit-box-orient: vertical !important;
                 overflow: hidden !important;
@@ -5932,22 +5406,22 @@ body.dark-mode .project-cta-link {
                 margin-right: 0 !important;
             }
 
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn.single-mode-active .mode-info > div:first-child {
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-btn .mode-info > div:first-child {
                 -webkit-line-clamp: 2 !important;
-                font-size: 1.05rem !important;
+                font-size: 1.04rem !important;
                 line-height: 1.13 !important;
             }
 
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn.single-mode-active .mode-desc {
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-btn .mode-desc {
                 -webkit-line-clamp: 2 !important;
                 font-size: .74rem !important;
                 line-height: 1.25 !important;
                 margin-top: 6px !important;
             }
 
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn.single-mode-active .mode-face-wrap,
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn.single-mode-active .mode-face-img,
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn.single-mode-active .mode-icon {
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-face-wrap,
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-face-img,
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-icon {
                 width: 64px !important;
                 height: 64px !important;
                 min-width: 64px !important;
@@ -5955,36 +5429,22 @@ body.dark-mode .project-cta-link {
                 max-width: 64px !important;
                 max-height: 64px !important;
                 flex: 0 0 64px !important;
-                justify-self: center !important;
-                align-self: center !important;
-                margin: 0 !important;
                 object-fit: cover !important;
+                margin: 0 !important;
             }
         }
 
         @media (max-width: 390px) {
-            #home-screen .mode-carousel-shell {
-                --single-card-w: min(276px, 70vw);
-                --single-nav-w: 40px;
+            #home-screen .mode-carousel-shell.clean-mode-carousel {
+                --mode-card-w: min(276px, 70vw);
+                --mode-card-h: 132px;
+                --mode-nav-w: 40px;
                 gap: 6px !important;
             }
 
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel,
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn:not(.mode-carousel-clone):not(.mode-loop-clone) {
-                height: 132px !important;
-                min-height: 132px !important;
-                max-height: 132px !important;
-            }
-
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn.single-mode-active {
-                grid-template-columns: minmax(0, 1fr) 58px !important;
-                column-gap: 10px !important;
-                padding: 14px 14px !important;
-            }
-
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn.single-mode-active .mode-face-wrap,
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn.single-mode-active .mode-face-img,
-            #home-screen .mode-carousel-shell .menu-container.mode-carousel > .mode-btn.single-mode-active .mode-icon {
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-face-wrap,
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-face-img,
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-icon {
                 width: 58px !important;
                 height: 58px !important;
                 min-width: 58px !important;
@@ -5992,6 +5452,71 @@ body.dark-mode .project-cta-link {
                 max-width: 58px !important;
                 max-height: 58px !important;
                 flex-basis: 58px !important;
+            }
+
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-btn .mode-info {
+                max-width: calc(100% - 68px) !important;
+            }
+        }
+
+
+        /* =====================================================
+           PATCH 10.1: Equal left/right mode nav position only
+           แก้เฉพาะตำแหน่งปุ่มซ้าย-ขวาของกล่องโหมด
+           ไม่แตะระบบ carousel / ไม่แตะ layout อื่น
+        ===================================================== */
+        @media (max-width: 900px), (pointer: coarse) {
+            #home-screen .mode-carousel-shell.clean-mode-carousel {
+                display: grid !important;
+                grid-template-columns: var(--mode-nav-w) var(--mode-card-w) var(--mode-nav-w) !important;
+                grid-template-areas: "prev card next" !important;
+                align-items: center !important;
+                justify-content: center !important;
+                justify-items: center !important;
+                column-gap: 9px !important;
+                overflow: visible !important;
+            }
+
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-carousel-prev {
+                grid-area: prev !important;
+                grid-column: 1 !important;
+                justify-self: center !important;
+                align-self: center !important;
+            }
+
+            #home-screen .mode-carousel-shell.clean-mode-carousel .menu-container.mode-carousel {
+                grid-area: card !important;
+                grid-column: 2 !important;
+                justify-self: center !important;
+                align-self: center !important;
+            }
+
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-carousel-next {
+                grid-area: next !important;
+                grid-column: 3 !important;
+                justify-self: center !important;
+                align-self: center !important;
+            }
+
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-carousel-nav,
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-carousel-prev,
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-carousel-next {
+                position: static !important;
+                inset: auto !important;
+                left: auto !important;
+                right: auto !important;
+                top: auto !important;
+                bottom: auto !important;
+                transform: none !important;
+                translate: none !important;
+                margin: 0 !important;
+                float: none !important;
+            }
+        }
+
+        @media (max-width: 390px) {
+            #home-screen .mode-carousel-shell.clean-mode-carousel {
+                column-gap: 6px !important;
             }
         }
 
@@ -9246,22 +8771,23 @@ renderAchievements = function() {
     function installModeCarousel() {
         const home = document.getElementById('home-screen');
         const menu = home?.querySelector('.menu-container');
+
         if (!home || !menu || menu.closest('.mode-carousel-shell')) return;
 
         const shell = document.createElement('div');
-        shell.className = 'mode-carousel-shell';
-        shell.setAttribute('aria-label', 'โหมดเกมแบบ Infinite Carousel');
+        shell.className = 'mode-carousel-shell clean-mode-carousel';
+        shell.setAttribute('aria-label', 'เลือกโหมดเกม');
 
         const prev = document.createElement('button');
         prev.type = 'button';
         prev.className = 'mode-carousel-nav mode-carousel-prev';
-        prev.setAttribute('aria-label', 'เลื่อนโหมดไปทางซ้าย');
+        prev.setAttribute('aria-label', 'เลื่อนโหมดก่อนหน้า');
         prev.innerHTML = '‹';
 
         const next = document.createElement('button');
         next.type = 'button';
         next.className = 'mode-carousel-nav mode-carousel-next';
-        next.setAttribute('aria-label', 'เลื่อนโหมดไปทางขวา');
+        next.setAttribute('aria-label', 'เลื่อนโหมดถัดไป');
         next.innerHTML = '›';
 
         menu.parentNode.insertBefore(shell, menu);
@@ -9271,194 +8797,165 @@ renderAchievements = function() {
 
         menu.classList.add('mode-carousel');
         menu.setAttribute('tabindex', '0');
-        menu.setAttribute('aria-label', 'เลือกโหมดเกมแบบ Infinite Carousel วนซ้ำได้สองทาง');
+        menu.setAttribute('aria-label', 'เลือกโหมดเกม กดปุ่มซ้ายขวาหรือปัดเพื่อเปลี่ยนโหมด');
 
-        // ใส่รูปเพื่อนให้การ์ดจริงก่อน clone เพื่อให้ clone หน้าตาเหมือนต้นฉบับ
+        // ใส่รูปเพื่อนให้การ์ดจริงเท่านั้น ไม่มี clone card
         assignRandomFriendFacesToModeCards();
 
-        const realItems = Array.from(menu.querySelectorAll(':scope > .mode-btn'));
-        const realCount = realItems.length;
-        if (!realCount) return;
+        const cards = Array.from(menu.querySelectorAll(':scope > .mode-btn'));
+        const total = cards.length;
+        if (!total) return;
 
-        realItems.forEach((item, index) => {
-            item.classList.add('mode-carousel-real');
-            item.dataset.realIndex = String(index);
+        cards.forEach((card, index) => {
+            card.classList.add('mode-carousel-real');
+            card.classList.remove('mode-carousel-clone', 'mode-loop-clone');
+            card.dataset.realIndex = String(index);
+            card.removeAttribute('aria-hidden');
         });
 
-        // 🌀 TRUE INFINITE CAROUSEL
-        // clone ใบท้ายไว้ด้านหน้า และ clone ใบแรกไว้ด้านท้าย
-        // เวลากดเลยขอบ จะเลื่อนไป clone แบบ smooth ก่อน แล้ว jump กลับไปใบจริงแบบ auto ทำให้ดูเนียนเหมือนแอป
-        const firstClone = realItems[0].cloneNode(true);
-        const lastClone = realItems[realCount - 1].cloneNode(true);
-        firstClone.classList.add('mode-carousel-clone');
-        lastClone.classList.add('mode-carousel-clone');
-        firstClone.dataset.cloneOf = 'first';
-        lastClone.dataset.cloneOf = 'last';
-        firstClone.setAttribute('aria-hidden', 'true');
-        lastClone.setAttribute('aria-hidden', 'true');
+        // กัน clone ที่อาจหลงเหลือจากโค้ดเก่า
+        menu.querySelectorAll(':scope > .mode-carousel-clone, :scope > .mode-loop-clone').forEach((clone) => clone.remove());
 
-        menu.insertBefore(lastClone, realItems[0]);
-        menu.appendChild(firstClone);
+        const isSingleCardMode = () => window.innerWidth <= 900 || (window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
 
-        const getAllItems = () => Array.from(menu.querySelectorAll(':scope > .mode-btn'));
-        const normalizeRealIndex = (index) => ((index % realCount) + realCount) % realCount;
+        const normalize = (index) => ((index % total) + total) % total;
 
         let activeIndex = 0;
-        let transitionTimer = null;
+        let clickLocked = false;
+        let touchStartX = 0;
+        let touchMoveX = 0;
         let scrollSyncTimer = null;
-        let autoSlideTimer = null;
-        let isPaused = false;
 
-        const clampLeft = (left) => {
-            const maxLeft = Math.max(0, menu.scrollWidth - menu.clientWidth);
-            return Math.min(Math.max(0, left), maxLeft);
-        };
-
-        const getCenteredLeft = (item) => {
-            return clampLeft(item.offsetLeft - ((menu.clientWidth - item.offsetWidth) / 2));
-        };
-
-        const scrollToVisualIndex = (visualIndex, behavior = 'smooth') => {
-            const items = getAllItems();
-            const item = items[visualIndex];
-            if (!item) return;
-            menu.scrollTo({ left: getCenteredLeft(item), behavior });
-        };
-
-        const jumpToRealIndex = (realIndex) => {
-            activeIndex = normalizeRealIndex(realIndex);
+        function setActiveCard(index, behavior = 'smooth') {
+            activeIndex = normalize(index);
             menu.dataset.activeIndex = String(activeIndex);
-            // +1 เพราะ visual index 0 คือ clone ท้าย
-            scrollToVisualIndex(activeIndex + 1, 'auto');
-        };
 
-        const getNearestVisualIndex = () => {
-            const items = getAllItems();
-            if (!items.length) return 1;
-            const viewportCenter = menu.scrollLeft + (menu.clientWidth / 2);
-            let bestIndex = 1;
+            // มือถือ/iPad: แสดงทีละใบจริงเท่านั้น
+            if (isSingleCardMode()) {
+                menu.scrollLeft = 0;
+                menu.style.transform = 'none';
+                menu.style.translate = 'none';
+
+                cards.forEach((card, idx) => {
+                    const active = idx === activeIndex;
+                    card.classList.toggle('mode-is-active', active);
+                    card.classList.toggle('mobile-mode-active', active);
+                    card.setAttribute('aria-hidden', active ? 'false' : 'true');
+                });
+
+                return;
+            }
+
+            // Desktop: carousel ปกติแบบ manual scroll ไม่มี auto ไม่มี clone
+            cards.forEach((card) => {
+                card.classList.remove('mode-is-active', 'mobile-mode-active');
+                card.removeAttribute('aria-hidden');
+            });
+
+            const card = cards[activeIndex];
+            const left = card.offsetLeft - ((menu.clientWidth - card.offsetWidth) / 2);
+            const maxLeft = Math.max(0, menu.scrollWidth - menu.clientWidth);
+            const safeLeft = Math.min(Math.max(0, left), maxLeft);
+
+            menu.scrollTo({ left: safeLeft, behavior });
+        }
+
+        function getNearestDesktopIndex() {
+            const center = menu.scrollLeft + (menu.clientWidth / 2);
+            let bestIndex = activeIndex;
             let bestDistance = Infinity;
-            items.forEach((item, index) => {
-                const itemCenter = item.offsetLeft + (item.offsetWidth / 2);
-                const distance = Math.abs(itemCenter - viewportCenter);
+
+            cards.forEach((card, index) => {
+                const cardCenter = card.offsetLeft + (card.offsetWidth / 2);
+                const distance = Math.abs(cardCenter - center);
                 if (distance < bestDistance) {
                     bestDistance = distance;
                     bestIndex = index;
                 }
             });
+
             return bestIndex;
-        };
-
-        const syncIndexAfterManualScroll = () => {
-            const visualIndex = getNearestVisualIndex();
-            if (visualIndex === 0) {
-                jumpToRealIndex(realCount - 1);
-            } else if (visualIndex === realCount + 1) {
-                jumpToRealIndex(0);
-            } else {
-                activeIndex = normalizeRealIndex(visualIndex - 1);
-                menu.dataset.activeIndex = String(activeIndex);
-            }
-        };
-
-        const stepCarousel = (dir, fromAuto = false) => {
-            const oldIndex = activeIndex;
-            const nextIndex = normalizeRealIndex(activeIndex + dir);
-
-            clearTimeout(transitionTimer);
-
-            if (dir > 0 && oldIndex === realCount - 1) {
-                // ใบสุดท้าย -> clone ใบแรก -> jump กลับใบแรกจริง
-                activeIndex = 0;
-                menu.dataset.activeIndex = '0';
-                scrollToVisualIndex(realCount + 1, 'smooth');
-                transitionTimer = setTimeout(() => jumpToRealIndex(0), 430);
-            } else if (dir < 0 && oldIndex === 0) {
-                // ใบแรก -> clone ใบท้าย -> jump กลับใบท้ายจริง
-                activeIndex = realCount - 1;
-                menu.dataset.activeIndex = String(activeIndex);
-                scrollToVisualIndex(0, 'smooth');
-                transitionTimer = setTimeout(() => jumpToRealIndex(realCount - 1), 430);
-            } else {
-                activeIndex = nextIndex;
-                menu.dataset.activeIndex = String(activeIndex);
-                scrollToVisualIndex(activeIndex + 1, 'smooth');
-            }
-
-            if (!fromAuto) restartAutoSlide();
-        };
-
-        const startAutoSlide = () => {
-            // PATCH CLEAN: ปิด auto-slide ของกล่องโหมด แต่คง layout/ปุ่ม/การปัดไว้เหมือนเดิม
-            clearInterval(autoSlideTimer);
-            autoSlideTimer = null;
-            return;
-        };
-
-        const stopAutoSlide = () => {
-            clearInterval(autoSlideTimer);
-            autoSlideTimer = null;
-        };
-
-        const pauseAutoSlide = () => {
-            isPaused = true;
-            stopAutoSlide();
-        };
-
-        const resumeAutoSlide = () => {
-            isPaused = false;
-            startAutoSlide();
-        };
-
-        function restartAutoSlide() {
-            // PATCH CLEAN: ไม่ restart auto-slide แล้ว
-            clearInterval(autoSlideTimer);
-            autoSlideTimer = null;
-            return;
         }
 
-        prev.addEventListener('click', () => { stepCarousel(-1); safePlay('click'); });
-        next.addEventListener('click', () => { stepCarousel(1); safePlay('click'); });
+        function step(direction) {
+            if (clickLocked) return;
+
+            clickLocked = true;
+
+            if (!isSingleCardMode()) {
+                activeIndex = getNearestDesktopIndex();
+            }
+
+            setActiveCard(activeIndex + direction, 'smooth');
+
+            if (typeof safePlay === 'function') safePlay('click');
+
+            window.setTimeout(() => {
+                clickLocked = false;
+            }, 160);
+        }
+
+        prev.addEventListener('click', (event) => {
+            event.preventDefault();
+            step(-1);
+        });
+
+        next.addEventListener('click', (event) => {
+            event.preventDefault();
+            step(1);
+        });
 
         menu.addEventListener('keydown', (event) => {
             if (event.key === 'ArrowLeft') {
                 event.preventDefault();
-                stepCarousel(-1);
+                step(-1);
             }
+
             if (event.key === 'ArrowRight') {
                 event.preventDefault();
-                stepCarousel(1);
+                step(1);
             }
         });
 
-        menu.addEventListener('scroll', () => {
-            clearTimeout(scrollSyncTimer);
-            scrollSyncTimer = setTimeout(syncIndexAfterManualScroll, 120);
+        menu.addEventListener('touchstart', (event) => {
+            if (!isSingleCardMode()) return;
+            touchStartX = event.touches[0].clientX;
+            touchMoveX = 0;
         }, { passive: true });
 
-        // หยุด auto slide เมื่อผู้เล่นกำลังโฟกัส/ชี้/แตะ carousel
-        shell.addEventListener('mouseenter', pauseAutoSlide);
-        shell.addEventListener('mouseleave', resumeAutoSlide);
-        shell.addEventListener('focusin', pauseAutoSlide);
-        shell.addEventListener('focusout', () => {
-            setTimeout(() => {
-                if (!shell.contains(document.activeElement)) resumeAutoSlide();
-            }, 0);
-        });
-        shell.addEventListener('touchstart', pauseAutoSlide, { passive: true });
-        shell.addEventListener('touchend', () => setTimeout(resumeAutoSlide, 1200), { passive: true });
-        shell.addEventListener('pointerdown', pauseAutoSlide);
-        shell.addEventListener('pointerup', () => setTimeout(resumeAutoSlide, 900));
+        menu.addEventListener('touchmove', (event) => {
+            if (!isSingleCardMode()) return;
+            touchMoveX = event.touches[0].clientX - touchStartX;
+        }, { passive: true });
 
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) stopAutoSlide();
-            else if (!isPaused) startAutoSlide();
-        });
+        menu.addEventListener('touchend', () => {
+            if (!isSingleCardMode()) return;
 
-        requestAnimationFrame(() => {
-            jumpToRealIndex(0);
-            startAutoSlide();
-        });
+            if (touchMoveX > 55) step(-1);
+            if (touchMoveX < -55) step(1);
+
+            touchStartX = 0;
+            touchMoveX = 0;
+        }, { passive: true });
+
+        menu.addEventListener('scroll', () => {
+            if (isSingleCardMode()) return;
+            clearTimeout(scrollSyncTimer);
+            scrollSyncTimer = window.setTimeout(() => {
+                activeIndex = getNearestDesktopIndex();
+                menu.dataset.activeIndex = String(activeIndex);
+            }, 120);
+        }, { passive: true });
+
+        window.addEventListener('resize', () => {
+            window.setTimeout(() => setActiveCard(activeIndex, 'auto'), 120);
+        }, { passive: true });
+
+        window.addEventListener('orientationchange', () => {
+            window.setTimeout(() => setActiveCard(activeIndex, 'auto'), 260);
+        }, { passive: true });
+
+        requestAnimationFrame(() => setActiveCard(0, 'auto'));
     }
 
     function assignRandomFriendFacesToModeCards() {
@@ -11131,540 +10628,29 @@ renderAchievements = function() {
 // =====================================================
 // 📱 FINAL FIX: Mobile Carousel Re-center
 // =====================================================
-(function mobileCarouselVisibilityFix() {
-    function isMobileLayout() {
-        return window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
-    }
 
-    function centerActiveMobileCard(behavior = 'auto') {
-        if (!isMobileLayout()) return;
-        const menu = document.querySelector('#home-screen .menu-container.mode-carousel');
-        if (!menu) return;
-
-        const activeIndex = Number(menu.dataset.activeIndex || 0);
-        const realItems = Array.from(menu.querySelectorAll(':scope > .mode-carousel-real'));
-        const target = realItems[activeIndex] || realItems[0] || menu.querySelector(':scope > .mode-btn:not(.mode-carousel-clone)');
-        if (!target) return;
-
-        const targetLeft = target.offsetLeft - ((menu.clientWidth - target.offsetWidth) / 2);
-        const maxLeft = Math.max(0, menu.scrollWidth - menu.clientWidth);
-        const safeLeft = Math.min(Math.max(0, targetLeft), maxLeft);
-
-        menu.scrollTo({ left: safeLeft, behavior });
-    }
-
-    function fixNow() {
-        centerActiveMobileCard('auto');
-        requestAnimationFrame(() => centerActiveMobileCard('auto'));
-        setTimeout(() => centerActiveMobileCard('auto'), 120);
-        setTimeout(() => centerActiveMobileCard('auto'), 450);
-        setTimeout(() => centerActiveMobileCard('auto'), 900);
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', fixNow);
-    } else {
-        fixNow();
-    }
-
-    window.addEventListener('load', fixNow);
-    window.addEventListener('resize', () => setTimeout(fixNow, 120));
-    window.addEventListener('orientationchange', () => setTimeout(fixNow, 350));
-
-    const home = document.getElementById('home-screen');
-    if (home && 'MutationObserver' in window) {
-        const observer = new MutationObserver(() => {
-            if (home.style.display !== 'none') setTimeout(fixNow, 60);
-        });
-        observer.observe(home, { attributes: true, attributeFilter: ['style', 'class'] });
-    }
-
-    // เมื่อกดลูกศรหรือ auto slide ทำงาน ให้จัดกลางซ้ำหลัง animation
-    document.addEventListener('click', (event) => {
-        if (event.target.closest?.('.mode-carousel-nav')) {
-            setTimeout(() => centerActiveMobileCard('auto'), 520);
-        }
-    }, true);
-})();
-
-
+// CLEAN MODEBOX RESET: removed conflicting modebox controller `mobileCarouselVisibilityFix`.
 // =====================================================
 // 📱 ULTRA MINIMAL MOBILE UI MODE
 // แยก mobile platform ด้วย class body.mobile-ui
 // =====================================================
-(function ultraMinimalMobilePlatformMode() {
-    const MOBILE_QUERY = '(max-width: 720px)';
 
-    function applyMobileClass() {
-        const isMobile = window.matchMedia && window.matchMedia(MOBILE_QUERY).matches;
-        document.body.classList.toggle('mobile-ui', !!isMobile);
-    }
-
-    function recenterMobileCarousel() {
-        if (!document.body.classList.contains('mobile-ui')) return;
-        const menu = document.querySelector('#home-screen .menu-container.mode-carousel');
-        if (!menu) return;
-
-        const activeIndex = Number(menu.dataset.activeIndex || 0);
-        const realItems = Array.from(menu.querySelectorAll(':scope > .mode-carousel-real'));
-        const target = realItems[activeIndex] || realItems[0] || menu.querySelector(':scope > .mode-btn:not(.mode-carousel-clone)');
-        if (!target) return;
-
-        const left = target.offsetLeft - ((menu.clientWidth - target.offsetWidth) / 2);
-        const maxLeft = Math.max(0, menu.scrollWidth - menu.clientWidth);
-        menu.scrollTo({ left: Math.min(Math.max(0, left), maxLeft), behavior: 'auto' });
-    }
-
-    function bootMobileMode() {
-        applyMobileClass();
-        requestAnimationFrame(recenterMobileCarousel);
-        setTimeout(recenterMobileCarousel, 150);
-        setTimeout(recenterMobileCarousel, 650);
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', bootMobileMode);
-    } else {
-        bootMobileMode();
-    }
-
-    window.addEventListener('resize', () => setTimeout(bootMobileMode, 120));
-    window.addEventListener('orientationchange', () => setTimeout(bootMobileMode, 360));
-    window.addEventListener('load', bootMobileMode);
-
-    document.addEventListener('click', (event) => {
-        if (event.target.closest?.('.mode-carousel-nav, .arcade-accordion, .mini-action-btn')) {
-            setTimeout(recenterMobileCarousel, 520);
-        }
-    }, true);
-})();
-
-
+// CLEAN MODEBOX RESET: removed conflicting modebox controller `ultraMinimalMobilePlatformMode`.
 // =====================================================
 // 📱 MOBILE PATCH: Put Level / Gacha Hub / Hall Of Fame below modes
 // =====================================================
-(function moveMobileHudBelowModes() {
-    const MOBILE_QUERY = '(max-width: 720px)';
 
-    function isMobile() {
-        return window.matchMedia && window.matchMedia(MOBILE_QUERY).matches;
-    }
-
-    function isHomeVisible() {
-        const home = document.getElementById('home-screen');
-        return !!home && getComputedStyle(home).display !== 'none';
-    }
-
-    function ensureMobilePanel() {
-        const home = document.getElementById('home-screen');
-        const carousel = document.querySelector('#home-screen .mode-carousel-shell');
-        const menu = document.querySelector('#home-screen .menu-container');
-        if (!home || (!carousel && !menu)) return null;
-
-        let panel = document.getElementById('mobileBelowModesPanel');
-        if (!panel) {
-            panel = document.createElement('div');
-            panel.id = 'mobileBelowModesPanel';
-            panel.className = 'mobile-below-modes-panel';
-        }
-
-        const anchor = carousel || menu;
-        if (panel.parentElement !== home || panel.previousElementSibling !== anchor) {
-            anchor.insertAdjacentElement('afterend', panel);
-        }
-
-        return panel;
-    }
-
-    function restoreDesktopPlacement() {
-        const host = document.querySelector('.game-container');
-        if (!host) return;
-
-        const hud = document.getElementById('globalEconomyHud');
-        const side = document.getElementById('homeSideStack');
-        const themeCorner = host.querySelector('.game-theme-corner');
-
-        if (hud && hud.parentElement?.id === 'mobileBelowModesPanel') {
-            if (themeCorner) host.insertBefore(hud, themeCorner);
-            else host.insertAdjacentElement('afterbegin', hud);
-        }
-
-        if (side && side.parentElement?.id === 'mobileBelowModesPanel') {
-            if (themeCorner) themeCorner.insertAdjacentElement('afterend', side);
-            else host.insertAdjacentElement('afterbegin', side);
-        }
-    }
-
-    function placeMobileDashboard() {
-        const hud = document.getElementById('globalEconomyHud');
-        const side = document.getElementById('homeSideStack');
-
-        if (!isMobile() || !isHomeVisible()) {
-            restoreDesktopPlacement();
-            return;
-        }
-
-        const panel = ensureMobilePanel();
-        if (!panel) return;
-
-        if (hud && hud.parentElement !== panel) panel.appendChild(hud);
-        if (side && side.parentElement !== panel) panel.appendChild(side);
-    }
-
-    function bootMoveMobileDashboard() {
-        placeMobileDashboard();
-        requestAnimationFrame(placeMobileDashboard);
-        setTimeout(placeMobileDashboard, 120);
-        setTimeout(placeMobileDashboard, 650);
-        setTimeout(placeMobileDashboard, 1300);
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', bootMoveMobileDashboard);
-    } else {
-        bootMoveMobileDashboard();
-    }
-
-    window.addEventListener('load', bootMoveMobileDashboard);
-    window.addEventListener('resize', () => setTimeout(bootMoveMobileDashboard, 140));
-    window.addEventListener('orientationchange', () => setTimeout(bootMoveMobileDashboard, 380));
-
-    document.addEventListener('click', (event) => {
-        if (event.target.closest?.('.mode-carousel-nav, .arcade-accordion, .mode-btn, .back-btn')) {
-            setTimeout(bootMoveMobileDashboard, 180);
-            setTimeout(bootMoveMobileDashboard, 700);
-        }
-    }, true);
-
-    const home = document.getElementById('home-screen');
-    if (home && 'MutationObserver' in window) {
-        const observer = new MutationObserver(() => setTimeout(bootMoveMobileDashboard, 80));
-        observer.observe(home, { attributes: true, attributeFilter: ['style', 'class'] });
-    }
-
-    // PATCH CLEAN: เดิมจัด layout ซ้ำทุก 3 วินาที ทำให้เครื่องจริงกระพริบ/หน่วง
-    // คง layout เดิมไว้ แต่จัดเพิ่มครั้งเดียวหลังโหลดแทน
-    setTimeout(placeMobileDashboard, 300);
-})();
-
-
+// CLEAN MODEBOX RESET: removed conflicting modebox controller `moveMobileHudBelowModes`.
 // =====================================================
 // 📱 FINAL FIX: Mobile single-card mode carousel controller
 // =====================================================
-(function mobileSingleCardModeCarouselFix() {
-    const MOBILE_QUERY = '(max-width: 720px)';
-    let mobileModeIndex = 0;
-    let autoTimer = null;
 
-    function isMobile() {
-        return window.matchMedia && window.matchMedia(MOBILE_QUERY).matches;
-    }
-
-    function homeVisible() {
-        const home = document.getElementById('home-screen');
-        return !!home && getComputedStyle(home).display !== 'none';
-    }
-
-    function getMenu() {
-        return document.querySelector('#home-screen .menu-container.mode-carousel');
-    }
-
-    function getRealItems() {
-        return Array.from(document.querySelectorAll('#home-screen .menu-container.mode-carousel > .mode-carousel-real'));
-    }
-
-    function normalize(index, total) {
-        return ((index % total) + total) % total;
-    }
-
-    function applyMobileModeCard(index = mobileModeIndex) {
-        if (!isMobile()) return;
-        const menu = getMenu();
-        const items = getRealItems();
-        if (!menu || !items.length) return;
-
-        mobileModeIndex = normalize(index, items.length);
-        menu.dataset.activeIndex = String(mobileModeIndex);
-
-        Array.from(menu.children).forEach(child => {
-            child.classList.remove('mobile-mode-active');
-        });
-
-        items[mobileModeIndex].classList.add('mobile-mode-active');
-
-        // ป้องกัน scroll position เดิมจาก infinite clone ทำให้การ์ดหาย
-        menu.scrollLeft = 0;
-        requestAnimationFrame(() => { menu.scrollLeft = 0; });
-    }
-
-    function stepMobileMode(dir) {
-        const items = getRealItems();
-        if (!items.length) return;
-        applyMobileModeCard(mobileModeIndex + dir);
-    }
-
-    function syncFromDataset() {
-        const menu = getMenu();
-        const items = getRealItems();
-        if (!menu || !items.length) return;
-        const dataIndex = Number(menu.dataset.activeIndex);
-        if (Number.isFinite(dataIndex)) mobileModeIndex = normalize(dataIndex, items.length);
-        applyMobileModeCard(mobileModeIndex);
-    }
-
-    function startMobileAuto() {
-        // PATCH CLEAN: ปิด auto เปลี่ยนการ์ดบนมือถือ/ไอแพด
-        clearInterval(autoTimer);
-        autoTimer = null;
-        return;
-    }
-
-    function bootMobileCarouselFix() {
-        if (!isMobile()) return;
-        syncFromDataset();
-        setTimeout(syncFromDataset, 80);
-        setTimeout(syncFromDataset, 260);
-        setTimeout(syncFromDataset, 700);
-        startMobileAuto();
-    }
-
-    // ใช้ capture เพื่อกัน listener เดิมของ infinite carousel ที่ทำให้มือถือ scroll ไป clone แล้วหาย
-    document.addEventListener('click', (event) => {
-        const nav = event.target.closest?.('.mode-carousel-nav');
-        if (!nav || !isMobile()) return;
-
-        event.preventDefault();
-        event.stopImmediatePropagation();
-
-        const dir = nav.classList.contains('mode-carousel-prev') ? -1 : 1;
-        stepMobileMode(dir);
-        if (typeof safePlay === 'function') safePlay('click');
-    }, true);
-
-    document.addEventListener('keydown', (event) => {
-        if (!isMobile() || !homeVisible()) return;
-        const menu = getMenu();
-        if (!menu || document.activeElement !== menu) return;
-
-        if (event.key === 'ArrowLeft') {
-            event.preventDefault();
-            stepMobileMode(-1);
-        }
-        if (event.key === 'ArrowRight') {
-            event.preventDefault();
-            stepMobileMode(1);
-        }
-    }, true);
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', bootMobileCarouselFix);
-    } else {
-        bootMobileCarouselFix();
-    }
-
-    window.addEventListener('load', bootMobileCarouselFix);
-    window.addEventListener('resize', () => setTimeout(bootMobileCarouselFix, 120));
-    window.addEventListener('orientationchange', () => setTimeout(bootMobileCarouselFix, 360));
-
-    const home = document.getElementById('home-screen');
-    if (home && 'MutationObserver' in window) {
-        const observer = new MutationObserver(() => {
-            if (isMobile() && homeVisible()) setTimeout(bootMobileCarouselFix, 80);
-        });
-        observer.observe(home, { attributes: true, attributeFilter: ['style', 'class'] });
-    }
-
-    setTimeout(bootMobileCarouselFix, 1200);
-})();
-
-
+// CLEAN MODEBOX RESET: removed conflicting modebox controller `mobileSingleCardModeCarouselFix`.
 // =====================================================
 // 📱 FINAL FIX: Compact UI for 721-900px gap + one-card carousel
 // =====================================================
-(function compactResponsiveGapFix() {
-    const COMPACT_QUERY = '(max-width: 900px)';
-    let compactIndex = 0;
-    let autoTimer = null;
 
-    function isCompact() {
-        return window.matchMedia && window.matchMedia(COMPACT_QUERY).matches;
-    }
-
-    function applyCompactClass() {
-        document.body.classList.toggle('mobile-compact-ui', isCompact());
-    }
-
-    function homeVisible() {
-        const home = document.getElementById('home-screen');
-        return !!home && getComputedStyle(home).display !== 'none';
-    }
-
-    function getMenu() {
-        return document.querySelector('#home-screen .menu-container.mode-carousel');
-    }
-
-    function getRealItems() {
-        return Array.from(document.querySelectorAll('#home-screen .menu-container.mode-carousel > .mode-carousel-real'));
-    }
-
-    function normalize(index, total) {
-        return ((index % total) + total) % total;
-    }
-
-    function ensureBelowModesPanel() {
-        const home = document.getElementById('home-screen');
-        const carousel = document.querySelector('#home-screen .mode-carousel-shell');
-        const menu = document.querySelector('#home-screen .menu-container');
-        if (!home || (!carousel && !menu)) return null;
-
-        let panel = document.getElementById('mobileBelowModesPanel');
-        if (!panel) {
-            panel = document.createElement('div');
-            panel.id = 'mobileBelowModesPanel';
-            panel.className = 'mobile-below-modes-panel';
-        }
-
-        const anchor = carousel || menu;
-        if (panel.parentElement !== home || panel.previousElementSibling !== anchor) {
-            anchor.insertAdjacentElement('afterend', panel);
-        }
-
-        return panel;
-    }
-
-    function moveDashboardForCompact() {
-        if (!isCompact() || !homeVisible()) return;
-
-        const panel = ensureBelowModesPanel();
-        if (!panel) return;
-
-        const hud = document.getElementById('globalEconomyHud');
-        const side = document.getElementById('homeSideStack');
-
-        if (hud && hud.parentElement !== panel) panel.appendChild(hud);
-        if (side && side.parentElement !== panel) panel.appendChild(side);
-    }
-
-    function restoreForDesktop() {
-        if (isCompact()) return;
-        const host = document.querySelector('.game-container');
-        if (!host) return;
-
-        const hud = document.getElementById('globalEconomyHud');
-        const side = document.getElementById('homeSideStack');
-        const themeCorner = host.querySelector('.game-theme-corner');
-
-        if (hud && hud.parentElement?.id === 'mobileBelowModesPanel') {
-            if (themeCorner) host.insertBefore(hud, themeCorner);
-            else host.insertAdjacentElement('afterbegin', hud);
-        }
-
-        if (side && side.parentElement?.id === 'mobileBelowModesPanel') {
-            if (themeCorner) themeCorner.insertAdjacentElement('afterend', side);
-            else host.insertAdjacentElement('afterbegin', side);
-        }
-    }
-
-    function showCompactCard(index = compactIndex) {
-        if (!isCompact()) return;
-
-        const menu = getMenu();
-        const items = getRealItems();
-        if (!menu || !items.length) return;
-
-        compactIndex = normalize(index, items.length);
-        menu.dataset.activeIndex = String(compactIndex);
-
-        Array.from(menu.children).forEach(child => child.classList.remove('mobile-mode-active'));
-        items[compactIndex].classList.add('mobile-mode-active');
-
-        // ป้องกันตำแหน่ง scroll จาก PC infinite carousel ทำให้ card โผล่แค่บางส่วน
-        menu.scrollLeft = 0;
-        requestAnimationFrame(() => { menu.scrollLeft = 0; });
-    }
-
-    function stepCompactCard(dir) {
-        const items = getRealItems();
-        if (!items.length) return;
-        showCompactCard(compactIndex + dir);
-    }
-
-    function startCompactAuto() {
-        // PATCH CLEAN: ปิด auto เปลี่ยนการ์ดใน compact mode
-        clearInterval(autoTimer);
-        autoTimer = null;
-        return;
-    }
-
-    function bootCompact() {
-        applyCompactClass();
-
-        if (isCompact()) {
-            moveDashboardForCompact();
-            showCompactCard();
-            requestAnimationFrame(() => {
-                moveDashboardForCompact();
-                showCompactCard();
-            });
-            setTimeout(() => { moveDashboardForCompact(); showCompactCard(); }, 150);
-            setTimeout(() => { moveDashboardForCompact(); showCompactCard(); }, 700);
-            startCompactAuto();
-        } else {
-            restoreForDesktop();
-            clearInterval(autoTimer);
-        }
-    }
-
-    document.addEventListener('click', (event) => {
-        const nav = event.target.closest?.('.mode-carousel-nav');
-        if (!nav || !isCompact()) return;
-
-        event.preventDefault();
-        event.stopImmediatePropagation();
-
-        const dir = nav.classList.contains('mode-carousel-prev') ? -1 : 1;
-        stepCompactCard(dir);
-        if (typeof safePlay === 'function') safePlay('click');
-    }, true);
-
-    document.addEventListener('keydown', (event) => {
-        if (!isCompact() || !homeVisible()) return;
-        const menu = getMenu();
-        if (!menu || document.activeElement !== menu) return;
-
-        if (event.key === 'ArrowLeft') {
-            event.preventDefault();
-            stepCompactCard(-1);
-        }
-        if (event.key === 'ArrowRight') {
-            event.preventDefault();
-            stepCompactCard(1);
-        }
-    }, true);
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', bootCompact);
-    } else {
-        bootCompact();
-    }
-
-    window.addEventListener('load', bootCompact);
-    window.addEventListener('resize', () => setTimeout(bootCompact, 120));
-    window.addEventListener('orientationchange', () => setTimeout(bootCompact, 360));
-
-    const home = document.getElementById('home-screen');
-    if (home && 'MutationObserver' in window) {
-        const observer = new MutationObserver(() => {
-            setTimeout(bootCompact, 80);
-        });
-        observer.observe(home, { attributes: true, attributeFilter: ['style', 'class'] });
-    }
-
-    setTimeout(bootCompact, 1200);
-    setTimeout(bootCompact, 2400);
-})();
-
-
+// CLEAN MODEBOX RESET: removed conflicting modebox controller `compactResponsiveGapFix`.
 // =====================================================
 // 📱 MOBILE STABLE FINAL
 // รวม logic มือถือให้เหลือชุดเดียว: <=900px
@@ -11672,242 +10658,8 @@ renderAchievements = function() {
 // - บังคับ Carousel มือถือเป็น 1 card ไม่ใช้ scroll clone
 // - กัน script เก่าดึงของกลับด้านบน
 // =====================================================
-(function mobileStableFinal() {
-    const STABLE_QUERY = '(max-width: 900px)';
-    let stableIndex = 0;
-    let autoTimer = null;
-    let lockedMove = false;
 
-    function isStable() {
-        return window.matchMedia && window.matchMedia(STABLE_QUERY).matches;
-    }
-
-    function homeVisible() {
-        const home = document.getElementById('home-screen');
-        return !!home && getComputedStyle(home).display !== 'none';
-    }
-
-    function applyStableClass() {
-        const on = isStable();
-        document.body.classList.toggle('mobile-stable-ui', on);
-
-        // ไม่ลบ class เก่าออกทั้งหมด เพราะบาง style อาจพึ่ง class เดิม
-        // แต่ mobile-stable-ui ถูกเขียนไว้ท้ายสุดและมี !important เพื่อชนะทุกชุด
-    }
-
-    function getHome() {
-        return document.getElementById('home-screen');
-    }
-
-    function getMenu() {
-        return document.querySelector('#home-screen .menu-container.mode-carousel');
-    }
-
-    function getRealItems() {
-        return Array.from(document.querySelectorAll('#home-screen .menu-container.mode-carousel > .mode-carousel-real'));
-    }
-
-    function normalize(index, total) {
-        return ((index % total) + total) % total;
-    }
-
-    function getCarouselAnchor() {
-        return document.querySelector('#home-screen .mode-carousel-shell')
-            || document.querySelector('#home-screen .menu-container.mode-carousel')
-            || document.querySelector('#home-screen .menu-container');
-    }
-
-    function ensureStableDashboard() {
-        const home = getHome();
-        const anchor = getCarouselAnchor();
-        if (!home || !anchor) return null;
-
-        let panel = document.getElementById('mobileStableDashboard');
-        if (!panel) {
-            panel = document.createElement('div');
-            panel.id = 'mobileStableDashboard';
-            panel.className = 'mobile-stable-dashboard';
-        }
-
-        // ต้องอยู่ใต้ carousel เสมอ
-        if (panel.parentElement !== home || panel.previousElementSibling !== anchor) {
-            anchor.insertAdjacentElement('afterend', panel);
-        }
-
-        return panel;
-    }
-
-    function moveDashboardDown() {
-        if (!isStable() || !homeVisible()) return;
-
-        const panel = ensureStableDashboard();
-        if (!panel) return;
-
-        const hud = document.getElementById('globalEconomyHud');
-        const side = document.getElementById('homeSideStack');
-
-        if (hud && hud.parentElement !== panel) panel.appendChild(hud);
-        if (side && side.parentElement !== panel) panel.appendChild(side);
-
-        // ถ้ามี panel เก่าจากแพตช์ก่อน ให้ซ่อนเพื่อไม่ให้เกิด layout ghost
-        const oldPanel = document.getElementById('mobileBelowModesPanel');
-        if (oldPanel && oldPanel !== panel && !oldPanel.children.length) oldPanel.style.display = 'none';
-    }
-
-    function restoreDesktop() {
-        if (isStable()) return;
-
-        const host = document.querySelector('.game-container');
-        if (!host) return;
-
-        const hud = document.getElementById('globalEconomyHud');
-        const side = document.getElementById('homeSideStack');
-        const themeCorner = host.querySelector('.game-theme-corner');
-
-        if (hud && hud.parentElement?.id === 'mobileStableDashboard') {
-            if (themeCorner) host.insertBefore(hud, themeCorner);
-            else host.insertAdjacentElement('afterbegin', hud);
-        }
-
-        if (side && side.parentElement?.id === 'mobileStableDashboard') {
-            if (themeCorner) themeCorner.insertAdjacentElement('afterend', side);
-            else host.insertAdjacentElement('afterbegin', side);
-        }
-    }
-
-    function showStableCard(index = stableIndex) {
-        if (!isStable()) return;
-
-        const menu = getMenu();
-        const items = getRealItems();
-        if (!menu || !items.length) return;
-
-        const datasetIndex = Number(menu.dataset.activeIndex);
-        if (Number.isFinite(datasetIndex) && Math.abs(datasetIndex - stableIndex) <= items.length) {
-            stableIndex = normalize(datasetIndex, items.length);
-        }
-
-        stableIndex = normalize(index, items.length);
-        menu.dataset.activeIndex = String(stableIndex);
-
-        Array.from(menu.children).forEach(child => {
-            child.classList.remove('mobile-mode-active');
-        });
-        items[stableIndex].classList.add('mobile-mode-active');
-
-        menu.scrollLeft = 0;
-        requestAnimationFrame(() => { menu.scrollLeft = 0; });
-    }
-
-    function stepStableCard(dir) {
-        const items = getRealItems();
-        if (!items.length) return;
-        showStableCard(stableIndex + dir);
-    }
-
-    function startAuto() {
-        // PATCH CLEAN: ปิด auto เปลี่ยนการ์ดใน stable mobile/tablet
-        clearInterval(autoTimer);
-        autoTimer = null;
-        return;
-    }
-
-    function stableLayoutPass() {
-        applyStableClass();
-
-        if (isStable()) {
-            moveDashboardDown();
-            showStableCard();
-            startAuto();
-        } else {
-            clearInterval(autoTimer);
-            restoreDesktop();
-        }
-    }
-
-    function stableLayoutStrongPass() {
-        if (lockedMove) return;
-        lockedMove = true;
-
-        stableLayoutPass();
-        requestAnimationFrame(stableLayoutPass);
-        setTimeout(stableLayoutPass, 80);
-        setTimeout(stableLayoutPass, 220);
-        setTimeout(stableLayoutPass, 650);
-
-        setTimeout(() => { lockedMove = false; }, 700);
-    }
-
-    // กัน listener เก่าของ PC infinite carousel ที่ทำงานในช่วงจอแคบ
-    document.addEventListener('click', (event) => {
-        const nav = event.target.closest?.('.mode-carousel-nav');
-        if (!nav || !isStable()) return;
-
-        event.preventDefault();
-        event.stopImmediatePropagation();
-
-        const dir = nav.classList.contains('mode-carousel-prev') ? -1 : 1;
-        stepStableCard(dir);
-        moveDashboardDown();
-
-        if (typeof safePlay === 'function') safePlay('click');
-    }, true);
-
-    document.addEventListener('keydown', (event) => {
-        if (!isStable() || !homeVisible()) return;
-        const menu = getMenu();
-        if (!menu || document.activeElement !== menu) return;
-
-        if (event.key === 'ArrowLeft') {
-            event.preventDefault();
-            stepStableCard(-1);
-        }
-        if (event.key === 'ArrowRight') {
-            event.preventDefault();
-            stepStableCard(1);
-        }
-    }, true);
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', stableLayoutStrongPass);
-    } else {
-        stableLayoutStrongPass();
-    }
-
-    window.addEventListener('load', stableLayoutStrongPass);
-    window.addEventListener('resize', () => setTimeout(stableLayoutStrongPass, 120));
-    window.addEventListener('orientationchange', () => setTimeout(stableLayoutStrongPass, 360));
-
-    document.addEventListener('click', (event) => {
-        if (event.target.closest?.('.arcade-accordion, .mini-action-btn, .mode-btn, .back-btn, .project-cta-link')) {
-            setTimeout(stableLayoutStrongPass, 120);
-            setTimeout(stableLayoutStrongPass, 520);
-        }
-    }, true);
-
-    // เฝ้า home และ game container: ถ้า script เก่าขยับ HUD กลับขึ้นบน ให้ย้ายลงทันที
-    const observeTargets = [
-        document.getElementById('home-screen'),
-        document.querySelector('.game-container')
-    ].filter(Boolean);
-
-    if ('MutationObserver' in window) {
-        const observer = new MutationObserver(() => {
-            if (isStable()) setTimeout(stableLayoutStrongPass, 40);
-        });
-
-        observeTargets.forEach(target => {
-            observer.observe(target, { childList: true, subtree: false, attributes: true, attributeFilter: ['style', 'class'] });
-        });
-    }
-
-    // PATCH CLEAN: ปิด heartbeat re-layout เพราะทำให้มือถือ/ไอแพดเด้งกลับและหน่วง
-
-    setTimeout(stableLayoutStrongPass, 1200);
-    setTimeout(stableLayoutStrongPass, 2600);
-})();
-
-
+// CLEAN MODEBOX RESET: removed conflicting modebox controller `mobileStableFinal`.
 // =====================================================
 // 🌙 DARK MODE STABLE FINAL
 // แก้กรณีปุ่ม Dark Mode ไม่ทำงานหลังแพตช์ mobile-stable-ui
@@ -12014,29 +10766,86 @@ renderAchievements = function() {
 
 
 <script>
-/* ✅ CLEAN PATCH: no autoplay guard + image loading helper */
-(function cleanPatchNoAutoAndPerf() {
-    const timerKeys = [
-        'modeCarouselTimer',
-        'carouselTimer',
-        'autoSlideTimer',
-        'mobileCarouselTimer',
-        'modeAutoSlideTimer',
-        'carouselAutoTimer',
-        'compactAutoTimer',
-        'compactModeTimer'
-    ];
+/* =====================================================
+   CLEAN MODEBOX RESET: mobile/tablet layout helper only
+   - ตั้ง class มือถือ/แท็บเล็ต
+   - ย้าย HUD/side panel ลงใต้ carousel แบบเบา ๆ
+   - ไม่ยุ่งกับ active mode card
+   - ไม่มี setInterval, ไม่มี MutationObserver
+===================================================== */
+(function cleanMobileLayoutHelperOnly() {
+    const QUERY = '(max-width: 900px)';
 
-    function clearKnownAutoTimers() {
-        timerKeys.forEach((key) => {
-            try {
-                if (window[key]) {
-                    clearInterval(window[key]);
-                    clearTimeout(window[key]);
-                    window[key] = null;
-                }
-            } catch (error) {}
-        });
+    function isMobileLike() {
+        return window.matchMedia && window.matchMedia(QUERY).matches;
+    }
+
+    function isHomeVisible() {
+        const home = document.getElementById('home-screen');
+        return !!home && getComputedStyle(home).display !== 'none';
+    }
+
+    function applyClass() {
+        document.body.classList.toggle('mobile-stable-ui', isMobileLike());
+    }
+
+    function ensureDashboardPanel() {
+        const home = document.getElementById('home-screen');
+        const anchor = document.querySelector('#home-screen .mode-carousel-shell') || document.querySelector('#home-screen .menu-container');
+        if (!home || !anchor) return null;
+
+        let panel = document.getElementById('mobileStableDashboard');
+        if (!panel) {
+            panel = document.createElement('div');
+            panel.id = 'mobileStableDashboard';
+            panel.className = 'mobile-stable-dashboard';
+        }
+
+        if (panel.parentElement !== home || panel.previousElementSibling !== anchor) {
+            anchor.insertAdjacentElement('afterend', panel);
+        }
+
+        return panel;
+    }
+
+    function restoreDesktopPlacement() {
+        const host = document.querySelector('.game-container');
+        if (!host) return;
+
+        const hud = document.getElementById('globalEconomyHud');
+        const side = document.getElementById('homeSideStack');
+        const themeCorner = host.querySelector('.game-theme-corner');
+
+        if (hud && hud.parentElement?.id === 'mobileStableDashboard') {
+            if (themeCorner) host.insertBefore(hud, themeCorner);
+            else host.insertAdjacentElement('afterbegin', hud);
+        }
+
+        if (side && side.parentElement?.id === 'mobileStableDashboard') {
+            if (themeCorner) themeCorner.insertAdjacentElement('afterend', side);
+            else host.insertAdjacentElement('afterbegin', side);
+        }
+    }
+
+    function placeDashboardOnce() {
+        applyClass();
+
+        if (!isMobileLike() || !isHomeVisible()) {
+            restoreDesktopPlacement();
+            return;
+        }
+
+        const panel = ensureDashboardPanel();
+        if (!panel) return;
+
+        const hud = document.getElementById('globalEconomyHud');
+        const side = document.getElementById('homeSideStack');
+
+        if (hud && hud.parentElement !== panel) panel.appendChild(hud);
+        if (side && side.parentElement !== panel) panel.appendChild(side);
+
+        const oldPanel = document.getElementById('mobileBelowModesPanel');
+        if (oldPanel && oldPanel !== panel) oldPanel.style.display = 'none';
     }
 
     function optimizeImages() {
@@ -12047,444 +10856,20 @@ renderAchievements = function() {
         });
     }
 
-    function run() {
-        clearKnownAutoTimers();
+    function boot() {
+        placeDashboardOnce();
         optimizeImages();
     }
 
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', run, { once: true });
-    } else {
-        run();
-    }
-
-    window.addEventListener('load', run, { once: true });
-    document.addEventListener('visibilitychange', () => {
-        if (!document.hidden) clearKnownAutoTimers();
-    });
-})();
-</script>
-
-
-<script>
-/* ✅ CLEAN PATCH 1.1: center visible mode card after resize only, no autoplay */
-(function cleanPatchCenterModeCardOnResize() {
-    let resizeTimer = null;
-
-    function isMobileLike() {
-        return window.innerWidth <= 900 || (window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
-    }
-
-    function getMenu() {
-        return document.querySelector('#home-screen .menu-container.mode-carousel');
-    }
-
-    function getCards(menu) {
-        return Array.from(menu.querySelectorAll(':scope > .mode-btn')).filter((card) => {
-            return !card.classList.contains('mode-carousel-clone') && !card.classList.contains('mode-loop-clone');
-        });
-    }
-
-    function nearestIndex(menu, cards) {
-        const center = menu.scrollLeft + (menu.clientWidth / 2);
-        let best = 0;
-        let bestDistance = Infinity;
-
-        cards.forEach((card, index) => {
-            const cardCenter = card.offsetLeft + (card.offsetWidth / 2);
-            const distance = Math.abs(cardCenter - center);
-            if (distance < bestDistance) {
-                bestDistance = distance;
-                best = index;
-            }
-        });
-
-        return best;
-    }
-
-    function centerCard(index, behavior) {
-        if (!isMobileLike()) return;
-
-        const menu = getMenu();
-        if (!menu) return;
-
-        menu.style.transform = 'none';
-        menu.style.translate = 'none';
-
-        const cards = getCards(menu);
-        if (!cards.length) return;
-
-        const safeIndex = Math.max(0, Math.min(index, cards.length - 1));
-        const card = cards[safeIndex];
-
-        const left = card.offsetLeft - ((menu.clientWidth - card.offsetWidth) / 2);
-        const maxLeft = Math.max(0, menu.scrollWidth - menu.clientWidth);
-        const safeLeft = Math.min(Math.max(0, left), maxLeft);
-
-        menu.scrollTo({ left: safeLeft, behavior: behavior || 'auto' });
-        menu.dataset.activeIndex = String(safeIndex);
-    }
-
-    function centerCurrent() {
-        const menu = getMenu();
-        if (!menu || !isMobileLike()) return;
-
-        const cards = getCards(menu);
-        if (!cards.length) return;
-
-        const active = Number(menu.dataset.activeIndex);
-        const index = Number.isFinite(active) ? active : nearestIndex(menu, cards);
-
-        centerCard(index, 'auto');
-    }
-
-    function boot() {
-        if (!isMobileLike()) return;
-        window.setTimeout(centerCurrent, 120);
-        window.setTimeout(centerCurrent, 520);
-    }
-
-    if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', boot, { once: true });
     } else {
         boot();
     }
 
     window.addEventListener('load', boot, { once: true });
-
-    window.addEventListener('resize', () => {
-        if (!isMobileLike()) return;
-        clearTimeout(resizeTimer);
-        resizeTimer = window.setTimeout(centerCurrent, 160);
-    }, { passive: true });
-
-    window.addEventListener('orientationchange', () => {
-        window.setTimeout(centerCurrent, 260);
-    }, { passive: true });
-})();
-</script>
-
-
-<script>
-/* ✅ CLEAN PATCH 1.3: manual carousel only real cards, never clones */
-(function cleanPatchManualModeCardsOnly() {
-    const timerKeys = [
-        'modeCarouselTimer',
-        'carouselTimer',
-        'autoSlideTimer',
-        'mobileCarouselTimer',
-        'modeAutoSlideTimer',
-        'carouselAutoTimer',
-        'compactAutoTimer',
-        'compactModeTimer'
-    ];
-
-    function clearKnownAutoTimers() {
-        timerKeys.forEach((key) => {
-            try {
-                if (window[key]) {
-                    clearInterval(window[key]);
-                    clearTimeout(window[key]);
-                    window[key] = null;
-                }
-            } catch (error) {}
-        });
-    }
-
-    function isMobileLike() {
-        return window.innerWidth <= 900 || (window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
-    }
-
-    function getShell() {
-        return document.querySelector('#home-screen .mode-carousel-shell');
-    }
-
-    function getMenu() {
-        return document.querySelector('#home-screen .menu-container.mode-carousel');
-    }
-
-    function getRealCards(menu) {
-        return Array.from(menu.querySelectorAll(':scope > .mode-btn')).filter((card) => {
-            return !card.classList.contains('mode-carousel-clone') && !card.classList.contains('mode-loop-clone');
-        });
-    }
-
-    function normalize(index, length) {
-        return ((index % length) + length) % length;
-    }
-
-    function nearestIndex(menu, cards) {
-        const dataIndex = Number(menu.dataset.activeIndex);
-        if (Number.isFinite(dataIndex) && dataIndex >= 0 && dataIndex < cards.length) {
-            return dataIndex;
-        }
-
-        const center = menu.scrollLeft + (menu.clientWidth / 2);
-        let best = 0;
-        let bestDistance = Infinity;
-
-        cards.forEach((card, index) => {
-            const cardCenter = card.offsetLeft + (card.offsetWidth / 2);
-            const distance = Math.abs(cardCenter - center);
-            if (distance < bestDistance) {
-                bestDistance = distance;
-                best = index;
-            }
-        });
-
-        return best;
-    }
-
-    function applyActiveCard(menu, cards, index) {
-        cards.forEach((card) => {
-            card.classList.remove('mobile-mode-active');
-            card.style.visibility = '';
-            card.style.opacity = '';
-            card.style.pointerEvents = '';
-        });
-
-        const card = cards[index];
-        if (!card) return;
-
-        card.classList.add('mobile-mode-active');
-        menu.dataset.activeIndex = String(index);
-
-        // ถ้า CSS มือถือแสดงทีละใบ ให้ scrollLeft เป็น 0 ตามระบบเดิม
-        if (isMobileLike() && (
-            document.body.classList.contains('mobile-ui') ||
-            document.body.classList.contains('mobile-compact-ui') ||
-            document.body.classList.contains('mobile-stable-ui')
-        )) {
-            menu.scrollLeft = 0;
-            return;
-        }
-
-        const left = card.offsetLeft - ((menu.clientWidth - card.offsetWidth) / 2);
-        const maxLeft = Math.max(0, menu.scrollWidth - menu.clientWidth);
-        const safeLeft = Math.min(Math.max(0, left), maxLeft);
-        menu.scrollTo({ left: safeLeft, behavior: 'smooth' });
-    }
-
-    function step(direction) {
-        clearKnownAutoTimers();
-
-        const menu = getMenu();
-        if (!menu) return;
-
-        const cards = getRealCards(menu);
-        if (!cards.length) return;
-
-        menu.querySelectorAll(':scope > .mode-carousel-clone, :scope > .mode-loop-clone').forEach((clone) => {
-            clone.style.display = 'none';
-            clone.setAttribute('aria-hidden', 'true');
-        });
-
-        const current = nearestIndex(menu, cards);
-        const next = normalize(current + direction, cards.length);
-        applyActiveCard(menu, cards, next);
-    }
-
-    function bindOnce() {
-        const shell = getShell();
-        const menu = getMenu();
-        if (!shell || !menu || shell.dataset.cleanManual13 === '1') return;
-
-        shell.dataset.cleanManual13 = '1';
-
-        const prev = shell.querySelector('.mode-carousel-prev');
-        const next = shell.querySelector('.mode-carousel-next');
-
-        if (prev) {
-            prev.addEventListener('click', (event) => {
-                event.preventDefault();
-                event.stopImmediatePropagation();
-                step(-1);
-            }, true);
-        }
-
-        if (next) {
-            next.addEventListener('click', (event) => {
-                event.preventDefault();
-                event.stopImmediatePropagation();
-                step(1);
-            }, true);
-        }
-    }
-
-    function boot() {
-        clearKnownAutoTimers();
-        bindOnce();
-
-        const menu = getMenu();
-        if (!menu) return;
-
-        const cards = getRealCards(menu);
-        if (!cards.length) return;
-
-        let active = Number(menu.dataset.activeIndex);
-        if (!Number.isFinite(active) || active < 0 || active >= cards.length) active = 0;
-
-        applyActiveCard(menu, cards, active);
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', boot, { once: true });
-    } else {
-        boot();
-    }
-
-    window.addEventListener('load', boot, { once: true });
-    document.addEventListener('visibilitychange', () => {
-        if (!document.hidden) clearKnownAutoTimers();
-    });
-})();
-</script>
-
-
-<script>
-/* ✅ CLEAN PATCH 1.6: show one real mode card only, manual prev/next */
-(function singleCardManualModeCarousel16() {
-    const timerKeys = [
-        'modeCarouselTimer',
-        'carouselTimer',
-        'autoSlideTimer',
-        'mobileCarouselTimer',
-        'modeAutoSlideTimer',
-        'carouselAutoTimer',
-        'compactAutoTimer',
-        'compactModeTimer'
-    ];
-
-    function isMobileLike() {
-        return window.innerWidth <= 900 || (window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
-    }
-
-    function clearKnownAutoTimers() {
-        timerKeys.forEach((key) => {
-            try {
-                if (window[key]) {
-                    clearInterval(window[key]);
-                    clearTimeout(window[key]);
-                    window[key] = null;
-                }
-            } catch (error) {}
-        });
-    }
-
-    function getShell() {
-        return document.querySelector('#home-screen .mode-carousel-shell');
-    }
-
-    function getMenu() {
-        return document.querySelector('#home-screen .menu-container.mode-carousel');
-    }
-
-    function getRealCards(menu) {
-        return Array.from(menu.querySelectorAll(':scope > .mode-btn')).filter((card) => {
-            return !card.classList.contains('mode-carousel-clone') && !card.classList.contains('mode-loop-clone');
-        });
-    }
-
-    function normalize(index, total) {
-        return ((index % total) + total) % total;
-    }
-
-    function setActive(index) {
-        if (!isMobileLike()) return;
-
-        clearKnownAutoTimers();
-
-        const menu = getMenu();
-        if (!menu) return;
-
-        const cards = getRealCards(menu);
-        if (!cards.length) return;
-
-        const activeIndex = normalize(index, cards.length);
-
-        menu.querySelectorAll(':scope > .mode-carousel-clone, :scope > .mode-loop-clone').forEach((clone) => {
-            clone.style.display = 'none';
-            clone.setAttribute('aria-hidden', 'true');
-        });
-
-        cards.forEach((card, i) => {
-            card.classList.toggle('single-mode-active', i === activeIndex);
-            card.classList.toggle('mobile-mode-active', i === activeIndex);
-            card.setAttribute('aria-hidden', i === activeIndex ? 'false' : 'true');
-        });
-
-        menu.dataset.activeIndex = String(activeIndex);
-        menu.scrollLeft = 0;
-        menu.style.transform = 'none';
-        menu.style.translate = 'none';
-    }
-
-    function step(direction) {
-        const menu = getMenu();
-        if (!menu) return;
-
-        const cards = getRealCards(menu);
-        if (!cards.length) return;
-
-        const current = Number(menu.dataset.activeIndex);
-        const active = Number.isFinite(current) ? current : 0;
-        setActive(active + direction);
-    }
-
-    function bindOnce() {
-        const shell = getShell();
-        if (!shell || shell.dataset.singleCard16 === '1') return;
-
-        shell.dataset.singleCard16 = '1';
-
-        const prev = shell.querySelector('.mode-carousel-prev');
-        const next = shell.querySelector('.mode-carousel-next');
-
-        if (prev) {
-            prev.addEventListener('click', (event) => {
-                if (!isMobileLike()) return;
-                event.preventDefault();
-                event.stopImmediatePropagation();
-                step(-1);
-            }, true);
-        }
-
-        if (next) {
-            next.addEventListener('click', (event) => {
-                if (!isMobileLike()) return;
-                event.preventDefault();
-                event.stopImmediatePropagation();
-                step(1);
-            }, true);
-        }
-    }
-
-    function boot() {
-        clearKnownAutoTimers();
-        bindOnce();
-
-        if (!isMobileLike()) return;
-
-        const menu = getMenu();
-        if (!menu) return;
-
-        const active = Number(menu.dataset.activeIndex);
-        setActive(Number.isFinite(active) ? active : 0);
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', boot, { once: true });
-    } else {
-        boot();
-    }
-
-    window.addEventListener('load', boot, { once: true });
-    document.addEventListener('visibilitychange', () => {
-        if (!document.hidden) clearKnownAutoTimers();
-    });
-    window.addEventListener('resize', () => {
-        if (isMobileLike()) window.setTimeout(boot, 80);
-    }, { passive: true });
+    window.addEventListener('resize', () => window.setTimeout(boot, 140), { passive: true });
+    window.addEventListener('orientationchange', () => window.setTimeout(boot, 320), { passive: true });
 })();
 </script>
 
