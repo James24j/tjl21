@@ -5197,6 +5197,591 @@ body.dark-mode .project-cta-link {
     }
 }
 
+
+        /* 🚧 Emoji Coming Soon: ปิดโหมดไว้ก่อน โดยไม่ทับระบบ carousel เดิม */
+        .mode-btn.mode-coming-soon {
+            cursor: not-allowed !important;
+            opacity: .82;
+            filter: grayscale(.10) saturate(.90);
+            background:
+                radial-gradient(circle at 20% 18%, rgba(255,255,255,.72), transparent 26%),
+                linear-gradient(135deg, rgba(192, 195, 211, .94), rgba(148, 154, 178, .88) 52%, rgba(207, 215, 232, .82)) !important;
+        }
+        .mode-btn.mode-coming-soon:hover {
+            filter: grayscale(.10) saturate(.90);
+        }
+        .mode-btn.mode-coming-soon .mode-icon {
+            opacity: .76;
+        }
+        .coming-soon-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: fit-content;
+            margin-top: 8px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            font-size: .76rem;
+            font-weight: 950;
+            color: #6f6370;
+            background: rgba(255,255,255,.55);
+            border: 1px solid rgba(255,255,255,.55);
+        }
+        body.dark-mode .coming-soon-badge {
+            color: #e7eaf8;
+            background: rgba(255,255,255,.12);
+            border-color: rgba(255,255,255,.14);
+        }
+
+
+        /* =====================================================
+           CLEAN MODEBOX RESET FINAL
+           1 ระบบ / 1 active index / ไม่มี auto / ไม่มี clone
+           เฉพาะกล่องโหมดเท่านั้น
+        ===================================================== */
+
+        #home-screen .mode-carousel-shell.clean-mode-carousel {
+            isolation: isolate;
+        }
+
+        #home-screen .mode-carousel-shell.clean-mode-carousel .mode-carousel-clone,
+        #home-screen .mode-carousel-shell.clean-mode-carousel .mode-loop-clone {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+
+        @media (max-width: 900px), (pointer: coarse) {
+            body {
+                background-attachment: scroll !important;
+            }
+
+            body::before,
+            body::after {
+                animation: none !important;
+                filter: blur(10px) !important;
+                opacity: .32 !important;
+            }
+
+            #sakura-bg-container .sakura,
+            .confetti {
+                display: none !important;
+                animation: none !important;
+            }
+
+            .mode-btn::before,
+            .mini-action-btn::before,
+            .filter-btn::before,
+            .submit-btn::before,
+            .modal-close-btn::before,
+            .next-mode-btn::before,
+            .feedback-btn::before,
+            .back-btn::before {
+                display: none !important;
+            }
+
+            .game-container,
+            .roster-section,
+            .modal-card,
+            .filter-panel,
+            .yesterday-box,
+            #eye-clue-container,
+            #silhouette-clue-container,
+            .bullet-timer-box,
+            .bullet-question-box,
+            .roster-card,
+            .achievement-card,
+            .modal-info-box,
+            .toast,
+            input,
+            select,
+            .dropdown-content {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+            }
+
+            #home-screen .mode-carousel-shell.clean-mode-carousel {
+                --mode-card-w: min(312px, 72vw);
+                --mode-card-h: 138px;
+                --mode-nav-w: 44px;
+
+                width: min(96vw, calc(var(--mode-card-w) + (var(--mode-nav-w) * 2) + 18px)) !important;
+                max-width: 100% !important;
+                display: grid !important;
+                grid-template-columns: var(--mode-nav-w) var(--mode-card-w) var(--mode-nav-w) !important;
+                gap: 9px !important;
+                align-items: center !important;
+                justify-content: center !important;
+                margin: 10px auto 16px auto !important;
+                overflow: visible !important;
+                box-sizing: border-box !important;
+                min-height: calc(var(--mode-card-h) + 8px) !important;
+            }
+
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-carousel-nav {
+                width: var(--mode-nav-w) !important;
+                height: var(--mode-nav-w) !important;
+                min-width: var(--mode-nav-w) !important;
+                min-height: var(--mode-nav-w) !important;
+                max-width: var(--mode-nav-w) !important;
+                max-height: var(--mode-nav-w) !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                display: grid !important;
+                place-items: center !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                pointer-events: auto !important;
+                z-index: 80 !important;
+                transform: none !important;
+                line-height: 1 !important;
+                box-sizing: border-box !important;
+            }
+
+            #home-screen .mode-carousel-shell.clean-mode-carousel .menu-container.mode-carousel {
+                width: var(--mode-card-w) !important;
+                min-width: var(--mode-card-w) !important;
+                max-width: var(--mode-card-w) !important;
+                height: var(--mode-card-h) !important;
+                min-height: var(--mode-card-h) !important;
+                max-height: var(--mode-card-h) !important;
+                display: block !important;
+                overflow: hidden !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                gap: 0 !important;
+                transform: none !important;
+                translate: none !important;
+                transition: none !important;
+                scroll-behavior: auto !important;
+                scroll-snap-type: none !important;
+                box-sizing: border-box !important;
+            }
+
+            #home-screen .mode-carousel-shell.clean-mode-carousel .menu-container.mode-carousel > .mode-btn.mode-carousel-real {
+                display: none !important;
+                width: var(--mode-card-w) !important;
+                min-width: var(--mode-card-w) !important;
+                max-width: var(--mode-card-w) !important;
+                height: var(--mode-card-h) !important;
+                min-height: var(--mode-card-h) !important;
+                max-height: var(--mode-card-h) !important;
+                margin: 0 !important;
+                padding: 16px 16px !important;
+                border-radius: 24px !important;
+                overflow: hidden !important;
+                transform: none !important;
+                box-sizing: border-box !important;
+                opacity: 0 !important;
+                visibility: hidden !important;
+                pointer-events: none !important;
+            }
+
+            #home-screen .mode-carousel-shell.clean-mode-carousel .menu-container.mode-carousel > .mode-btn.mode-carousel-real.mode-is-active,
+            #home-screen .mode-carousel-shell.clean-mode-carousel .menu-container.mode-carousel > .mode-btn.mode-carousel-real.mobile-mode-active {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                gap: 12px !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                pointer-events: auto !important;
+            }
+
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-btn .mode-info {
+                flex: 1 1 auto !important;
+                min-width: 0 !important;
+                max-width: calc(100% - 76px) !important;
+                overflow: hidden !important;
+                text-align: left !important;
+            }
+
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-btn .mode-info > div:first-child,
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-btn .mode-desc {
+                display: -webkit-box !important;
+                -webkit-box-orient: vertical !important;
+                overflow: hidden !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-btn .mode-info > div:first-child {
+                -webkit-line-clamp: 2 !important;
+                font-size: 1.04rem !important;
+                line-height: 1.13 !important;
+            }
+
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-btn .mode-desc {
+                -webkit-line-clamp: 2 !important;
+                font-size: .74rem !important;
+                line-height: 1.25 !important;
+                margin-top: 6px !important;
+            }
+
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-face-wrap,
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-face-img,
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-icon {
+                width: 64px !important;
+                height: 64px !important;
+                min-width: 64px !important;
+                min-height: 64px !important;
+                max-width: 64px !important;
+                max-height: 64px !important;
+                flex: 0 0 64px !important;
+                object-fit: cover !important;
+                margin: 0 !important;
+            }
+        }
+
+        @media (max-width: 390px) {
+            #home-screen .mode-carousel-shell.clean-mode-carousel {
+                --mode-card-w: min(276px, 70vw);
+                --mode-card-h: 132px;
+                --mode-nav-w: 40px;
+                gap: 6px !important;
+            }
+
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-face-wrap,
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-face-img,
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-icon {
+                width: 58px !important;
+                height: 58px !important;
+                min-width: 58px !important;
+                min-height: 58px !important;
+                max-width: 58px !important;
+                max-height: 58px !important;
+                flex-basis: 58px !important;
+            }
+
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-btn .mode-info {
+                max-width: calc(100% - 68px) !important;
+            }
+        }
+
+
+        /* =====================================================
+           PATCH 10.1: Equal left/right mode nav position only
+           แก้เฉพาะตำแหน่งปุ่มซ้าย-ขวาของกล่องโหมด
+           ไม่แตะระบบ carousel / ไม่แตะ layout อื่น
+        ===================================================== */
+        @media (max-width: 900px), (pointer: coarse) {
+            #home-screen .mode-carousel-shell.clean-mode-carousel {
+                display: grid !important;
+                grid-template-columns: var(--mode-nav-w) var(--mode-card-w) var(--mode-nav-w) !important;
+                grid-template-areas: "prev card next" !important;
+                align-items: center !important;
+                justify-content: center !important;
+                justify-items: center !important;
+                column-gap: 9px !important;
+                overflow: visible !important;
+            }
+
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-carousel-prev {
+                grid-area: prev !important;
+                grid-column: 1 !important;
+                justify-self: center !important;
+                align-self: center !important;
+            }
+
+            #home-screen .mode-carousel-shell.clean-mode-carousel .menu-container.mode-carousel {
+                grid-area: card !important;
+                grid-column: 2 !important;
+                justify-self: center !important;
+                align-self: center !important;
+            }
+
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-carousel-next {
+                grid-area: next !important;
+                grid-column: 3 !important;
+                justify-self: center !important;
+                align-self: center !important;
+            }
+
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-carousel-nav,
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-carousel-prev,
+            #home-screen .mode-carousel-shell.clean-mode-carousel .mode-carousel-next {
+                position: static !important;
+                inset: auto !important;
+                left: auto !important;
+                right: auto !important;
+                top: auto !important;
+                bottom: auto !important;
+                transform: none !important;
+                translate: none !important;
+                margin: 0 !important;
+                float: none !important;
+            }
+        }
+
+        @media (max-width: 390px) {
+            #home-screen .mode-carousel-shell.clean-mode-carousel {
+                column-gap: 6px !important;
+            }
+        }
+
+
+        /* =====================================================
+           PATCH 10.6: HOF Gacha highlight + patch liquid notice
+           ไม่แตะ layout กล่องโหมด
+        ===================================================== */
+        .hof-gacha-highlight-106,
+        [data-gacha-type="hall-of-fame"],
+        [data-gacha="hall-of-fame"],
+        [data-gacha-id="hall-of-fame"] {
+            background:
+                radial-gradient(circle at 18% 18%, rgba(255,255,255,.88), transparent 28%),
+                linear-gradient(135deg, rgba(255, 213, 79, .95), rgba(251, 111, 146, .92) 48%, rgba(142, 197, 252, .86)) !important;
+            border: 2px solid rgba(255, 213, 79, .85) !important;
+            box-shadow:
+                0 18px 38px rgba(251, 111, 146, .28),
+                0 0 0 4px rgba(255, 213, 79, .18),
+                inset 0 1px 0 rgba(255,255,255,.72) !important;
+        }
+
+        .patch-liquid-notice-106 {
+            position: fixed;
+            left: 50%;
+            bottom: 18px;
+            transform: translateX(-50%);
+            width: min(520px, calc(100vw - 28px));
+            z-index: 13000;
+            border-radius: 26px;
+            padding: 16px 18px;
+            text-align: left;
+            background:
+                radial-gradient(circle at 12% 12%, rgba(255,255,255,.86), transparent 35%),
+                linear-gradient(145deg, rgba(255,255,255,.76), rgba(255,214,226,.56));
+            border: 1px solid rgba(255,255,255,.64);
+            box-shadow: 0 22px 60px rgba(251,111,146,.24), inset 0 1px 0 rgba(255,255,255,.72);
+            backdrop-filter: blur(18px) saturate(150%);
+            -webkit-backdrop-filter: blur(18px) saturate(150%);
+            color: #6d5434;
+        }
+
+        .patch-liquid-notice-106-title {
+            font-weight: 950;
+            color: #fb6f92;
+            margin-bottom: 6px;
+            font-size: 1rem;
+        }
+
+        .patch-liquid-notice-106-body {
+            font-weight: 800;
+            font-size: .88rem;
+            line-height: 1.45;
+        }
+
+        .patch-liquid-notice-106-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .patch-liquid-notice-106-btn {
+            border: none;
+            border-radius: 999px;
+            padding: 9px 13px;
+            cursor: pointer;
+            font-weight: 900;
+            color: #fff;
+            background: linear-gradient(135deg, #ff8fab, #fb6f92);
+            box-shadow: 0 10px 22px rgba(251,111,146,.22);
+        }
+
+        .patch-liquid-notice-106-btn.secondary {
+            color: #6d5434;
+            background: linear-gradient(135deg, rgba(255,255,255,.9), rgba(255,213,79,.72));
+        }
+
+        body.dark-mode .patch-liquid-notice-106 {
+            background: linear-gradient(145deg, rgba(37,44,68,.86), rgba(24,29,48,.72));
+            color: #edf2ff;
+            border-color: rgba(173,184,232,.24);
+        }
+
+
+        /* =====================================================
+           PATCH 10.7: Requested-only fixes
+           - Hide Collectible Gacha
+           - Stronger Hall Of Fame Card Gacha contrast
+           - Note Patch modal style
+           ไม่แตะกล่องโหมด / carousel
+        ===================================================== */
+
+        .collectible-gacha-hidden-107 {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+
+        .hof-gacha-highlight-107,
+        .hof-gacha-highlight-106,
+        [data-gacha-type="hall-of-fame"],
+        [data-gacha="hall-of-fame"],
+        [data-gacha-id="hall-of-fame"] {
+            background:
+                radial-gradient(circle at 16% 18%, rgba(255,255,255,.92), transparent 30%),
+                linear-gradient(135deg, #fff1a8 0%, #ff8fab 46%, #6ea8ff 100%) !important;
+            border: 2px solid rgba(255, 207, 64, .96) !important;
+            box-shadow:
+                0 18px 38px rgba(251, 111, 146, .34),
+                0 0 0 4px rgba(255, 207, 64, .26),
+                inset 0 1px 0 rgba(255,255,255,.82) !important;
+            color: #4a2f45 !important;
+        }
+
+        .hof-gacha-highlight-107 *,
+        .hof-gacha-highlight-106 * {
+            color: #4a2f45 !important;
+            text-shadow: 0 1px 0 rgba(255,255,255,.36) !important;
+        }
+
+        .hof-gacha-highlight-107 b,
+        .hof-gacha-highlight-106 b,
+        .hof-gacha-highlight-107 .gacha-title,
+        .hof-gacha-highlight-106 .gacha-title {
+            color: #d93167 !important;
+            font-weight: 950 !important;
+        }
+
+        .patch-liquid-notice-106 {
+            position: fixed !important;
+            inset: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            transform: none !important;
+            left: 0 !important;
+            bottom: auto !important;
+            z-index: 13000 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 18px !important;
+            box-sizing: border-box !important;
+            border-radius: 0 !important;
+            background:
+                radial-gradient(circle at 12% 12%, rgba(255,143,171,.36), transparent 34%),
+                radial-gradient(circle at 88% 16%, rgba(142,197,252,.38), transparent 36%),
+                linear-gradient(135deg, rgba(255,230,238,.72), rgba(199,218,255,.68), rgba(255,198,132,.46)) !important;
+            backdrop-filter: blur(18px) saturate(150%) !important;
+            -webkit-backdrop-filter: blur(18px) saturate(150%) !important;
+            border: none !important;
+            box-shadow: none !important;
+            color: #5f5264 !important;
+            text-align: left !important;
+        }
+
+        .patch-liquid-notice-106-card {
+            width: min(520px, 94vw);
+            max-height: min(86vh, 720px);
+            overflow: auto;
+            border-radius: 34px;
+            padding: 28px 28px 24px 28px;
+            background:
+                radial-gradient(circle at 88% 4%, rgba(142,197,252,.42), transparent 30%),
+                radial-gradient(circle at 10% 100%, rgba(255,143,171,.28), transparent 34%),
+                linear-gradient(145deg, rgba(255,255,255,.78), rgba(255,255,255,.46));
+            border: 1px solid rgba(255,255,255,.72);
+            box-shadow: 0 24px 70px rgba(78, 65, 106, .24), inset 0 1px 0 rgba(255,255,255,.74);
+            box-sizing: border-box;
+        }
+
+        .patch-liquid-notice-106-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(255,255,255,.64);
+            color: #6d5c70;
+            font-weight: 950;
+            font-size: .82rem;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.72), 0 8px 18px rgba(111,83,168,.10);
+            margin-bottom: 12px;
+        }
+
+        .patch-liquid-notice-106-title {
+            font-size: clamp(2.1rem, 7vw, 3.25rem) !important;
+            line-height: .98 !important;
+            margin: 0 0 18px 0 !important;
+            font-weight: 950 !important;
+            letter-spacing: -1.4px !important;
+            background: linear-gradient(90deg, #ff3f7f 0%, #ff8f5a 54%, #7fb8ff 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent !important;
+            text-shadow: none !important;
+        }
+
+        .patch-liquid-notice-106-body {
+            border-radius: 24px;
+            padding: 18px 20px;
+            background: rgba(255,255,255,.48);
+            border: 1px solid rgba(255,255,255,.66);
+            color: #63586a !important;
+            font-weight: 850 !important;
+            font-size: .96rem !important;
+            line-height: 1.65 !important;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.72);
+        }
+
+        .patch-liquid-notice-106-body b {
+            color: #4e4556 !important;
+            font-size: 1.02rem;
+        }
+
+        .patch-liquid-notice-106-body ul {
+            margin: 10px 0 0 1.1em;
+            padding: 0;
+        }
+
+        .patch-liquid-notice-106-body li {
+            margin: 7px 0;
+        }
+
+        .patch-liquid-notice-106-actions {
+            display: grid !important;
+            grid-template-columns: 1fr !important;
+            gap: 10px !important;
+            margin-top: 18px !important;
+        }
+
+        .patch-liquid-notice-106-btn {
+            width: 100%;
+            border: none !important;
+            border-radius: 999px !important;
+            padding: 13px 18px !important;
+            cursor: pointer;
+            font-weight: 950 !important;
+            color: #fff !important;
+            background: linear-gradient(135deg, #ff3f7f, #ff9a44) !important;
+            box-shadow: 0 14px 26px rgba(251,111,146,.28), inset 0 1px 0 rgba(255,255,255,.42) !important;
+        }
+
+        .patch-liquid-notice-106-btn.secondary {
+            color: #5f5264 !important;
+            background: linear-gradient(135deg, rgba(255,255,255,.86), rgba(219,235,255,.72)) !important;
+        }
+
+        body.dark-mode .patch-liquid-notice-106-card {
+            background: linear-gradient(145deg, rgba(37,44,68,.90), rgba(24,29,48,.76));
+            border-color: rgba(173,184,232,.24);
+        }
+
+        body.dark-mode .patch-liquid-notice-106-body {
+            background: rgba(21,26,42,.52);
+            color: #edf2ff !important;
+            border-color: rgba(173,184,232,.20);
+        }
+
+        body.dark-mode .patch-liquid-notice-106-body b {
+            color: #ffffff !important;
+        }
+
     </style>
 </head>
 <body>
@@ -6108,7 +6693,10 @@ function createSakura() {
     sakuraContainer.appendChild(sakura);
     setTimeout(() => { sakura.remove(); }, duration * 1000);
 }
-setInterval(createSakura, 500);
+// SPEED BOOT 10.2: มือถือ/iPad ไม่สร้างซากุระด้วย JS เพื่อลดงานตอนเปิดเว็บ
+if (!(window.matchMedia && window.matchMedia('(max-width: 900px), (pointer: coarse)').matches)) {
+    setInterval(createSakura, 900);
+}
 
 // 🎉 ฟังก์ชันสร้างพลุกระดาษฉลองชัยชนะ (Pure JavaScript)
 function triggerConfetti() {
@@ -6657,6 +7245,337 @@ function trackGuessPattern(guessedFriend, isCorrect) {
     }
 }
 
+
+
+/* =====================================================
+   🌸 PATCH 10.6: Economy Reward Balance + Gacha EXP
+   ไม่แก้ layout กล่องโหมด / ไม่แตะ carousel
+   - เหรียญต่อโหมด: ต่ำสุด 45 / สูงสุด 75
+   - เล่นจบโหมด: +15 EXP
+   - เปิดกาชา 1 ครั้ง: +10 EXP
+   - Daily Login Bonus: 75 Sakura Coin
+   - โหมดละ 1 ครั้งต่อวันตามคอนเซ็ปเดิม
+===================================================== */
+const SAKURA_DAILY_LOGIN_KEY_V6 = 'tjldleDailySakuraBonusV6';
+const SAKURA_MODE_REWARD_LOG_KEY_V6 = 'tjldleModeRewardDailyLogV6';
+const SAKURA_MODE_REWARD_MIN_V6 = 45;
+const SAKURA_MODE_REWARD_MAX_V6 = 75;
+const SAKURA_MODE_EXP_PER_FINISH_V6 = 15;
+const SAKURA_GACHA_EXP_PER_DRAW_V6 = 10;
+
+function sakuraRewardTodayKeyV6(date = new Date()) {
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+}
+
+function sakuraRewardClampV6(value, min, max) {
+    return Math.max(min, Math.min(max, value));
+}
+
+function sakuraRewardReadJsonV6(key, fallback) {
+    try {
+        const raw = localStorage.getItem(key);
+        if (!raw) return fallback;
+        return JSON.parse(raw) || fallback;
+    } catch (error) {
+        return fallback;
+    }
+}
+
+function sakuraRewardWriteJsonV6(key, value) {
+    try {
+        localStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {}
+}
+
+function sakuraRewardRefreshEconomyV6() {
+    [
+        'refreshEconomyDisplays',
+        'renderGlobalEconomyStable',
+        'renderGachaHubStable',
+        'renderSingleEconomyAndHub',
+        'updateEconomyUI',
+        'updateHomeStatsUI',
+        'checkTitleRewards'
+    ].forEach((name) => {
+        try {
+            if (typeof window[name] === 'function') window[name]();
+        } catch (error) {}
+    });
+}
+
+function sakuraRewardToastV6(title, message) {
+    try {
+        if (typeof showToast === 'function') {
+            showToast(title, message);
+            return;
+        }
+    } catch (error) {}
+
+    try {
+        if (typeof safeToast === 'function') {
+            safeToast(title, message);
+            return;
+        }
+    } catch (error) {}
+
+    console.log(`${title}: ${message}`);
+}
+
+function sakuraRewardAddEconomyV6({ coins = 0, xp = 0, title = 'Sakura Reward 🌸', message = '' }) {
+    const addCoins = Math.max(0, Math.round(Number(coins) || 0));
+    const addXp = Math.max(0, Math.round(Number(xp) || 0));
+
+    const eco = getEconomy();
+    eco.coins = Number(eco.coins || 0) + addCoins;
+    eco.totalCoinsEarned = Number(eco.totalCoinsEarned || 0) + addCoins;
+    eco.xp = Number(eco.xp || 0) + addXp;
+    eco.level = Math.max(1, Math.floor((eco.xp || 0) / 120) + 1);
+
+    setEconomy(eco);
+
+    try {
+        if (eco.totalCoinsEarned >= 500 && typeof unlockAchievement === 'function') unlockAchievement(59);
+    } catch (error) {}
+
+    sakuraRewardRefreshEconomyV6();
+
+    if (message) {
+        sakuraRewardToastV6(title, message);
+    } else {
+        sakuraRewardToastV6(
+            title,
+            `ได้รับ +${addCoins.toLocaleString('th-TH')} Sakura Coin และ +${addXp.toLocaleString('th-TH')} EXP`
+        );
+    }
+
+    return { coins: addCoins, xp: addXp };
+}
+
+function sakuraRewardModeLabelV6(mode) {
+    try {
+        if (MODE_CONFIG && MODE_CONFIG[mode]) {
+            return MODE_CONFIG[mode].shortLabel || MODE_CONFIG[mode].label || mode;
+        }
+    } catch (error) {}
+
+    const labels = {
+        classic: 'Classic Mode',
+        eye: 'Eye Mode',
+        silhouette: 'Blur Mode',
+        bullet: 'Bullet Mode',
+        emoji: 'Emoji Clue Mode',
+        boss: 'Boss Mode',
+        timeline: 'Timeline / Memory Mode'
+    };
+    return labels[mode] || mode || 'Game Mode';
+}
+
+function sakuraRewardGuessModeAmountV6({ mode, won, tries, hintUsed }) {
+    const safeTries = Math.max(1, Number(tries || 1));
+
+    if (!won) return SAKURA_MODE_REWARD_MIN_V6;
+
+    let coins = SAKURA_MODE_REWARD_MIN_V6;
+
+    if (safeTries <= 1) coins = 75;
+    else if (safeTries === 2) coins = 70;
+    else if (safeTries === 3) coins = 65;
+    else if (safeTries <= 5) coins = 58;
+    else if (safeTries <= 8) coins = 52;
+    else coins = 48;
+
+    if (mode === 'boss') {
+        const wrong = Math.max(0, safeTries - 1);
+        coins = 75 - (wrong * 7);
+    }
+
+    if (hintUsed) coins -= 5;
+
+    return sakuraRewardClampV6(Math.round(coins), SAKURA_MODE_REWARD_MIN_V6, SAKURA_MODE_REWARD_MAX_V6);
+}
+
+function sakuraRewardBulletAmountV6({ correctCount, totalCount }) {
+    const total = Math.max(1, Number(totalCount || 1));
+    const correct = sakuraRewardClampV6(Number(correctCount || 0), 0, total);
+
+    if (correct <= 0) return SAKURA_MODE_REWARD_MIN_V6;
+    if (correct >= total) return SAKURA_MODE_REWARD_MAX_V6;
+
+    return sakuraRewardClampV6(
+        Math.round(SAKURA_MODE_REWARD_MIN_V6 + ((correct / total) * (SAKURA_MODE_REWARD_MAX_V6 - SAKURA_MODE_REWARD_MIN_V6))),
+        SAKURA_MODE_REWARD_MIN_V6,
+        SAKURA_MODE_REWARD_MAX_V6
+    );
+}
+
+function sakuraRewardGetDailyLogV6() {
+    return sakuraRewardReadJsonV6(SAKURA_MODE_REWARD_LOG_KEY_V6, {});
+}
+
+function sakuraRewardSetDailyLogV6(log) {
+    const days = Object.keys(log).sort();
+    while (days.length > 21) {
+        const old = days.shift();
+        delete log[old];
+    }
+    sakuraRewardWriteJsonV6(SAKURA_MODE_REWARD_LOG_KEY_V6, log);
+}
+
+function sakuraRewardGetModeDailyClaimV6(mode) {
+    const today = sakuraRewardTodayKeyV6();
+    const log = sakuraRewardGetDailyLogV6();
+    return log?.[today]?.[mode] || null;
+}
+
+function sakuraRewardMarkModeDailyClaimV6(mode, payload) {
+    const today = sakuraRewardTodayKeyV6();
+    const log = sakuraRewardGetDailyLogV6();
+
+    if (!log[today]) log[today] = {};
+    log[today][mode] = {
+        at: new Date().toISOString(),
+        ...payload
+    };
+
+    sakuraRewardSetDailyLogV6(log);
+}
+
+function sakuraRewardAwardModeFinishV6(payload = {}) {
+    const mode = payload.mode || currentMode || 'classic';
+    const label = sakuraRewardModeLabelV6(mode);
+
+    const now = Date.now();
+    const signature = [
+        mode,
+        payload.won ? 'win' : 'lose',
+        payload.tries || 0,
+        payload.correctCount || 0,
+        payload.totalCount || 0
+    ].join('|');
+
+    if (
+        window.__lastSakuraRewardV6 &&
+        window.__lastSakuraRewardV6.signature === signature &&
+        now - window.__lastSakuraRewardV6.at < 2500
+    ) {
+        return 0;
+    }
+    window.__lastSakuraRewardV6 = { signature, at: now };
+
+    const alreadyClaimed = sakuraRewardGetModeDailyClaimV6(mode);
+    if (alreadyClaimed) {
+        sakuraRewardToastV6(
+            `รางวัล ${label} 🌸`,
+            `ตานี้ได้รับ 0 Sakura Coin และ 0 EXP — วันนี้เล่นโหมดนี้ไปแล้ว`
+        );
+        sakuraRewardRefreshEconomyV6();
+        return 0;
+    }
+
+    const coins = mode === 'bullet'
+        ? sakuraRewardBulletAmountV6(payload)
+        : sakuraRewardGuessModeAmountV6(payload);
+
+    const xp = SAKURA_MODE_EXP_PER_FINISH_V6;
+
+    const detail = mode === 'bullet'
+        ? `ตอบถูก ${Number(payload.correctCount || 0)} / ${Math.max(1, Number(payload.totalCount || 1))} ข้อ`
+        : (payload.won ? `ทายจบใน ${Math.max(1, Number(payload.tries || 1))} ครั้ง` : 'เล่นจบแล้ว รับรางวัลขั้นต่ำ');
+
+    sakuraRewardMarkModeDailyClaimV6(mode, {
+        coins,
+        xp,
+        won: !!payload.won,
+        tries: Number(payload.tries || 0),
+        correctCount: Number(payload.correctCount || 0),
+        totalCount: Number(payload.totalCount || 0)
+    });
+
+    return sakuraRewardAddEconomyV6({
+        coins,
+        xp,
+        title: `รางวัล ${label} 🌸`,
+        message: `${detail}: ตานี้ได้รับ +${coins.toLocaleString('th-TH')} Sakura Coin และ +${xp.toLocaleString('th-TH')} EXP`
+    });
+}
+
+function sakuraRewardGrantDailyLoginV6() {
+    const today = sakuraRewardTodayKeyV6();
+    const raw = localStorage.getItem(SAKURA_DAILY_LOGIN_KEY_V6);
+
+    if (raw === today) return 0;
+
+    localStorage.setItem(SAKURA_DAILY_LOGIN_KEY_V6, today);
+
+    return sakuraRewardAddEconomyV6({
+        coins: 75,
+        xp: 0,
+        title: 'โบนัสเข้าเล่นประจำวัน 🌸',
+        message: 'วันนี้ได้รับ +75 Sakura Coin กลับมาเล่นทุกวันเพื่อรับโบนัสอีกนะ!'
+    });
+}
+
+function sakuraRewardAddGachaExpV6(reason = 'เปิดกาชา') {
+    return sakuraRewardAddEconomyV6({
+        coins: 0,
+        xp: SAKURA_GACHA_EXP_PER_DRAW_V6,
+        title: 'Gacha EXP ✨',
+        message: `${reason}: ได้รับ +${SAKURA_GACHA_EXP_PER_DRAW_V6} EXP`
+    });
+}
+
+function sakuraRewardBlockEmojiModeV6() {
+    if (typeof startGame === 'function' && !startGame.__emojiBlockedV6) {
+        const baseStartGame = startGame;
+        const wrappedStartGame = function(mode) {
+            if (mode === 'emoji') {
+                sakuraRewardToastV6('Emoji Mode 🚧', 'โหมดอิโมจิยังไม่เปิดให้เล่น');
+                return;
+            }
+            return baseStartGame.apply(this, arguments);
+        };
+        wrappedStartGame.__emojiBlockedV6 = true;
+        startGame = wrappedStartGame;
+        window.startGame = wrappedStartGame;
+    }
+
+    if (typeof startArcadeMode === 'function' && !startArcadeMode.__emojiBlockedV6) {
+        const baseStartArcadeMode = startArcadeMode;
+        const wrappedStartArcadeMode = function(mode) {
+            if (mode === 'emoji') {
+                sakuraRewardToastV6('Emoji Mode 🚧', 'โหมดอิโมจิยังไม่เปิดให้เล่น');
+                return;
+            }
+            return baseStartArcadeMode.apply(this, arguments);
+        };
+        wrappedStartArcadeMode.__emojiBlockedV6 = true;
+        startArcadeMode = wrappedStartArcadeMode;
+        window.startArcadeMode = wrappedStartArcadeMode;
+    }
+}
+
+function sakuraRewardBootV6() {
+    try {
+        sakuraRewardGrantDailyLoginV6();
+        sakuraRewardBlockEmojiModeV6();
+        sakuraRewardRefreshEconomyV6();
+    } catch (error) {
+        console.warn('Sakura reward boot failed:', error);
+    }
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', sakuraRewardBootV6, { once: true });
+} else {
+    sakuraRewardBootV6();
+}
+
+window.addEventListener('pageshow', sakuraRewardBootV6);
+
+
 function recordHintUse() {
     const meta = getMeta();
     meta.totalHints = (meta.totalHints || 0) + 1;
@@ -6741,6 +7660,14 @@ function handleDailyGameFinished(won) {
 
     setMeta(meta);
     checkAchievementCollectionMilestones();
+
+    // PATCH 10.6: Sakura Coin + EXP reward หลังเล่นจบโหมดทายทั่วไป
+    sakuraRewardAwardModeFinishV6({
+        mode: currentMode,
+        won,
+        tries: tryCount,
+        hintUsed: hintUsedThisGame
+    });
 }
 
 function openAchievementsModal() {
@@ -7194,6 +8121,15 @@ function endBulletMode() {
         if (meta.totalWins >= 500) unlockAchievement(6);
         setMeta(meta);
     }
+
+    // PATCH 10.6: Sakura Coin + EXP reward หลังเล่นจบ Bullet Mode
+    sakuraRewardAwardModeFinishV6({
+        mode: 'bullet',
+        won: bulletCorrectCount > 0,
+        tries: playedCount,
+        correctCount: bulletCorrectCount,
+        totalCount
+    });
 }
 
 function updateBulletStats(playedCount, correctCount) {
@@ -7606,9 +8542,13 @@ function injectExpansionUI() {
     const menu = document.querySelector('#home-screen .menu-container');
     if (menu && !document.getElementById('emojiModeBtn')) {
         menu.insertAdjacentHTML('beforeend', `
-            <button id="emojiModeBtn" class="mode-btn" style="background: linear-gradient(135deg, #ffb86c 0%, #ff6b9a 100%);">
-                <div class="mode-info"><div>Emoji Clue Mode</div><div class="mode-desc">ทายจากอีโมจิ / เตรียมช่องข้อมูลไว้ให้เติมเอง</div></div>
-                <div class="mode-icon">😀</div>
+            <button id="emojiModeBtn" class="mode-btn mode-coming-soon" type="button" aria-disabled="true" data-coming-soon="true" title="พบกันเร็ว ๆ นี้">
+                <div class="mode-info">
+                    <div>Emoji Clue Mode</div>
+                    <div class="mode-desc">พบกันเร็ว ๆ นี้ — กำลังปรับโหมดนี้ให้น่าเล่นกว่าเดิม</div>
+                    <div class="coming-soon-badge">🚧 COMING SOON</div>
+                </div>
+                <div class="mode-icon">🔒</div>
             </button>
             <button id="bossModeBtn" class="mode-btn" style="background: linear-gradient(135deg, #7353ba 0%, #f05d9b 100%);">
                 <div class="mode-info"><div>Boss Mode</div><div class="mode-desc">ท้าทายบอสประจำวัน มีจำนวนครั้งจำกัด</div></div>
@@ -7619,10 +8559,20 @@ function injectExpansionUI() {
                 <div class="mode-icon">🧠</div>
             </button>
         `);
-        document.getElementById('emojiModeBtn').addEventListener('click', () => startArcadeMode('emoji'));
+        // Emoji Clue Mode ปิดไว้ก่อน: พบกันเร็ว ๆ นี้
+        document.getElementById('emojiModeBtn')?.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            if (typeof safeToast === 'function') {
+                safeToast('Emoji Clue Mode', 'พบกันเร็ว ๆ นี้ — กำลังปรับปรุงโหมดนี้อยู่');
+            } else if (typeof showToast === 'function') {
+                showToast('Emoji Clue Mode', 'พบกันเร็ว ๆ นี้ — กำลังปรับปรุงโหมดนี้อยู่');
+            } else {
+                alert('Emoji Clue Mode พบกันเร็ว ๆ นี้');
+            }
+        });
         document.getElementById('bossModeBtn').addEventListener('click', () => startArcadeMode('boss'));
         document.getElementById('timelineModeBtn').addEventListener('click', () => startArcadeMode('timeline'));
-
     }
 
     const rosterActions = document.querySelector('#roster-screen .roster-actions');
@@ -8434,22 +9384,23 @@ renderAchievements = function() {
     function installModeCarousel() {
         const home = document.getElementById('home-screen');
         const menu = home?.querySelector('.menu-container');
+
         if (!home || !menu || menu.closest('.mode-carousel-shell')) return;
 
         const shell = document.createElement('div');
-        shell.className = 'mode-carousel-shell';
-        shell.setAttribute('aria-label', 'โหมดเกมแบบ Infinite Carousel');
+        shell.className = 'mode-carousel-shell clean-mode-carousel';
+        shell.setAttribute('aria-label', 'เลือกโหมดเกม');
 
         const prev = document.createElement('button');
         prev.type = 'button';
         prev.className = 'mode-carousel-nav mode-carousel-prev';
-        prev.setAttribute('aria-label', 'เลื่อนโหมดไปทางซ้าย');
+        prev.setAttribute('aria-label', 'เลื่อนโหมดก่อนหน้า');
         prev.innerHTML = '‹';
 
         const next = document.createElement('button');
         next.type = 'button';
         next.className = 'mode-carousel-nav mode-carousel-next';
-        next.setAttribute('aria-label', 'เลื่อนโหมดไปทางขวา');
+        next.setAttribute('aria-label', 'เลื่อนโหมดถัดไป');
         next.innerHTML = '›';
 
         menu.parentNode.insertBefore(shell, menu);
@@ -8459,193 +9410,165 @@ renderAchievements = function() {
 
         menu.classList.add('mode-carousel');
         menu.setAttribute('tabindex', '0');
-        menu.setAttribute('aria-label', 'เลือกโหมดเกมแบบ Infinite Carousel วนซ้ำได้สองทาง');
+        menu.setAttribute('aria-label', 'เลือกโหมดเกม กดปุ่มซ้ายขวาหรือปัดเพื่อเปลี่ยนโหมด');
 
-        // ใส่รูปเพื่อนให้การ์ดจริงก่อน clone เพื่อให้ clone หน้าตาเหมือนต้นฉบับ
+        // ใส่รูปเพื่อนให้การ์ดจริงเท่านั้น ไม่มี clone card
         assignRandomFriendFacesToModeCards();
 
-        const realItems = Array.from(menu.querySelectorAll(':scope > .mode-btn'));
-        const realCount = realItems.length;
-        if (!realCount) return;
+        const cards = Array.from(menu.querySelectorAll(':scope > .mode-btn'));
+        const total = cards.length;
+        if (!total) return;
 
-        realItems.forEach((item, index) => {
-            item.classList.add('mode-carousel-real');
-            item.dataset.realIndex = String(index);
+        cards.forEach((card, index) => {
+            card.classList.add('mode-carousel-real');
+            card.classList.remove('mode-carousel-clone', 'mode-loop-clone');
+            card.dataset.realIndex = String(index);
+            card.removeAttribute('aria-hidden');
         });
 
-        // 🌀 TRUE INFINITE CAROUSEL
-        // clone ใบท้ายไว้ด้านหน้า และ clone ใบแรกไว้ด้านท้าย
-        // เวลากดเลยขอบ จะเลื่อนไป clone แบบ smooth ก่อน แล้ว jump กลับไปใบจริงแบบ auto ทำให้ดูเนียนเหมือนแอป
-        const firstClone = realItems[0].cloneNode(true);
-        const lastClone = realItems[realCount - 1].cloneNode(true);
-        firstClone.classList.add('mode-carousel-clone');
-        lastClone.classList.add('mode-carousel-clone');
-        firstClone.dataset.cloneOf = 'first';
-        lastClone.dataset.cloneOf = 'last';
-        firstClone.setAttribute('aria-hidden', 'true');
-        lastClone.setAttribute('aria-hidden', 'true');
+        // กัน clone ที่อาจหลงเหลือจากโค้ดเก่า
+        menu.querySelectorAll(':scope > .mode-carousel-clone, :scope > .mode-loop-clone').forEach((clone) => clone.remove());
 
-        menu.insertBefore(lastClone, realItems[0]);
-        menu.appendChild(firstClone);
+        const isSingleCardMode = () => window.innerWidth <= 900 || (window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
 
-        const getAllItems = () => Array.from(menu.querySelectorAll(':scope > .mode-btn'));
-        const normalizeRealIndex = (index) => ((index % realCount) + realCount) % realCount;
+        const normalize = (index) => ((index % total) + total) % total;
 
         let activeIndex = 0;
-        let transitionTimer = null;
+        let clickLocked = false;
+        let touchStartX = 0;
+        let touchMoveX = 0;
         let scrollSyncTimer = null;
-        let autoSlideTimer = null;
-        let isPaused = false;
 
-        const clampLeft = (left) => {
-            const maxLeft = Math.max(0, menu.scrollWidth - menu.clientWidth);
-            return Math.min(Math.max(0, left), maxLeft);
-        };
-
-        const getCenteredLeft = (item) => {
-            return clampLeft(item.offsetLeft - ((menu.clientWidth - item.offsetWidth) / 2));
-        };
-
-        const scrollToVisualIndex = (visualIndex, behavior = 'smooth') => {
-            const items = getAllItems();
-            const item = items[visualIndex];
-            if (!item) return;
-            menu.scrollTo({ left: getCenteredLeft(item), behavior });
-        };
-
-        const jumpToRealIndex = (realIndex) => {
-            activeIndex = normalizeRealIndex(realIndex);
+        function setActiveCard(index, behavior = 'smooth') {
+            activeIndex = normalize(index);
             menu.dataset.activeIndex = String(activeIndex);
-            // +1 เพราะ visual index 0 คือ clone ท้าย
-            scrollToVisualIndex(activeIndex + 1, 'auto');
-        };
 
-        const getNearestVisualIndex = () => {
-            const items = getAllItems();
-            if (!items.length) return 1;
-            const viewportCenter = menu.scrollLeft + (menu.clientWidth / 2);
-            let bestIndex = 1;
+            // มือถือ/iPad: แสดงทีละใบจริงเท่านั้น
+            if (isSingleCardMode()) {
+                menu.scrollLeft = 0;
+                menu.style.transform = 'none';
+                menu.style.translate = 'none';
+
+                cards.forEach((card, idx) => {
+                    const active = idx === activeIndex;
+                    card.classList.toggle('mode-is-active', active);
+                    card.classList.toggle('mobile-mode-active', active);
+                    card.setAttribute('aria-hidden', active ? 'false' : 'true');
+                });
+
+                return;
+            }
+
+            // Desktop: carousel ปกติแบบ manual scroll ไม่มี auto ไม่มี clone
+            cards.forEach((card) => {
+                card.classList.remove('mode-is-active', 'mobile-mode-active');
+                card.removeAttribute('aria-hidden');
+            });
+
+            const card = cards[activeIndex];
+            const left = card.offsetLeft - ((menu.clientWidth - card.offsetWidth) / 2);
+            const maxLeft = Math.max(0, menu.scrollWidth - menu.clientWidth);
+            const safeLeft = Math.min(Math.max(0, left), maxLeft);
+
+            menu.scrollTo({ left: safeLeft, behavior });
+        }
+
+        function getNearestDesktopIndex() {
+            const center = menu.scrollLeft + (menu.clientWidth / 2);
+            let bestIndex = activeIndex;
             let bestDistance = Infinity;
-            items.forEach((item, index) => {
-                const itemCenter = item.offsetLeft + (item.offsetWidth / 2);
-                const distance = Math.abs(itemCenter - viewportCenter);
+
+            cards.forEach((card, index) => {
+                const cardCenter = card.offsetLeft + (card.offsetWidth / 2);
+                const distance = Math.abs(cardCenter - center);
                 if (distance < bestDistance) {
                     bestDistance = distance;
                     bestIndex = index;
                 }
             });
+
             return bestIndex;
-        };
-
-        const syncIndexAfterManualScroll = () => {
-            const visualIndex = getNearestVisualIndex();
-            if (visualIndex === 0) {
-                jumpToRealIndex(realCount - 1);
-            } else if (visualIndex === realCount + 1) {
-                jumpToRealIndex(0);
-            } else {
-                activeIndex = normalizeRealIndex(visualIndex - 1);
-                menu.dataset.activeIndex = String(activeIndex);
-            }
-        };
-
-        const stepCarousel = (dir, fromAuto = false) => {
-            const oldIndex = activeIndex;
-            const nextIndex = normalizeRealIndex(activeIndex + dir);
-
-            clearTimeout(transitionTimer);
-
-            if (dir > 0 && oldIndex === realCount - 1) {
-                // ใบสุดท้าย -> clone ใบแรก -> jump กลับใบแรกจริง
-                activeIndex = 0;
-                menu.dataset.activeIndex = '0';
-                scrollToVisualIndex(realCount + 1, 'smooth');
-                transitionTimer = setTimeout(() => jumpToRealIndex(0), 430);
-            } else if (dir < 0 && oldIndex === 0) {
-                // ใบแรก -> clone ใบท้าย -> jump กลับใบท้ายจริง
-                activeIndex = realCount - 1;
-                menu.dataset.activeIndex = String(activeIndex);
-                scrollToVisualIndex(0, 'smooth');
-                transitionTimer = setTimeout(() => jumpToRealIndex(realCount - 1), 430);
-            } else {
-                activeIndex = nextIndex;
-                menu.dataset.activeIndex = String(activeIndex);
-                scrollToVisualIndex(activeIndex + 1, 'smooth');
-            }
-
-            if (!fromAuto) restartAutoSlide();
-        };
-
-        const startAutoSlide = () => {
-            clearInterval(autoSlideTimer);
-            if (isPaused || document.hidden) return;
-            autoSlideTimer = setInterval(() => {
-                if (!isPaused && !document.hidden) stepCarousel(1, true);
-            }, 3800);
-        };
-
-        const stopAutoSlide = () => {
-            clearInterval(autoSlideTimer);
-            autoSlideTimer = null;
-        };
-
-        const pauseAutoSlide = () => {
-            isPaused = true;
-            stopAutoSlide();
-        };
-
-        const resumeAutoSlide = () => {
-            isPaused = false;
-            startAutoSlide();
-        };
-
-        function restartAutoSlide() {
-            if (isPaused || document.hidden) return;
-            startAutoSlide();
         }
 
-        prev.addEventListener('click', () => { stepCarousel(-1); safePlay('click'); });
-        next.addEventListener('click', () => { stepCarousel(1); safePlay('click'); });
+        function step(direction) {
+            if (clickLocked) return;
+
+            clickLocked = true;
+
+            if (!isSingleCardMode()) {
+                activeIndex = getNearestDesktopIndex();
+            }
+
+            setActiveCard(activeIndex + direction, 'smooth');
+
+            if (typeof safePlay === 'function') safePlay('click');
+
+            window.setTimeout(() => {
+                clickLocked = false;
+            }, 160);
+        }
+
+        prev.addEventListener('click', (event) => {
+            event.preventDefault();
+            step(-1);
+        });
+
+        next.addEventListener('click', (event) => {
+            event.preventDefault();
+            step(1);
+        });
 
         menu.addEventListener('keydown', (event) => {
             if (event.key === 'ArrowLeft') {
                 event.preventDefault();
-                stepCarousel(-1);
+                step(-1);
             }
+
             if (event.key === 'ArrowRight') {
                 event.preventDefault();
-                stepCarousel(1);
+                step(1);
             }
         });
 
-        menu.addEventListener('scroll', () => {
-            clearTimeout(scrollSyncTimer);
-            scrollSyncTimer = setTimeout(syncIndexAfterManualScroll, 120);
+        menu.addEventListener('touchstart', (event) => {
+            if (!isSingleCardMode()) return;
+            touchStartX = event.touches[0].clientX;
+            touchMoveX = 0;
         }, { passive: true });
 
-        // หยุด auto slide เมื่อผู้เล่นกำลังโฟกัส/ชี้/แตะ carousel
-        shell.addEventListener('mouseenter', pauseAutoSlide);
-        shell.addEventListener('mouseleave', resumeAutoSlide);
-        shell.addEventListener('focusin', pauseAutoSlide);
-        shell.addEventListener('focusout', () => {
-            setTimeout(() => {
-                if (!shell.contains(document.activeElement)) resumeAutoSlide();
-            }, 0);
-        });
-        shell.addEventListener('touchstart', pauseAutoSlide, { passive: true });
-        shell.addEventListener('touchend', () => setTimeout(resumeAutoSlide, 1200), { passive: true });
-        shell.addEventListener('pointerdown', pauseAutoSlide);
-        shell.addEventListener('pointerup', () => setTimeout(resumeAutoSlide, 900));
+        menu.addEventListener('touchmove', (event) => {
+            if (!isSingleCardMode()) return;
+            touchMoveX = event.touches[0].clientX - touchStartX;
+        }, { passive: true });
 
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) stopAutoSlide();
-            else if (!isPaused) startAutoSlide();
-        });
+        menu.addEventListener('touchend', () => {
+            if (!isSingleCardMode()) return;
 
-        requestAnimationFrame(() => {
-            jumpToRealIndex(0);
-            startAutoSlide();
-        });
+            if (touchMoveX > 55) step(-1);
+            if (touchMoveX < -55) step(1);
+
+            touchStartX = 0;
+            touchMoveX = 0;
+        }, { passive: true });
+
+        menu.addEventListener('scroll', () => {
+            if (isSingleCardMode()) return;
+            clearTimeout(scrollSyncTimer);
+            scrollSyncTimer = window.setTimeout(() => {
+                activeIndex = getNearestDesktopIndex();
+                menu.dataset.activeIndex = String(activeIndex);
+            }, 120);
+        }, { passive: true });
+
+        window.addEventListener('resize', () => {
+            window.setTimeout(() => setActiveCard(activeIndex, 'auto'), 120);
+        }, { passive: true });
+
+        window.addEventListener('orientationchange', () => {
+            window.setTimeout(() => setActiveCard(activeIndex, 'auto'), 260);
+        }, { passive: true });
+
+        requestAnimationFrame(() => setActiveCard(0, 'auto'));
     }
 
     function assignRandomFriendFacesToModeCards() {
@@ -8870,12 +9793,13 @@ renderAchievements = function() {
         });
     }
 
+    // SPEED BOOT 10.2: ให้แพตช์นี้ขึ้นเร็วขึ้น ไม่ต้องรอ 300/900ms
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => setTimeout(bootSakuraPatch, 300));
+        document.addEventListener('DOMContentLoaded', () => requestAnimationFrame(bootSakuraPatch));
     } else {
-        setTimeout(bootSakuraPatch, 300);
+        requestAnimationFrame(bootSakuraPatch);
     }
-    setTimeout(bootSakuraPatch, 900);
+    setTimeout(bootSakuraPatch, 160);
     /* disabled: old collection ticker interval caused DOM flicker */
 })();
 
@@ -9186,12 +10110,13 @@ renderAchievements = function() {
         renderHomeEventHero();
     };
 
+    // SPEED BOOT 10.2: เร่ง layout timing ให้ขึ้นเร็วขึ้น
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => setTimeout(bootFinalTimedLayout, 350));
+        document.addEventListener('DOMContentLoaded', () => requestAnimationFrame(bootFinalTimedLayout));
     } else {
-        setTimeout(bootFinalTimedLayout, 350);
+        requestAnimationFrame(bootFinalTimedLayout);
     }
-    setTimeout(bootFinalTimedLayout, 1000);
+    setTimeout(bootFinalTimedLayout, 180);
     /* disabled: old event hero interval replaced by stable marquee */
 })();
 
@@ -9391,12 +10316,13 @@ renderAchievements = function() {
         window.refreshEconomyDisplays();
     }
 
+    // SPEED BOOT 10.2: เร่ง final fix ให้ทำเร็วขึ้น
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => setTimeout(bootFinalFix, 500));
+        document.addEventListener('DOMContentLoaded', () => requestAnimationFrame(bootFinalFix));
     } else {
-        setTimeout(bootFinalFix, 500);
+        requestAnimationFrame(bootFinalFix);
     }
-    setTimeout(bootFinalFix, 1200);
+    setTimeout(bootFinalFix, 220);
     /* disabled: old final fix interval caused DOM flicker */
 })();
 
@@ -9639,12 +10565,13 @@ renderAchievements = function() {
         });
     }
 
+    // SPEED BOOT 10.2: ให้ Economy / Hub ขึ้นเร็วขึ้น
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => setTimeout(bootSingleEconomyAndHub, 700));
+        document.addEventListener('DOMContentLoaded', () => requestAnimationFrame(bootSingleEconomyAndHub));
     } else {
-        setTimeout(bootSingleEconomyAndHub, 700);
+        requestAnimationFrame(bootSingleEconomyAndHub);
     }
-    setTimeout(bootSingleEconomyAndHub, 1400);
+    setTimeout(bootSingleEconomyAndHub, 240);
     /* disabled: single economy interval replaced by stable event-driven refresh */
 })();
 
@@ -9843,20 +10770,26 @@ renderAchievements = function() {
         renderGachaHubStable();
     }
 
+    // SPEED BOOT 10.2: ให้ Event / Economy / Gacha / Hall ขึ้นตั้งแต่ช่วงแรก
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => setTimeout(bootStablePatch, 900));
+        document.addEventListener('DOMContentLoaded', () => requestAnimationFrame(bootStablePatch));
     } else {
-        setTimeout(bootStablePatch, 900);
+        requestAnimationFrame(bootStablePatch);
     }
-    setTimeout(bootStablePatch, 1600);
-    setTimeout(bootStablePatch, 2600);
+    setTimeout(bootStablePatch, 260);
+    setTimeout(bootStablePatch, 900);
 
-    // ไม่อัปเดตทุกวินาทีแล้ว เพื่อลดอาการกระพริบ เหลือเช็กเป็นระยะยาวเท่านั้น
+    // SPEED BOOT 10.2: ลด refresh ซ้ำที่อาจทำให้ layout กระพริบหลังใช้นาน
     setInterval(() => {
-        renderEventMarqueeStable();
-        renderGlobalEconomyStable();
-        renderGachaHubStable();
-    }, 30000);
+        if (document.hidden) return;
+        const run = () => {
+            renderEventMarqueeStable();
+            renderGlobalEconomyStable();
+            renderGachaHubStable();
+        };
+        if ('requestIdleCallback' in window) requestIdleCallback(run, { timeout: 1500 });
+        else setTimeout(run, 0);
+    }, 120000);
 })();
 
 
@@ -10131,17 +11064,23 @@ renderAchievements = function() {
         wireGachaHubButtonFix();
     }
 
+    // SPEED BOOT 10.2: ให้ Event News/Gacha button fix ขึ้นเร็วขึ้น และลดงานซ้ำ
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => setTimeout(bootFix, 900));
+        document.addEventListener('DOMContentLoaded', () => requestAnimationFrame(bootFix));
     } else {
-        setTimeout(bootFix, 900);
+        requestAnimationFrame(bootFix);
     }
-    setTimeout(bootFix, 1600);
-    setTimeout(bootFix, 2600);
+    setTimeout(bootFix, 260);
+    setTimeout(bootFix, 900);
     setInterval(() => {
-        renderTodayOnlyEventNews();
-        wireGachaHubButtonFix();
-    }, 60000);
+        if (document.hidden) return;
+        const run = () => {
+            renderTodayOnlyEventNews();
+            wireGachaHubButtonFix();
+        };
+        if ('requestIdleCallback' in window) requestIdleCallback(run, { timeout: 1200 });
+        else setTimeout(run, 0);
+    }, 120000);
 })();
 
 
@@ -10305,553 +11244,43 @@ renderAchievements = function() {
         injectSocialProjectButtons();
     }
 
+    // SPEED BOOT 10.2: เร่งปุ่ม/ลิงก์ย่อยให้ bind เร็วขึ้น
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => setTimeout(bootFix, 600));
+        document.addEventListener('DOMContentLoaded', () => requestAnimationFrame(bootFix));
     } else {
-        setTimeout(bootFix, 600);
+        requestAnimationFrame(bootFix);
     }
-    setTimeout(bootFix, 1400);
-    setTimeout(bootFix, 2600);
+    setTimeout(bootFix, 240);
+    setTimeout(bootFix, 900);
 })();
 
 
 // =====================================================
 // 📱 FINAL FIX: Mobile Carousel Re-center
 // =====================================================
-(function mobileCarouselVisibilityFix() {
-    function isMobileLayout() {
-        return window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
-    }
 
-    function centerActiveMobileCard(behavior = 'auto') {
-        if (!isMobileLayout()) return;
-        const menu = document.querySelector('#home-screen .menu-container.mode-carousel');
-        if (!menu) return;
-
-        const activeIndex = Number(menu.dataset.activeIndex || 0);
-        const realItems = Array.from(menu.querySelectorAll(':scope > .mode-carousel-real'));
-        const target = realItems[activeIndex] || realItems[0] || menu.querySelector(':scope > .mode-btn:not(.mode-carousel-clone)');
-        if (!target) return;
-
-        const targetLeft = target.offsetLeft - ((menu.clientWidth - target.offsetWidth) / 2);
-        const maxLeft = Math.max(0, menu.scrollWidth - menu.clientWidth);
-        const safeLeft = Math.min(Math.max(0, targetLeft), maxLeft);
-
-        menu.scrollTo({ left: safeLeft, behavior });
-    }
-
-    function fixNow() {
-        centerActiveMobileCard('auto');
-        requestAnimationFrame(() => centerActiveMobileCard('auto'));
-        setTimeout(() => centerActiveMobileCard('auto'), 120);
-        setTimeout(() => centerActiveMobileCard('auto'), 450);
-        setTimeout(() => centerActiveMobileCard('auto'), 900);
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', fixNow);
-    } else {
-        fixNow();
-    }
-
-    window.addEventListener('load', fixNow);
-    window.addEventListener('resize', () => setTimeout(fixNow, 120));
-    window.addEventListener('orientationchange', () => setTimeout(fixNow, 350));
-
-    const home = document.getElementById('home-screen');
-    if (home && 'MutationObserver' in window) {
-        const observer = new MutationObserver(() => {
-            if (home.style.display !== 'none') setTimeout(fixNow, 60);
-        });
-        observer.observe(home, { attributes: true, attributeFilter: ['style', 'class'] });
-    }
-
-    // เมื่อกดลูกศรหรือ auto slide ทำงาน ให้จัดกลางซ้ำหลัง animation
-    document.addEventListener('click', (event) => {
-        if (event.target.closest?.('.mode-carousel-nav')) {
-            setTimeout(() => centerActiveMobileCard('auto'), 520);
-        }
-    }, true);
-})();
-
-
+// CLEAN MODEBOX RESET: removed conflicting modebox controller `mobileCarouselVisibilityFix`.
 // =====================================================
 // 📱 ULTRA MINIMAL MOBILE UI MODE
 // แยก mobile platform ด้วย class body.mobile-ui
 // =====================================================
-(function ultraMinimalMobilePlatformMode() {
-    const MOBILE_QUERY = '(max-width: 720px)';
 
-    function applyMobileClass() {
-        const isMobile = window.matchMedia && window.matchMedia(MOBILE_QUERY).matches;
-        document.body.classList.toggle('mobile-ui', !!isMobile);
-    }
-
-    function recenterMobileCarousel() {
-        if (!document.body.classList.contains('mobile-ui')) return;
-        const menu = document.querySelector('#home-screen .menu-container.mode-carousel');
-        if (!menu) return;
-
-        const activeIndex = Number(menu.dataset.activeIndex || 0);
-        const realItems = Array.from(menu.querySelectorAll(':scope > .mode-carousel-real'));
-        const target = realItems[activeIndex] || realItems[0] || menu.querySelector(':scope > .mode-btn:not(.mode-carousel-clone)');
-        if (!target) return;
-
-        const left = target.offsetLeft - ((menu.clientWidth - target.offsetWidth) / 2);
-        const maxLeft = Math.max(0, menu.scrollWidth - menu.clientWidth);
-        menu.scrollTo({ left: Math.min(Math.max(0, left), maxLeft), behavior: 'auto' });
-    }
-
-    function bootMobileMode() {
-        applyMobileClass();
-        requestAnimationFrame(recenterMobileCarousel);
-        setTimeout(recenterMobileCarousel, 150);
-        setTimeout(recenterMobileCarousel, 650);
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', bootMobileMode);
-    } else {
-        bootMobileMode();
-    }
-
-    window.addEventListener('resize', () => setTimeout(bootMobileMode, 120));
-    window.addEventListener('orientationchange', () => setTimeout(bootMobileMode, 360));
-    window.addEventListener('load', bootMobileMode);
-
-    document.addEventListener('click', (event) => {
-        if (event.target.closest?.('.mode-carousel-nav, .arcade-accordion, .mini-action-btn')) {
-            setTimeout(recenterMobileCarousel, 520);
-        }
-    }, true);
-})();
-
-
+// CLEAN MODEBOX RESET: removed conflicting modebox controller `ultraMinimalMobilePlatformMode`.
 // =====================================================
 // 📱 MOBILE PATCH: Put Level / Gacha Hub / Hall Of Fame below modes
 // =====================================================
-(function moveMobileHudBelowModes() {
-    const MOBILE_QUERY = '(max-width: 720px)';
 
-    function isMobile() {
-        return window.matchMedia && window.matchMedia(MOBILE_QUERY).matches;
-    }
-
-    function isHomeVisible() {
-        const home = document.getElementById('home-screen');
-        return !!home && getComputedStyle(home).display !== 'none';
-    }
-
-    function ensureMobilePanel() {
-        const home = document.getElementById('home-screen');
-        const carousel = document.querySelector('#home-screen .mode-carousel-shell');
-        const menu = document.querySelector('#home-screen .menu-container');
-        if (!home || (!carousel && !menu)) return null;
-
-        let panel = document.getElementById('mobileBelowModesPanel');
-        if (!panel) {
-            panel = document.createElement('div');
-            panel.id = 'mobileBelowModesPanel';
-            panel.className = 'mobile-below-modes-panel';
-        }
-
-        const anchor = carousel || menu;
-        if (panel.parentElement !== home || panel.previousElementSibling !== anchor) {
-            anchor.insertAdjacentElement('afterend', panel);
-        }
-
-        return panel;
-    }
-
-    function restoreDesktopPlacement() {
-        const host = document.querySelector('.game-container');
-        if (!host) return;
-
-        const hud = document.getElementById('globalEconomyHud');
-        const side = document.getElementById('homeSideStack');
-        const themeCorner = host.querySelector('.game-theme-corner');
-
-        if (hud && hud.parentElement?.id === 'mobileBelowModesPanel') {
-            if (themeCorner) host.insertBefore(hud, themeCorner);
-            else host.insertAdjacentElement('afterbegin', hud);
-        }
-
-        if (side && side.parentElement?.id === 'mobileBelowModesPanel') {
-            if (themeCorner) themeCorner.insertAdjacentElement('afterend', side);
-            else host.insertAdjacentElement('afterbegin', side);
-        }
-    }
-
-    function placeMobileDashboard() {
-        const hud = document.getElementById('globalEconomyHud');
-        const side = document.getElementById('homeSideStack');
-
-        if (!isMobile() || !isHomeVisible()) {
-            restoreDesktopPlacement();
-            return;
-        }
-
-        const panel = ensureMobilePanel();
-        if (!panel) return;
-
-        if (hud && hud.parentElement !== panel) panel.appendChild(hud);
-        if (side && side.parentElement !== panel) panel.appendChild(side);
-    }
-
-    function bootMoveMobileDashboard() {
-        placeMobileDashboard();
-        requestAnimationFrame(placeMobileDashboard);
-        setTimeout(placeMobileDashboard, 120);
-        setTimeout(placeMobileDashboard, 650);
-        setTimeout(placeMobileDashboard, 1300);
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', bootMoveMobileDashboard);
-    } else {
-        bootMoveMobileDashboard();
-    }
-
-    window.addEventListener('load', bootMoveMobileDashboard);
-    window.addEventListener('resize', () => setTimeout(bootMoveMobileDashboard, 140));
-    window.addEventListener('orientationchange', () => setTimeout(bootMoveMobileDashboard, 380));
-
-    document.addEventListener('click', (event) => {
-        if (event.target.closest?.('.mode-carousel-nav, .arcade-accordion, .mode-btn, .back-btn')) {
-            setTimeout(bootMoveMobileDashboard, 180);
-            setTimeout(bootMoveMobileDashboard, 700);
-        }
-    }, true);
-
-    const home = document.getElementById('home-screen');
-    if (home && 'MutationObserver' in window) {
-        const observer = new MutationObserver(() => setTimeout(bootMoveMobileDashboard, 80));
-        observer.observe(home, { attributes: true, attributeFilter: ['style', 'class'] });
-    }
-
-    setInterval(placeMobileDashboard, 3000);
-})();
-
-
+// CLEAN MODEBOX RESET: removed conflicting modebox controller `moveMobileHudBelowModes`.
 // =====================================================
 // 📱 FINAL FIX: Mobile single-card mode carousel controller
 // =====================================================
-(function mobileSingleCardModeCarouselFix() {
-    const MOBILE_QUERY = '(max-width: 720px)';
-    let mobileModeIndex = 0;
-    let autoTimer = null;
 
-    function isMobile() {
-        return window.matchMedia && window.matchMedia(MOBILE_QUERY).matches;
-    }
-
-    function homeVisible() {
-        const home = document.getElementById('home-screen');
-        return !!home && getComputedStyle(home).display !== 'none';
-    }
-
-    function getMenu() {
-        return document.querySelector('#home-screen .menu-container.mode-carousel');
-    }
-
-    function getRealItems() {
-        return Array.from(document.querySelectorAll('#home-screen .menu-container.mode-carousel > .mode-carousel-real'));
-    }
-
-    function normalize(index, total) {
-        return ((index % total) + total) % total;
-    }
-
-    function applyMobileModeCard(index = mobileModeIndex) {
-        if (!isMobile()) return;
-        const menu = getMenu();
-        const items = getRealItems();
-        if (!menu || !items.length) return;
-
-        mobileModeIndex = normalize(index, items.length);
-        menu.dataset.activeIndex = String(mobileModeIndex);
-
-        Array.from(menu.children).forEach(child => {
-            child.classList.remove('mobile-mode-active');
-        });
-
-        items[mobileModeIndex].classList.add('mobile-mode-active');
-
-        // ป้องกัน scroll position เดิมจาก infinite clone ทำให้การ์ดหาย
-        menu.scrollLeft = 0;
-        requestAnimationFrame(() => { menu.scrollLeft = 0; });
-    }
-
-    function stepMobileMode(dir) {
-        const items = getRealItems();
-        if (!items.length) return;
-        applyMobileModeCard(mobileModeIndex + dir);
-    }
-
-    function syncFromDataset() {
-        const menu = getMenu();
-        const items = getRealItems();
-        if (!menu || !items.length) return;
-        const dataIndex = Number(menu.dataset.activeIndex);
-        if (Number.isFinite(dataIndex)) mobileModeIndex = normalize(dataIndex, items.length);
-        applyMobileModeCard(mobileModeIndex);
-    }
-
-    function startMobileAuto() {
-        clearInterval(autoTimer);
-        autoTimer = setInterval(() => {
-            if (isMobile() && homeVisible() && !document.hidden) {
-                stepMobileMode(1);
-            }
-        }, 6200);
-    }
-
-    function bootMobileCarouselFix() {
-        if (!isMobile()) return;
-        syncFromDataset();
-        setTimeout(syncFromDataset, 80);
-        setTimeout(syncFromDataset, 260);
-        setTimeout(syncFromDataset, 700);
-        startMobileAuto();
-    }
-
-    // ใช้ capture เพื่อกัน listener เดิมของ infinite carousel ที่ทำให้มือถือ scroll ไป clone แล้วหาย
-    document.addEventListener('click', (event) => {
-        const nav = event.target.closest?.('.mode-carousel-nav');
-        if (!nav || !isMobile()) return;
-
-        event.preventDefault();
-        event.stopImmediatePropagation();
-
-        const dir = nav.classList.contains('mode-carousel-prev') ? -1 : 1;
-        stepMobileMode(dir);
-        if (typeof safePlay === 'function') safePlay('click');
-    }, true);
-
-    document.addEventListener('keydown', (event) => {
-        if (!isMobile() || !homeVisible()) return;
-        const menu = getMenu();
-        if (!menu || document.activeElement !== menu) return;
-
-        if (event.key === 'ArrowLeft') {
-            event.preventDefault();
-            stepMobileMode(-1);
-        }
-        if (event.key === 'ArrowRight') {
-            event.preventDefault();
-            stepMobileMode(1);
-        }
-    }, true);
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', bootMobileCarouselFix);
-    } else {
-        bootMobileCarouselFix();
-    }
-
-    window.addEventListener('load', bootMobileCarouselFix);
-    window.addEventListener('resize', () => setTimeout(bootMobileCarouselFix, 120));
-    window.addEventListener('orientationchange', () => setTimeout(bootMobileCarouselFix, 360));
-
-    const home = document.getElementById('home-screen');
-    if (home && 'MutationObserver' in window) {
-        const observer = new MutationObserver(() => {
-            if (isMobile() && homeVisible()) setTimeout(bootMobileCarouselFix, 80);
-        });
-        observer.observe(home, { attributes: true, attributeFilter: ['style', 'class'] });
-    }
-
-    setTimeout(bootMobileCarouselFix, 1200);
-})();
-
-
+// CLEAN MODEBOX RESET: removed conflicting modebox controller `mobileSingleCardModeCarouselFix`.
 // =====================================================
 // 📱 FINAL FIX: Compact UI for 721-900px gap + one-card carousel
 // =====================================================
-(function compactResponsiveGapFix() {
-    const COMPACT_QUERY = '(max-width: 900px)';
-    let compactIndex = 0;
-    let autoTimer = null;
 
-    function isCompact() {
-        return window.matchMedia && window.matchMedia(COMPACT_QUERY).matches;
-    }
-
-    function applyCompactClass() {
-        document.body.classList.toggle('mobile-compact-ui', isCompact());
-    }
-
-    function homeVisible() {
-        const home = document.getElementById('home-screen');
-        return !!home && getComputedStyle(home).display !== 'none';
-    }
-
-    function getMenu() {
-        return document.querySelector('#home-screen .menu-container.mode-carousel');
-    }
-
-    function getRealItems() {
-        return Array.from(document.querySelectorAll('#home-screen .menu-container.mode-carousel > .mode-carousel-real'));
-    }
-
-    function normalize(index, total) {
-        return ((index % total) + total) % total;
-    }
-
-    function ensureBelowModesPanel() {
-        const home = document.getElementById('home-screen');
-        const carousel = document.querySelector('#home-screen .mode-carousel-shell');
-        const menu = document.querySelector('#home-screen .menu-container');
-        if (!home || (!carousel && !menu)) return null;
-
-        let panel = document.getElementById('mobileBelowModesPanel');
-        if (!panel) {
-            panel = document.createElement('div');
-            panel.id = 'mobileBelowModesPanel';
-            panel.className = 'mobile-below-modes-panel';
-        }
-
-        const anchor = carousel || menu;
-        if (panel.parentElement !== home || panel.previousElementSibling !== anchor) {
-            anchor.insertAdjacentElement('afterend', panel);
-        }
-
-        return panel;
-    }
-
-    function moveDashboardForCompact() {
-        if (!isCompact() || !homeVisible()) return;
-
-        const panel = ensureBelowModesPanel();
-        if (!panel) return;
-
-        const hud = document.getElementById('globalEconomyHud');
-        const side = document.getElementById('homeSideStack');
-
-        if (hud && hud.parentElement !== panel) panel.appendChild(hud);
-        if (side && side.parentElement !== panel) panel.appendChild(side);
-    }
-
-    function restoreForDesktop() {
-        if (isCompact()) return;
-        const host = document.querySelector('.game-container');
-        if (!host) return;
-
-        const hud = document.getElementById('globalEconomyHud');
-        const side = document.getElementById('homeSideStack');
-        const themeCorner = host.querySelector('.game-theme-corner');
-
-        if (hud && hud.parentElement?.id === 'mobileBelowModesPanel') {
-            if (themeCorner) host.insertBefore(hud, themeCorner);
-            else host.insertAdjacentElement('afterbegin', hud);
-        }
-
-        if (side && side.parentElement?.id === 'mobileBelowModesPanel') {
-            if (themeCorner) themeCorner.insertAdjacentElement('afterend', side);
-            else host.insertAdjacentElement('afterbegin', side);
-        }
-    }
-
-    function showCompactCard(index = compactIndex) {
-        if (!isCompact()) return;
-
-        const menu = getMenu();
-        const items = getRealItems();
-        if (!menu || !items.length) return;
-
-        compactIndex = normalize(index, items.length);
-        menu.dataset.activeIndex = String(compactIndex);
-
-        Array.from(menu.children).forEach(child => child.classList.remove('mobile-mode-active'));
-        items[compactIndex].classList.add('mobile-mode-active');
-
-        // ป้องกันตำแหน่ง scroll จาก PC infinite carousel ทำให้ card โผล่แค่บางส่วน
-        menu.scrollLeft = 0;
-        requestAnimationFrame(() => { menu.scrollLeft = 0; });
-    }
-
-    function stepCompactCard(dir) {
-        const items = getRealItems();
-        if (!items.length) return;
-        showCompactCard(compactIndex + dir);
-    }
-
-    function startCompactAuto() {
-        clearInterval(autoTimer);
-        autoTimer = setInterval(() => {
-            if (isCompact() && homeVisible() && !document.hidden) stepCompactCard(1);
-        }, 6500);
-    }
-
-    function bootCompact() {
-        applyCompactClass();
-
-        if (isCompact()) {
-            moveDashboardForCompact();
-            showCompactCard();
-            requestAnimationFrame(() => {
-                moveDashboardForCompact();
-                showCompactCard();
-            });
-            setTimeout(() => { moveDashboardForCompact(); showCompactCard(); }, 150);
-            setTimeout(() => { moveDashboardForCompact(); showCompactCard(); }, 700);
-            startCompactAuto();
-        } else {
-            restoreForDesktop();
-            clearInterval(autoTimer);
-        }
-    }
-
-    document.addEventListener('click', (event) => {
-        const nav = event.target.closest?.('.mode-carousel-nav');
-        if (!nav || !isCompact()) return;
-
-        event.preventDefault();
-        event.stopImmediatePropagation();
-
-        const dir = nav.classList.contains('mode-carousel-prev') ? -1 : 1;
-        stepCompactCard(dir);
-        if (typeof safePlay === 'function') safePlay('click');
-    }, true);
-
-    document.addEventListener('keydown', (event) => {
-        if (!isCompact() || !homeVisible()) return;
-        const menu = getMenu();
-        if (!menu || document.activeElement !== menu) return;
-
-        if (event.key === 'ArrowLeft') {
-            event.preventDefault();
-            stepCompactCard(-1);
-        }
-        if (event.key === 'ArrowRight') {
-            event.preventDefault();
-            stepCompactCard(1);
-        }
-    }, true);
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', bootCompact);
-    } else {
-        bootCompact();
-    }
-
-    window.addEventListener('load', bootCompact);
-    window.addEventListener('resize', () => setTimeout(bootCompact, 120));
-    window.addEventListener('orientationchange', () => setTimeout(bootCompact, 360));
-
-    const home = document.getElementById('home-screen');
-    if (home && 'MutationObserver' in window) {
-        const observer = new MutationObserver(() => {
-            setTimeout(bootCompact, 80);
-        });
-        observer.observe(home, { attributes: true, attributeFilter: ['style', 'class'] });
-    }
-
-    setTimeout(bootCompact, 1200);
-    setTimeout(bootCompact, 2400);
-})();
-
-
+// CLEAN MODEBOX RESET: removed conflicting modebox controller `compactResponsiveGapFix`.
 // =====================================================
 // 📱 MOBILE STABLE FINAL
 // รวม logic มือถือให้เหลือชุดเดียว: <=900px
@@ -10859,249 +11288,8 @@ renderAchievements = function() {
 // - บังคับ Carousel มือถือเป็น 1 card ไม่ใช้ scroll clone
 // - กัน script เก่าดึงของกลับด้านบน
 // =====================================================
-(function mobileStableFinal() {
-    const STABLE_QUERY = '(max-width: 900px)';
-    let stableIndex = 0;
-    let autoTimer = null;
-    let lockedMove = false;
 
-    function isStable() {
-        return window.matchMedia && window.matchMedia(STABLE_QUERY).matches;
-    }
-
-    function homeVisible() {
-        const home = document.getElementById('home-screen');
-        return !!home && getComputedStyle(home).display !== 'none';
-    }
-
-    function applyStableClass() {
-        const on = isStable();
-        document.body.classList.toggle('mobile-stable-ui', on);
-
-        // ไม่ลบ class เก่าออกทั้งหมด เพราะบาง style อาจพึ่ง class เดิม
-        // แต่ mobile-stable-ui ถูกเขียนไว้ท้ายสุดและมี !important เพื่อชนะทุกชุด
-    }
-
-    function getHome() {
-        return document.getElementById('home-screen');
-    }
-
-    function getMenu() {
-        return document.querySelector('#home-screen .menu-container.mode-carousel');
-    }
-
-    function getRealItems() {
-        return Array.from(document.querySelectorAll('#home-screen .menu-container.mode-carousel > .mode-carousel-real'));
-    }
-
-    function normalize(index, total) {
-        return ((index % total) + total) % total;
-    }
-
-    function getCarouselAnchor() {
-        return document.querySelector('#home-screen .mode-carousel-shell')
-            || document.querySelector('#home-screen .menu-container.mode-carousel')
-            || document.querySelector('#home-screen .menu-container');
-    }
-
-    function ensureStableDashboard() {
-        const home = getHome();
-        const anchor = getCarouselAnchor();
-        if (!home || !anchor) return null;
-
-        let panel = document.getElementById('mobileStableDashboard');
-        if (!panel) {
-            panel = document.createElement('div');
-            panel.id = 'mobileStableDashboard';
-            panel.className = 'mobile-stable-dashboard';
-        }
-
-        // ต้องอยู่ใต้ carousel เสมอ
-        if (panel.parentElement !== home || panel.previousElementSibling !== anchor) {
-            anchor.insertAdjacentElement('afterend', panel);
-        }
-
-        return panel;
-    }
-
-    function moveDashboardDown() {
-        if (!isStable() || !homeVisible()) return;
-
-        const panel = ensureStableDashboard();
-        if (!panel) return;
-
-        const hud = document.getElementById('globalEconomyHud');
-        const side = document.getElementById('homeSideStack');
-
-        if (hud && hud.parentElement !== panel) panel.appendChild(hud);
-        if (side && side.parentElement !== panel) panel.appendChild(side);
-
-        // ถ้ามี panel เก่าจากแพตช์ก่อน ให้ซ่อนเพื่อไม่ให้เกิด layout ghost
-        const oldPanel = document.getElementById('mobileBelowModesPanel');
-        if (oldPanel && oldPanel !== panel && !oldPanel.children.length) oldPanel.style.display = 'none';
-    }
-
-    function restoreDesktop() {
-        if (isStable()) return;
-
-        const host = document.querySelector('.game-container');
-        if (!host) return;
-
-        const hud = document.getElementById('globalEconomyHud');
-        const side = document.getElementById('homeSideStack');
-        const themeCorner = host.querySelector('.game-theme-corner');
-
-        if (hud && hud.parentElement?.id === 'mobileStableDashboard') {
-            if (themeCorner) host.insertBefore(hud, themeCorner);
-            else host.insertAdjacentElement('afterbegin', hud);
-        }
-
-        if (side && side.parentElement?.id === 'mobileStableDashboard') {
-            if (themeCorner) themeCorner.insertAdjacentElement('afterend', side);
-            else host.insertAdjacentElement('afterbegin', side);
-        }
-    }
-
-    function showStableCard(index = stableIndex) {
-        if (!isStable()) return;
-
-        const menu = getMenu();
-        const items = getRealItems();
-        if (!menu || !items.length) return;
-
-        const datasetIndex = Number(menu.dataset.activeIndex);
-        if (Number.isFinite(datasetIndex) && Math.abs(datasetIndex - stableIndex) <= items.length) {
-            stableIndex = normalize(datasetIndex, items.length);
-        }
-
-        stableIndex = normalize(index, items.length);
-        menu.dataset.activeIndex = String(stableIndex);
-
-        Array.from(menu.children).forEach(child => {
-            child.classList.remove('mobile-mode-active');
-        });
-        items[stableIndex].classList.add('mobile-mode-active');
-
-        menu.scrollLeft = 0;
-        requestAnimationFrame(() => { menu.scrollLeft = 0; });
-    }
-
-    function stepStableCard(dir) {
-        const items = getRealItems();
-        if (!items.length) return;
-        showStableCard(stableIndex + dir);
-    }
-
-    function startAuto() {
-        clearInterval(autoTimer);
-        autoTimer = setInterval(() => {
-            if (isStable() && homeVisible() && !document.hidden) stepStableCard(1);
-        }, 6500);
-    }
-
-    function stableLayoutPass() {
-        applyStableClass();
-
-        if (isStable()) {
-            moveDashboardDown();
-            showStableCard();
-            startAuto();
-        } else {
-            clearInterval(autoTimer);
-            restoreDesktop();
-        }
-    }
-
-    function stableLayoutStrongPass() {
-        if (lockedMove) return;
-        lockedMove = true;
-
-        stableLayoutPass();
-        requestAnimationFrame(stableLayoutPass);
-        setTimeout(stableLayoutPass, 80);
-        setTimeout(stableLayoutPass, 220);
-        setTimeout(stableLayoutPass, 650);
-
-        setTimeout(() => { lockedMove = false; }, 700);
-    }
-
-    // กัน listener เก่าของ PC infinite carousel ที่ทำงานในช่วงจอแคบ
-    document.addEventListener('click', (event) => {
-        const nav = event.target.closest?.('.mode-carousel-nav');
-        if (!nav || !isStable()) return;
-
-        event.preventDefault();
-        event.stopImmediatePropagation();
-
-        const dir = nav.classList.contains('mode-carousel-prev') ? -1 : 1;
-        stepStableCard(dir);
-        moveDashboardDown();
-
-        if (typeof safePlay === 'function') safePlay('click');
-    }, true);
-
-    document.addEventListener('keydown', (event) => {
-        if (!isStable() || !homeVisible()) return;
-        const menu = getMenu();
-        if (!menu || document.activeElement !== menu) return;
-
-        if (event.key === 'ArrowLeft') {
-            event.preventDefault();
-            stepStableCard(-1);
-        }
-        if (event.key === 'ArrowRight') {
-            event.preventDefault();
-            stepStableCard(1);
-        }
-    }, true);
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', stableLayoutStrongPass);
-    } else {
-        stableLayoutStrongPass();
-    }
-
-    window.addEventListener('load', stableLayoutStrongPass);
-    window.addEventListener('resize', () => setTimeout(stableLayoutStrongPass, 120));
-    window.addEventListener('orientationchange', () => setTimeout(stableLayoutStrongPass, 360));
-
-    document.addEventListener('click', (event) => {
-        if (event.target.closest?.('.arcade-accordion, .mini-action-btn, .mode-btn, .back-btn, .project-cta-link')) {
-            setTimeout(stableLayoutStrongPass, 120);
-            setTimeout(stableLayoutStrongPass, 520);
-        }
-    }, true);
-
-    // เฝ้า home และ game container: ถ้า script เก่าขยับ HUD กลับขึ้นบน ให้ย้ายลงทันที
-    const observeTargets = [
-        document.getElementById('home-screen'),
-        document.querySelector('.game-container')
-    ].filter(Boolean);
-
-    if ('MutationObserver' in window) {
-        const observer = new MutationObserver(() => {
-            if (isStable()) setTimeout(stableLayoutStrongPass, 40);
-        });
-
-        observeTargets.forEach(target => {
-            observer.observe(target, { childList: true, subtree: false, attributes: true, attributeFilter: ['style', 'class'] });
-        });
-    }
-
-    // heartbeat เบา ๆ กัน interval เก่าดึงกลับ แต่ไม่ถี่จนกระพริบ
-    setInterval(() => {
-        if (isStable() && homeVisible()) {
-            applyStableClass();
-            moveDashboardDown();
-            showStableCard();
-        }
-    }, 1400);
-
-    setTimeout(stableLayoutStrongPass, 1200);
-    setTimeout(stableLayoutStrongPass, 2600);
-})();
-
-
+// CLEAN MODEBOX RESET: removed conflicting modebox controller `mobileStableFinal`.
 // =====================================================
 // 🌙 DARK MODE STABLE FINAL
 // แก้กรณีปุ่ม Dark Mode ไม่ทำงานหลังแพตช์ mobile-stable-ui
@@ -11204,6 +11392,484 @@ renderAchievements = function() {
     }
 })();
 
+</script>
+
+
+<script>
+/* =====================================================
+   CLEAN MODEBOX RESET: mobile/tablet layout helper only
+   - ตั้ง class มือถือ/แท็บเล็ต
+   - ย้าย HUD/side panel ลงใต้ carousel แบบเบา ๆ
+   - ไม่ยุ่งกับ active mode card
+   - ไม่มี setInterval, ไม่มี MutationObserver
+===================================================== */
+(function cleanMobileLayoutHelperOnly() {
+    const QUERY = '(max-width: 900px)';
+
+    function isMobileLike() {
+        return window.matchMedia && window.matchMedia(QUERY).matches;
+    }
+
+    function isHomeVisible() {
+        const home = document.getElementById('home-screen');
+        return !!home && getComputedStyle(home).display !== 'none';
+    }
+
+    function applyClass() {
+        document.body.classList.toggle('mobile-stable-ui', isMobileLike());
+    }
+
+    function ensureDashboardPanel() {
+        const home = document.getElementById('home-screen');
+        const anchor = document.querySelector('#home-screen .mode-carousel-shell') || document.querySelector('#home-screen .menu-container');
+        if (!home || !anchor) return null;
+
+        let panel = document.getElementById('mobileStableDashboard');
+        if (!panel) {
+            panel = document.createElement('div');
+            panel.id = 'mobileStableDashboard';
+            panel.className = 'mobile-stable-dashboard';
+        }
+
+        if (panel.parentElement !== home || panel.previousElementSibling !== anchor) {
+            anchor.insertAdjacentElement('afterend', panel);
+        }
+
+        return panel;
+    }
+
+    function restoreDesktopPlacement() {
+        const host = document.querySelector('.game-container');
+        if (!host) return;
+
+        const hud = document.getElementById('globalEconomyHud');
+        const side = document.getElementById('homeSideStack');
+        const themeCorner = host.querySelector('.game-theme-corner');
+
+        if (hud && hud.parentElement?.id === 'mobileStableDashboard') {
+            if (themeCorner) host.insertBefore(hud, themeCorner);
+            else host.insertAdjacentElement('afterbegin', hud);
+        }
+
+        if (side && side.parentElement?.id === 'mobileStableDashboard') {
+            if (themeCorner) themeCorner.insertAdjacentElement('afterend', side);
+            else host.insertAdjacentElement('afterbegin', side);
+        }
+    }
+
+    function placeDashboardOnce() {
+        applyClass();
+
+        if (!isMobileLike() || !isHomeVisible()) {
+            restoreDesktopPlacement();
+            return;
+        }
+
+        const panel = ensureDashboardPanel();
+        if (!panel) return;
+
+        const hud = document.getElementById('globalEconomyHud');
+        const side = document.getElementById('homeSideStack');
+
+        if (hud && hud.parentElement !== panel) panel.appendChild(hud);
+        if (side && side.parentElement !== panel) panel.appendChild(side);
+
+        const oldPanel = document.getElementById('mobileBelowModesPanel');
+        if (oldPanel && oldPanel !== panel) oldPanel.style.display = 'none';
+    }
+
+    function optimizeImages() {
+        // SPEED BOOT 10.2:
+        // รูปหน้าแรกให้โหลดไวขึ้น ส่วนรูปอื่นยัง lazy เพื่อลดภาระ
+        document.querySelectorAll('img').forEach((img) => {
+            const inHome = !!img.closest('#home-screen');
+            img.setAttribute('decoding', 'async');
+            img.draggable = false;
+
+            if (inHome) {
+                img.setAttribute('loading', 'eager');
+                img.setAttribute('fetchpriority', 'high');
+            } else if (!img.hasAttribute('loading')) {
+                img.setAttribute('loading', 'lazy');
+            }
+        });
+    }
+
+    function boot() {
+        placeDashboardOnce();
+        optimizeImages();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', boot, { once: true });
+    } else {
+        boot();
+    }
+
+    window.addEventListener('load', boot, { once: true });
+    window.addEventListener('resize', () => window.setTimeout(boot, 140), { passive: true });
+    window.addEventListener('orientationchange', () => window.setTimeout(boot, 320), { passive: true });
+})();
+</script>
+
+
+<script>
+/* =====================================================
+   SPEED BOOT 10.2: early home boot coordinator
+   ไม่แก้ UI / ไม่สร้าง layout ใหม่ / เรียกเฉพาะฟังก์ชันเดิมให้เร็วขึ้น
+===================================================== */
+(function speedBoot102EarlyCoordinator() {
+    function runExisting(name) {
+        try {
+            const fn = window[name];
+            if (typeof fn === 'function') fn();
+        } catch (error) {}
+    }
+
+    function earlyHomePass() {
+        // เรียกเฉพาะฟังก์ชันเดิมที่มีอยู่แล้ว ถ้าไม่มีจะข้าม
+        [
+            'renderEventMarqueeStable',
+            'renderGlobalEconomyStable',
+            'renderGachaHubStable',
+            'renderTodayOnlyEventNews',
+            'wireGachaHubButtonFix',
+            'updateEconomyUI',
+            'updateHomeStatsUI'
+        ].forEach(runExisting);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => requestAnimationFrame(earlyHomePass), { once: true });
+    } else {
+        requestAnimationFrame(earlyHomePass);
+    }
+
+    window.addEventListener('pageshow', () => requestAnimationFrame(earlyHomePass), { once: true });
+})();
+</script>
+
+
+<script>
+/* PATCH 10.5: final logic boot only, no UI changes */
+(function sakuraRewardFinalBootV5() {
+    function boot() {
+        try {
+            if (typeof sakuraRewardBlockEmojiModeV5 === 'function') sakuraRewardBlockEmojiModeV5();
+            if (typeof sakuraRewardRefreshEconomyV5 === 'function') sakuraRewardRefreshEconomyV5();
+        } catch (error) {}
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', boot, { once: true });
+    } else {
+        boot();
+    }
+
+    window.addEventListener('load', boot, { once: true });
+})();
+</script>
+
+
+<script>
+/* PATCH 10.6: fallback gacha EXP wrapper only, no UI changes */
+(function sakuraGachaExpFallbackV6() {
+    const names = [
+        'drawGacha',
+        'pullGacha',
+        'openGacha',
+        'rollGacha',
+        'drawHallOfFameGacha',
+        'pullHallOfFameGacha',
+        'openHallOfFameGacha',
+        'rollHallOfFameGacha'
+    ];
+
+    function wrapOne(name) {
+        try {
+            const fn = window[name];
+            if (typeof fn !== 'function' || fn.__sakuraGachaExpWrappedV6) return;
+
+            const wrapped = function() {
+                const before = getEconomy().coins;
+                const result = fn.apply(this, arguments);
+                setTimeout(() => {
+                    try {
+                        const after = getEconomy().coins;
+                        if (after < before && typeof sakuraRewardAddGachaExpV6 === 'function') {
+                            sakuraRewardAddGachaExpV6('เปิด Hall Of Fame Card Gacha 1 ครั้ง');
+                        }
+                    } catch (error) {}
+                }, 0);
+                return result;
+            };
+
+            wrapped.__sakuraGachaExpWrappedV6 = true;
+            window[name] = wrapped;
+        } catch (error) {}
+    }
+
+    function boot() {
+        names.forEach(wrapOne);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', boot, { once: true });
+    } else {
+        boot();
+    }
+    window.addEventListener('load', boot, { once: true });
+})();
+</script>
+
+
+<script>
+/* PATCH 10.6: keep only Hall Of Fame Card Gacha in Gacha Hub, no layout changes */
+(function gachaHubOnlyHallOfFame106() {
+    function looksLikeGachaHub(el) {
+        const txt = (el.textContent || '').toLowerCase();
+        return txt.includes('gacha hub') || txt.includes('gacha') || txt.includes('กาชา');
+    }
+
+    function isHallOfFameGacha(el) {
+        const txt = (el.textContent || '').toLowerCase();
+        const data = [
+            el.getAttribute('data-gacha'),
+            el.getAttribute('data-gacha-type'),
+            el.getAttribute('data-gacha-id'),
+            el.getAttribute('data-type'),
+            el.id,
+            el.className
+        ].join(' ').toLowerCase();
+
+        return (
+            txt.includes('hall of fame') ||
+            txt.includes('hof') ||
+            txt.includes('card gacha') ||
+            txt.includes('การ์ด') ||
+            data.includes('hall') ||
+            data.includes('hof')
+        );
+    }
+
+    function cleanGachaHub() {
+        const candidates = Array.from(document.querySelectorAll(
+            '#gachaHub, #gacha-hub, .gacha-hub, .gacha-card, .gacha-option, [data-gacha], [data-gacha-type], [data-gacha-id]'
+        ));
+
+        candidates.forEach((el) => {
+            if (!looksLikeGachaHub(el) && !isHallOfFameGacha(el)) return;
+
+            const children = Array.from(el.children || []);
+            if (children.length >= 2 && looksLikeGachaHub(el)) {
+                children.forEach((child) => {
+                    const childText = (child.textContent || '').toLowerCase();
+                    const mayBeOption = childText.includes('gacha') || childText.includes('กาชา') || child.querySelector('button, a, [data-gacha], [data-gacha-type], [data-gacha-id]');
+                    if (mayBeOption && !isHallOfFameGacha(child)) {
+                        child.style.display = 'none';
+                        child.setAttribute('aria-hidden', 'true');
+                    }
+                    if (isHallOfFameGacha(child)) {
+                        child.classList.add('hof-gacha-highlight-106');
+                    }
+                });
+            }
+
+            if (isHallOfFameGacha(el)) {
+                el.classList.add('hof-gacha-highlight-106');
+            }
+        });
+
+        // ปรับปุ่ม/การ์ดที่มีคำว่า Hall Of Fame ให้เด่นขึ้น
+        document.querySelectorAll('button, a, .mini-action-btn, .liquid-option-card, .modal-info-box').forEach((el) => {
+            if (isHallOfFameGacha(el)) {
+                el.classList.add('hof-gacha-highlight-106');
+            }
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', cleanGachaHub, { once: true });
+    } else {
+        cleanGachaHub();
+    }
+
+    window.addEventListener('load', cleanGachaHub, { once: true });
+    document.addEventListener('click', () => setTimeout(cleanGachaHub, 80), true);
+})();
+</script>
+
+
+<script>
+/* PATCH 10.6: liquid patch notice, dismiss for 14 days */
+(function patchLiquidNotice106() {
+    const KEY = 'tjldlePatchNotice106HiddenUntil';
+    const NOW = Date.now();
+    const FOURTEEN_DAYS = 14 * 24 * 60 * 60 * 1000;
+
+    function shouldShow() {
+        const until = Number(localStorage.getItem(KEY) || 0);
+        return !until || NOW > until;
+    }
+
+    function closeNotice(days = 0) {
+        const el = document.getElementById('patchLiquidNotice106');
+        if (days) localStorage.setItem(KEY, String(Date.now() + FOURTEEN_DAYS));
+        if (el) el.remove();
+    }
+
+    function showNotice() {
+        if (!shouldShow() || document.getElementById('patchLiquidNotice106')) return;
+
+        const box = document.createElement('div');
+        box.id = 'patchLiquidNotice106';
+        box.className = 'patch-liquid-notice-106';
+        box.innerHTML = `
+            <div class="patch-liquid-notice-106-card">
+                <div class="patch-liquid-notice-106-badge">✨ update note</div>
+                <h2 class="patch-liquid-notice-106-title"> PATCH 1.2 UPDATED </h2>
+                <div class="patch-liquid-notice-106-body">
+                    <b>Note Patch</b>
+                    <ul>
+                        <li>รับฟรี 75 Sakura Coin ทุกวัน</li>
+                        <li>เหรียญต่อโหมด: ต่ำสุด 45 / สูงสุด 75</li>
+                        <li>เล่นจบโหมดได้ EXP +15</li>
+                        <li>เปิดกาชา 1 ครั้งได้ EXP +10</li>
+                        <li>Leaderboard & Duel Mode - coming soon...</li>
+
+                    </ul>
+                </div>
+                <div class="patch-liquid-notice-106-actions">
+                    <button type="button" class="patch-liquid-notice-106-btn" data-patch-close="1">
+                        รับทราบ เริ่มใช้งานเลย
+                    </button>
+                    <button type="button" class="patch-liquid-notice-106-btn secondary" data-patch-hide-14="1">
+                        ไม่ต้องแจ้งเตือนอีกใน 14 วัน
+                    </button>
+                </div>
+            </div>
+        `;
+
+        box.addEventListener('click', (event) => {
+            const target = event.target;
+            if (!(target instanceof HTMLElement)) return;
+
+            if (target.dataset.patchHide14 === '1') closeNotice(14);
+            if (target.dataset.patchClose === '1') closeNotice(0);
+        });
+
+        document.body.appendChild(box);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', showNotice, { once: true });
+    } else {
+        showNotice();
+    }
+})();
+</script>
+
+
+<script>
+/* PATCH 10.6: final logic boot only */
+(function sakuraRewardFinalBootV6() {
+    function boot() {
+        try {
+            if (typeof sakuraRewardBlockEmojiModeV6 === 'function') sakuraRewardBlockEmojiModeV6();
+            if (typeof sakuraRewardRefreshEconomyV6 === 'function') sakuraRewardRefreshEconomyV6();
+        } catch (error) {}
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', boot, { once: true });
+    } else {
+        boot();
+    }
+
+    window.addEventListener('load', boot, { once: true });
+})();
+</script>
+
+
+<script>
+/* PATCH 10.7: remove Collectible Gacha only, keep HOF Card Gacha */
+(function removeCollectibleGachaOnly107() {
+    function isCollectible(el) {
+        const txt = (el.textContent || '').toLowerCase();
+        const data = [
+            el.id,
+            el.className,
+            el.getAttribute('data-gacha'),
+            el.getAttribute('data-gacha-type'),
+            el.getAttribute('data-gacha-id'),
+            el.getAttribute('data-type')
+        ].join(' ').toLowerCase();
+
+        return (
+            txt.includes('collectible gacha') ||
+            txt.includes('collectible') ||
+            txt.includes('สุ่มของสะสม') ||
+            data.includes('collectible')
+        );
+    }
+
+    function isHallOfFame(el) {
+        const txt = (el.textContent || '').toLowerCase();
+        const data = [
+            el.id,
+            el.className,
+            el.getAttribute('data-gacha'),
+            el.getAttribute('data-gacha-type'),
+            el.getAttribute('data-gacha-id'),
+            el.getAttribute('data-type')
+        ].join(' ').toLowerCase();
+
+        return (
+            txt.includes('hall of fame card gacha') ||
+            txt.includes('hall of fame') ||
+            txt.includes('memory shard') ||
+            data.includes('hall') ||
+            data.includes('hof')
+        );
+    }
+
+    function clean() {
+        document.querySelectorAll('button, a, .liquid-option-card, .modal-info-box, .gacha-card, .gacha-option, [data-gacha], [data-gacha-type], [data-gacha-id]').forEach((el) => {
+            if (isCollectible(el)) {
+                el.classList.add('collectible-gacha-hidden-107');
+                el.style.display = 'none';
+                el.setAttribute('aria-hidden', 'true');
+            }
+
+            if (isHallOfFame(el)) {
+                el.classList.add('hof-gacha-highlight-107');
+                el.classList.add('hof-gacha-highlight-106');
+            }
+        });
+
+        // กรณีการ์ด gacha เป็น child ใน modal: ซ่อน parent card ของ Collectible Gacha
+        document.querySelectorAll('*').forEach((el) => {
+            if (!(el instanceof HTMLElement)) return;
+            if (!isCollectible(el)) return;
+
+            const card = el.closest('.liquid-option-card, .modal-info-box, .gacha-card, .gacha-option, button, a');
+            if (card && card instanceof HTMLElement && !isHallOfFame(card)) {
+                card.classList.add('collectible-gacha-hidden-107');
+                card.style.display = 'none';
+                card.setAttribute('aria-hidden', 'true');
+            }
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', clean, { once: true });
+    } else {
+        clean();
+    }
+
+    window.addEventListener('load', clean, { once: true });
+    document.addEventListener('click', () => setTimeout(clean, 80), true);
+})();
 </script>
 
 </body>
