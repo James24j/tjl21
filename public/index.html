@@ -10939,5 +10939,361 @@ renderAchievements = function() {
 })();
 </script>
 
+
+<script>
+/* =====================================================
+   🌸 PATCH 10.3: Sakura Coin Reward Logic Only
+   - ไม่แก้ UI
+   - ไม่แก้ layout
+   - ไม่แก้ CSS
+   - เพิ่มเฉพาะระบบเหรียญหลังเล่นจบ
+   - เล่นจบแต่ละโหมดได้ 100–500 Sakura Coin
+   - รับโบนัสเข้าเล่นรายวัน 180 Sakura Coin วันละครั้ง
+===================================================== */
+(function sakuraCoinRewardLogicOnly103() {
+    if (window.__sakuraCoinRewardLogicOnly103) return;
+    window.__sakuraCoinRewardLogicOnly103 = true;
+
+    const DAILY_BONUS_KEY = 'tjldleDailySakuraBonusV2';
+    const MODE_REWARD_LOG_KEY = 'tjldleModeSakuraRewardLogV2';
+    const ECONOMY_FALLBACK_KEY = 'tjldleEconomyV1';
+
+    const DAILY_BONUS_COINS = 180;
+    const MODE_REWARD_MIN = 100;
+    const MODE_REWARD_MAX = 500;
+
+    function todayKey(date = new Date()) {
+        const y = date.getFullYear();
+        const m = String(date.getMonth() + 1).padStart(2, '0');
+        const d = String(date.getDate()).padStart(2, '0');
+        return `${y}-${m}-${d}`;
+    }
+
+    function readJsonSafe(key, fallback) {
+        try {
+            const raw = localStorage.getItem(key);
+            if (!raw) return fallback;
+            return JSON.parse(raw) || fallback;
+        } catch (error) {
+            return fallback;
+        }
+    }
+
+    function writeJsonSafe(key, value) {
+        try {
+            localStorage.setItem(key, JSON.stringify(value));
+        } catch (error) {}
+    }
+
+    function getEconomySafe() {
+        try {
+            if (typeof getEconomy === 'function') return getEconomy();
+        } catch (error) {}
+        return readJsonSafe(ECONOMY_FALLBACK_KEY, { xp: 0, coins: 0, totalCoinsEarned: 0, level: 1 });
+    }
+
+    function setEconomySafe(eco) {
+        try {
+            if (typeof setEconomy === 'function') {
+                setEconomy(eco);
+                return;
+            }
+        } catch (error) {}
+        writeJsonSafe(ECONOMY_FALLBACK_KEY, eco);
+    }
+
+    function refreshEconomySafe() {
+        [
+            'refreshEconomyDisplays',
+            'updateEconomyUI',
+            'renderGlobalEconomyStable',
+            'renderGachaHubStable'
+        ].forEach((name) => {
+            try {
+                if (typeof window[name] === 'function') window[name]();
+            } catch (error) {}
+        });
+    }
+
+    function notifySafe(title, message) {
+        try {
+            if (typeof showToast === 'function') {
+                showToast(title, message);
+                return;
+            }
+        } catch (error) {}
+
+        try {
+            if (typeof safeToast === 'function') {
+                safeToast(title, message);
+                return;
+            }
+        } catch (error) {}
+
+        console.log(`${title}: ${message}`);
+    }
+
+    function clamp(value, min, max) {
+        return Math.max(min, Math.min(max, value));
+    }
+
+    function addSakuraCoins(amount, reason, message) {
+        const coins = Math.max(0, Math.round(Number(amount) || 0));
+        if (!coins) return 0;
+
+        const eco = getEconomySafe();
+        eco.coins = Number(eco.coins || 0) + coins;
+        eco.totalCoinsEarned = Number(eco.totalCoinsEarned || 0) + coins;
+        eco.xp = Number(eco.xp || 0);
+        eco.level = Math.max(1, Number(eco.level || 1), Math.floor(eco.xp / 120) + 1);
+
+        setEconomySafe(eco);
+
+        try {
+            if (eco.totalCoinsEarned >= 500 && typeof unlockAchievement === 'function') unlockAchievement(59);
+        } catch (error) {}
+
+        refreshEconomySafe();
+        notifySafe(reason, message || `+${coins.toLocaleString('th-TH')} Sakura Coin`);
+        return coins;
+    }
+
+    function getModeLabelSafe(mode) {
+        try {
+            if (typeof MODE_CONFIG !== 'undefined' && MODE_CONFIG?.[mode]?.shortLabel) return MODE_CONFIG[mode].shortLabel;
+            if (typeof MODE_CONFIG !== 'undefined' && MODE_CONFIG?.[mode]?.label) return MODE_CONFIG[mode].label;
+        } catch (error) {}
+
+        const labels = {
+            classic: 'Classic Mode',
+            eye: 'Eye Mode',
+            silhouette: 'Blur Mode',
+            bullet: 'Bullet Mode',
+            boss: 'Boss Mode',
+            timeline: 'Timeline / Memory Mode',
+            emoji: 'Emoji Clue Mode'
+        };
+        return labels[mode] || 'Game Mode';
+    }
+
+    function getModeRewardLog() {
+        return readJsonSafe(MODE_REWARD_LOG_KEY, {});
+    }
+
+    function setModeRewardLog(log) {
+        writeJsonSafe(MODE_REWARD_LOG_KEY, log);
+    }
+
+    function hasRewardedModeToday(mode) {
+        const log = getModeRewardLog();
+        const day = todayKey();
+        return !!log?.[day]?.[mode];
+    }
+
+    function markModeRewardedToday(mode, payload) {
+        const log = getModeRewardLog();
+        const day = todayKey();
+
+        if (!log[day]) log[day] = {};
+        log[day][mode] = {
+            at: new Date().toISOString(),
+            ...payload
+        };
+
+        // เก็บแค่ 14 วันล่าสุด ไม่ให้ localStorage โตเกินไป
+        const days = Object.keys(log).sort();
+        while (days.length > 14) {
+            const old = days.shift();
+            delete log[old];
+        }
+
+        setModeRewardLog(log);
+    }
+
+    function calculateGuessModeReward(payload) {
+        const won = !!payload.won;
+        const tries = Math.max(1, Number(payload.tries || 1));
+        const mode = payload.mode || 'classic';
+        const hintUsed = !!payload.hintUsed;
+
+        if (!won) return MODE_REWARD_MIN;
+
+        let score;
+
+        if (tries <= 1) score = 500;
+        else if (tries === 2) score = 450;
+        else if (tries === 3) score = 400;
+        else if (tries <= 5) score = 320;
+        else if (tries <= 8) score = 220;
+        else score = 150;
+
+        // Boss Mode ให้คิดตามจำนวนครั้งที่พลาดด้วย เพราะมีพลาดจำกัด
+        if (mode === 'boss') {
+            const wrong = Math.max(0, tries - 1);
+            score = 500 - (wrong * 80);
+        }
+
+        // ใช้ hint แล้วยังได้เหรียญ แต่ลดรางวัลลงเล็กน้อย
+        if (hintUsed) score -= 50;
+
+        return clamp(Math.round(score), MODE_REWARD_MIN, MODE_REWARD_MAX);
+    }
+
+    function calculateBulletReward(payload) {
+        const total = Math.max(1, Number(payload.totalCount || payload.playedCount || 1));
+        const correct = clamp(Number(payload.correctCount || 0), 0, total);
+
+        if (correct <= 0) return MODE_REWARD_MIN;
+        if (correct >= total) return MODE_REWARD_MAX;
+
+        // 0 ข้อ = 100, เต็ม = 500, ระหว่างนั้นไล่ตามสัดส่วน
+        const ratio = correct / total;
+        return clamp(Math.round(MODE_REWARD_MIN + (ratio * (MODE_REWARD_MAX - MODE_REWARD_MIN))), MODE_REWARD_MIN, MODE_REWARD_MAX);
+    }
+
+    function awardModeCompletion(payload = {}) {
+        const mode = payload.mode || (typeof currentMode !== 'undefined' ? currentMode : 'classic') || 'classic';
+
+        // จำกัด 1 reward ต่อโหมดต่อวัน ป้องกันเหรียญซ้ำจาก wrapper/handler ซ้อน
+        if (hasRewardedModeToday(mode)) return 0;
+
+        const coins = mode === 'bullet'
+            ? calculateBulletReward(payload)
+            : calculateGuessModeReward(payload);
+
+        markModeRewardedToday(mode, {
+            coins,
+            won: !!payload.won,
+            tries: Number(payload.tries || 0),
+            correctCount: Number(payload.correctCount || 0),
+            totalCount: Number(payload.totalCount || 0)
+        });
+
+        const label = getModeLabelSafe(mode);
+        const qualityText = payload.won ? 'เล่นจบและทำผลงานได้สำเร็จ' : 'เล่นจบแล้ว รับรางวัลขั้นต่ำ';
+        return addSakuraCoins(
+            coins,
+            `รางวัล ${label} 🌸`,
+            `${qualityText}: +${coins.toLocaleString('th-TH')} Sakura Coin`
+        );
+    }
+
+    function grantDailyLoginBonus() {
+        const today = todayKey();
+        const state = readJsonSafe(DAILY_BONUS_KEY, { lastDate: '', history: {} });
+
+        if (state.lastDate === today || state.history?.[today]) return;
+
+        state.lastDate = today;
+        if (!state.history) state.history = {};
+        state.history[today] = {
+            coins: DAILY_BONUS_COINS,
+            at: new Date().toISOString()
+        };
+
+        // เก็บแค่ 30 วันล่าสุด
+        const days = Object.keys(state.history).sort();
+        while (days.length > 30) {
+            const old = days.shift();
+            delete state.history[old];
+        }
+
+        writeJsonSafe(DAILY_BONUS_KEY, state);
+
+        addSakuraCoins(
+            DAILY_BONUS_COINS,
+            'โบนัสเข้าเล่นประจำวัน 🌸',
+            `รับ ${DAILY_BONUS_COINS.toLocaleString('th-TH')} Sakura Coin แล้ว กลับมาเล่นทุกวันเพื่อรับโบนัสอีกนะ!`
+        );
+    }
+
+    function wrapHandleDailyGameFinished() {
+        if (typeof handleDailyGameFinished !== 'function') return;
+        if (handleDailyGameFinished.__sakuraRewardWrapped103) return;
+
+        const baseHandleDailyGameFinished = handleDailyGameFinished;
+
+        const wrapped = function(won) {
+            const mode = typeof currentMode !== 'undefined' && currentMode ? currentMode : 'classic';
+            const tries = typeof tryCount !== 'undefined' ? Number(tryCount || 0) : 0;
+            const hintUsed = typeof hintUsedThisGame !== 'undefined' ? !!hintUsedThisGame : false;
+
+            const result = baseHandleDailyGameFinished.apply(this, arguments);
+
+            try {
+                awardModeCompletion({
+                    mode,
+                    won: !!won,
+                    tries,
+                    hintUsed
+                });
+            } catch (error) {
+                console.warn('Sakura reward failed:', error);
+            }
+
+            return result;
+        };
+
+        wrapped.__sakuraRewardWrapped103 = true;
+        handleDailyGameFinished = wrapped;
+        window.handleDailyGameFinished = wrapped;
+    }
+
+    function wrapEndBulletMode() {
+        if (typeof endBulletMode !== 'function') return;
+        if (endBulletMode.__sakuraRewardWrapped103) return;
+
+        const baseEndBulletMode = endBulletMode;
+
+        const wrapped = function() {
+            const playedCount = typeof bulletIndex !== 'undefined' ? Number(bulletIndex || 0) : 0;
+            const correctCount = typeof bulletCorrectCount !== 'undefined' ? Number(bulletCorrectCount || 0) : 0;
+            const totalCount = Array.isArray(window.bulletQueue)
+                ? window.bulletQueue.length
+                : (typeof bulletQueue !== 'undefined' && Array.isArray(bulletQueue) ? bulletQueue.length : playedCount);
+
+            const result = baseEndBulletMode.apply(this, arguments);
+
+            try {
+                awardModeCompletion({
+                    mode: 'bullet',
+                    won: correctCount > 0,
+                    tries: playedCount,
+                    playedCount,
+                    correctCount,
+                    totalCount
+                });
+            } catch (error) {
+                console.warn('Bullet Sakura reward failed:', error);
+            }
+
+            return result;
+        };
+
+        wrapped.__sakuraRewardWrapped103 = true;
+        endBulletMode = wrapped;
+        window.endBulletMode = wrapped;
+    }
+
+    function bootRewardPatch() {
+        grantDailyLoginBonus();
+        wrapHandleDailyGameFinished();
+        wrapEndBulletMode();
+        refreshEconomySafe();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', bootRewardPatch, { once: true });
+    } else {
+        bootRewardPatch();
+    }
+
+    window.addEventListener('pageshow', () => {
+        grantDailyLoginBonus();
+        refreshEconomySafe();
+    });
+})();
+</script>
+
 </body>
 </html>
